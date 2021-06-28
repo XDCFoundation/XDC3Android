@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Xinfin SDK</string>
+    <string name="xdc3_android">XDC3.Android</string>
+    <string name="enter_xdc_address_here">Enter XDC Address Here</string>
+    <string name="or">or</string>
+    <string name="submit">Submit</string>
+    <string name="todo">TODO</string>
+    <string name="xdc_address">XDC Address</string>
+    <string name="xdc_address_entered">xdc_address_entered</string>
+    <string name="name">Name:</string>
+    <string name="symbol">Symbol:</string>
+    <string name="decimals">Decimals:</string>
+    <string name="total_supply">Total Supply:</string>
+    <string name="balance_off">Balance off:</string>
+    <string name="transfer">Transfer:</string>
+    <string name="allowance">Allowance:</string>
+    <string name="approve">Approve:</string>
+    <string name="transfer_from">Transfer From:</string>
+    <string name="increase_allowance">Increase Allowance:</string>
+    <string name="decrease_allowance">Decrease Allowance:</string>
+    <string name="select_an_address">Select an address</string>
+    <string name="select_from_list">Select from list</string>
+</resources>
