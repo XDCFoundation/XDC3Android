@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
         getTotalSupply();
         getName();
         getDecimal();
+        getApprove();
+        getTransferFrom();
+        getAllowance();
+
 
 
 //        try {
@@ -102,6 +107,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+// to fetch allowance
+    public void getAllowance(){
+        try {
+            BigInteger allowance = javaToken.allowance(token_number,"0x2e550836caaa79884f36e78626363f59ca50e96e").send();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void getApprove(){
+
+        try {
+            TransactionReceipt approve = javaToken.approve("0x2e550836caaa79884f36e78626363f59ca50e96e",BigInteger.valueOf(Long.parseLong(hex_to_dec))).send();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
+    public void getTransferFrom(){
+
+        try {
+            TransactionReceipt transfer = javaToken.transferFrom("0x03c0d9bc556be68870b96976e81d32ebb49d335d","0x114ac1863dcd99cdbe7b33eb69a87e12fb95f47a",BigInteger.valueOf(1000)).send();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+    }
 
 // to fetch the decimals of the token
     public void getDecimal(){
