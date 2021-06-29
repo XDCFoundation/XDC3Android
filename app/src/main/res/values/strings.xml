@@ -20,4 +20,8 @@
     <string name="decrease_allowance">Decrease Allowance:</string>
     <string name="select_an_address">Select an address</string>
     <string name="select_from_list">Select from list</string>
+    <string name="create">Create</string>
+    <string name="enter_xdc_password">Enter XDC Password</string>
+    <string name="password">Password</string>
+    <string name="new_account">New Account</string>
 </resources>

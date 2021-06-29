@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import xinfin.sdk.constants.AppConstants;
 import xinfin.sdk.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
 
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        token_number = "0x847aefb3d207e69749e970f8574743a4f388b6f2";
+        token_number = "0xe21e6d2235845a1f21d2808888afd598e72357db";
         hex_to_dec = "1000000000000000000";
 
          web3 = Web3j.build(new HttpService("https://rpc.apothem.network/"));
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
 
-        Credentials creds = org.web3j.crypto.Credentials.create("0x0d268427b8f338e6ed0b61e90de04be97b834f51313543b531cc7e94806f8493");
+        Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
 
         javaToken = null;
         try {
@@ -77,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
         getTotalSupply();
         getName();
         getDecimal();
+        getAllowance();
         getApprove();
         getTransferFrom();
-        getAllowance();
 
 
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     public void getApprove(){
 
         try {
-            TransactionReceipt approve = javaToken.approve("0x2e550836caaa79884f36e78626363f59ca50e96e",BigInteger.valueOf(Long.parseLong(hex_to_dec))).send();
+            TransactionReceipt approve = javaToken.approve("0x03c0d9bc556be68870b96976e81d32ebb49d335d",BigInteger.valueOf(1000)).send();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
