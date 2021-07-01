@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
+        android:id="@+id/enter_xdc_address"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:textColorHint="@color/hint"

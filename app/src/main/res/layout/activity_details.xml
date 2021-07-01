@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:layout_marginStart="20dp"
+        android:id="@+id/xdc_address_value"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/edit_text_border"
@@ -86,6 +87,19 @@
         android:text="@string/name"
         android:layout_marginStart="20dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/name_value"
+            android:layout_marginLeft="25dp"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+           android:layout_toRightOf="@+id/name"
+            android:layout_marginBottom="11dp"
+            android:text="-" />
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -106,6 +120,22 @@
             android:text="@string/symbol"
             android:layout_marginStart="20dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@+id/name_divider"
+            android:id="@+id/symbol_value"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="11dp"
+            android:layout_toRightOf="@+id/symbol"
+            android:text="-"
+            android:layout_marginStart="20dp" />
+
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -124,6 +154,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="11dp"
             android:text="@string/decimals"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/decimals_value"
+            android:layout_below="@+id/symbol_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_toRightOf="@id/decimals"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="11dp"
+            android:text="-"
             android:layout_marginStart="20dp" />
 
         <View
@@ -146,6 +190,20 @@
             android:text="@string/total_supply"
             android:layout_marginStart="20dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/total_supply_value"
+            android:layout_below="@+id/decimals_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/total_supply"
+            android:layout_marginBottom="11dp"
+            android:text="-"
+            android:layout_marginStart="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -164,6 +222,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="11dp"
             android:text="@string/balance_off"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/balance_off_value"
+            android:layout_below="@+id/total_supply_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/balance_off"
+            android:layout_marginBottom="11dp"
+            android:text="-"
             android:layout_marginStart="20dp" />
 
         <View
@@ -186,6 +258,20 @@
             android:text="@string/transfer"
             android:layout_marginStart="20dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/transfer_value"
+            android:layout_below="@+id/balance_off_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/transfer"
+            android:layout_marginBottom="11dp"
+            android:text="-"
+            android:layout_marginStart="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -204,6 +290,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="11dp"
             android:text="@string/allowance"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/allowance_value"
+            android:layout_below="@+id/transfer_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/allowance"
+            android:layout_marginBottom="11dp"
+            android:text="-"
             android:layout_marginStart="20dp" />
 
         <View
@@ -226,6 +326,20 @@
             android:text="@string/approve"
             android:layout_marginStart="20dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/approve_value"
+            android:layout_below="@+id/allowance_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/approve"
+            android:layout_marginBottom="11dp"
+            android:text="-"
+            android:layout_marginStart="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -244,6 +358,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="11dp"
             android:text="@string/transfer_from"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/transfer_from_value"
+            android:layout_below="@+id/approve_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="11dp"
+            android:text="-"
+            android:layout_toRightOf="@+id/transfer_from"
             android:layout_marginStart="20dp" />
 
         <View
@@ -266,6 +394,20 @@
             android:text="@string/increase_allowance"
             android:layout_marginStart="20dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/increase_allowance_value"
+            android:layout_below="@+id/transfer_from_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/increase_allowance"
+            android:layout_marginBottom="11dp"
+            android:text="-"
+            android:layout_marginStart="20dp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -284,6 +426,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="11dp"
             android:text="@string/decrease_allowance"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/decrease_allowance_value"
+            android:layout_below="@+id/increase_allowance_divider"
+            android:textColor="@color/header"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="11dp"
+            android:text="-"
+            android:layout_toRightOf="@+id/decrease_allowance"
             android:layout_marginStart="20dp" />
 
         <View
