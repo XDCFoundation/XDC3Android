@@ -7,19 +7,29 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthSendRawTransaction;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import xinfin.sdk.constants.AppConstants;
 import xinfin.sdk.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
@@ -34,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     ERC20 javaToken;
     BigInteger allowance,decimal,totalSupply,balance;
     String symbol,name;
+    ImageView transfer_amount;
     AutoCompleteTextView tokenAutoTV;
     TextView enterXdcAddress;
 
@@ -49,7 +60,17 @@ public class MainActivity extends AppCompatActivity {
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
         enterXdcAddress.setText(token_address.replace("0x","xdc"));
 
-         web3 = Web3j.build(new HttpService("https://rpc.apothem.network/"));
+        transfer_amount = findViewById(R.id.transfer_amount);
+
+        transfer_amount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,TransferAmount.class);
+                startActivity(intent);
+            }
+        });
+
+         web3 = Web3j.build(new HttpService(AppConstants.BASE_URL));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if(!clientVersion.hasError()){
@@ -76,14 +97,57 @@ public class MainActivity extends AppCompatActivity {
 
 
         initUI();
+
+
 //        getApprove();
 //        getTransferFrom();
+//        web3.ethSendTransaction(Transaction.createEtherTransaction("0xff55cb8c656a4e94b4151df9bfb88cc069ceb3e1",BigInteger.valueOf(104),BigInteger.valueOf(1000),BigInteger.valueOf(1000),"0x63b32225813a3f2b877d77094d25f7ce6653b4b5",BigInteger.valueOf(60)));
+
+//        web3.ethSendRawTransaction("0xf86360833d090482c3559463b32225813a3f2b877d77094d25f7ce6653b4b51e80818aa0601700a68e581c2438c5b778633ce6e0a1dc02b25b05a8be2ec27db8c24e5c79a030086db486f4352fa343bb39ed9a506629d7c97b1428b7ed242d0b0febef6a4e");
+
+        web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST);
+        Toast.makeText(this, web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST).toString(), Toast.LENGTH_SHORT).show();
 
 
+        EthGetTransactionCount ethGetTransactionCount = null;
+        try {
+            ethGetTransactionCount = web3.ethGetTransactionCount(
+                    AppConstants.TO_ADDRESS, DefaultBlockParameterName.LATEST).sendAsync().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+
+
+        RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(
+                nonce, BigInteger.valueOf(4000004), BigInteger.valueOf(50005), AppConstants.TO_ADDRESS, BigInteger.valueOf(1000000000000000000L));
+
+        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(AppConstants.PRIVATE_KEY_TRANSACTION));
+        String hexValue = Numeric.toHexString(signedMessage);
+
+
+        EthSendTransaction ethSendTransaction = null;
+        try {
+            ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String transactionHash = ethSendTransaction.getTransactionHash();
+        try {
+           web3.ethGetTransactionByHash(transactionHash).sendAsync().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 //        try {
 //            BigInteger allowance = javaToken.balanceOf(token_number).send();
-//        }
+//        }Latest
 //        catch (Exception exception) {
 //            exception.printStackTrace();
 //        }

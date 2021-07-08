@@ -24,4 +24,8 @@
     <string name="enter_xdc_password">Enter XDC Password</string>
     <string name="password">Password</string>
     <string name="new_account">New Account</string>
+    <string name="send">Send</string>
+    <string name="enter_private_key_here">Enter Private Key here</string>
+    <string name="receiver_address">Receiver Address:</string>
+    <string name="value">Value:</string>
 </resources>
