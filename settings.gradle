@@ -1,2 +1,3 @@
+include ':Xinfin'
 include ':app'
 rootProject.name = "Xinfin SDK"

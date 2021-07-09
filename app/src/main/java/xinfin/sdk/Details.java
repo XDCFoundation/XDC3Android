@@ -3,7 +3,10 @@ package xinfin.sdk;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+
+import com.xinfin.Model.TokenResponse;
 
 import java.math.BigInteger;
 
@@ -11,11 +14,9 @@ public class Details extends AppCompatActivity {
 
     TextView xdc_address_value,name_value,symbol_value,decimals_value,total_supply_value,balance_off_value,
             transfer_value,allowance_value,approve_value,transfer_from_value,increase_allowance_value,decrease_allowance_value;
-//    BigInteger allowance,decimal,totalSupply;
-    String symbol,name,balance,allowance,decimal,totalSupply,xdc_address;
-    String hex_to_dec,bal,supply;
+    String hex_to_dec;
     BigInteger dec_bal,dec_supply;
-
+    TokenResponse tokenResponse = new TokenResponse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,45 +37,44 @@ public class Details extends AppCompatActivity {
         increase_allowance_value = findViewById(R.id.increase_allowance_value);
         decrease_allowance_value = findViewById(R.id.decrease_allowance_value);
 
-        getValues();
+
+
+        if (getIntent().hasExtra("tokendetail")) {
+            tokenResponse = (TokenResponse) getIntent().getSerializableExtra("tokendetail");
+
+            Log.e("cardetail", tokenResponse.getName()+"");
+        }
+
+
+
         assignValues();
 
 
 
     }
 
-    public void getValues(){
-        xdc_address = getIntent().getStringExtra("TOKEN_ADDRESS");
-        name = getIntent().getStringExtra("NAME");
-        symbol = getIntent().getStringExtra("SYMBOL");
-        balance = getIntent().getStringExtra("BALANCE");
-        decimal = getIntent().getStringExtra("DECIMAL");
-        allowance = getIntent().getStringExtra("ALLOWANCE");
-        totalSupply = getIntent().getStringExtra("TOTAL_SUPPLY");
-    }
 
     public void assignValues(){
 
-        xdc_address_value.setText(xdc_address.replace("0x","xdc"));
+        xdc_address_value.setText(tokenResponse.getSpender_address().replace("0x","xdc"));
 
         if (name_value != null){
-            name_value.setText(name);
+            name_value.setText(tokenResponse.getName());
         }
         else
             name_value.setText("-");
 
         if (symbol_value != null){
-            symbol_value.setText(symbol);
+            symbol_value.setText(tokenResponse.getSymbol());
         }
         else
             symbol_value.setText("-");
 
         if (balance_off_value!= null){
 
-                if (balance != null){
-                    bal = balance;
+                if (tokenResponse.getBalance() != null){
                     BigInteger a
-                            = new BigInteger(bal);
+                            = new BigInteger(tokenResponse.getBalance().toString());
                     BigInteger b
                             = new BigInteger(hex_to_dec);
 
@@ -90,23 +90,22 @@ public class Details extends AppCompatActivity {
             balance_off_value.setText("-");
 
         if (decimals_value != null){
-            decimals_value.setText(decimal);
+            decimals_value.setText(tokenResponse.getDecimal().toString());
         }
 
         else
             decimals_value.setText("-");
 
         if (allowance_value !=null){
-            allowance_value.setText(allowance);
+            allowance_value.setText(tokenResponse.getAllowance().toString());
         }
        else
            allowance_value.setText("-");
 
        if (total_supply_value != null){
-           if (totalSupply != null){
-               supply = totalSupply;
+           if (tokenResponse.getTotalSupply() != null){
                BigInteger a
-                       = new BigInteger(supply);
+                       = new BigInteger(tokenResponse.getTotalSupply().toString());
                BigInteger b
                        = new BigInteger(hex_to_dec);
 
