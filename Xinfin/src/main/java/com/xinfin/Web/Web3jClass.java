@@ -10,12 +10,14 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Web3jClass
@@ -120,7 +122,19 @@ public class Web3jClass
                 try {
                     javaToken = ERC20.load(token_address, web3, creds, new DefaultGasProvider());
 
+
+
+
+
+
                   return  getinfo(javaToken,token_address);
+
+
+
+
+
+
+
 
 
                 } catch (Exception exception) {
@@ -170,4 +184,120 @@ public class Web3jClass
         }
 
     }
+
+     @SuppressWarnings("NewApi")
+     public void TransferTokenEvent()
+     {
+         web3 = Web3j.build(new
+
+                 HttpService(AppConstants.BASE_URL));
+         try {
+             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+             if (!clientVersion.hasError())
+             {
+
+                 web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST);
+                 // Log.e("response", web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST);
+
+
+                 EthGetTransactionCount ethGetTransactionCount = null;
+                 try {
+                     ethGetTransactionCount = web3.ethGetTransactionCount(
+                             AppConstants.TO_ADDRESS, DefaultBlockParameterName.LATEST).sendAsync().get();
+                 } catch (
+                         ExecutionException e) {
+                     e.printStackTrace();
+                 } catch (
+                         InterruptedException e) {
+                     e.printStackTrace();
+                 }
+
+                 BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+
+
+                 RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
+                         nonce, BigInteger.valueOf(4000004), BigInteger.valueOf(50005), AppConstants.TO_ADDRESS, BigInteger.valueOf(1000000000000000000L));
+
+                 byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(AppConstants.PRIVATE_KEY_TRANSACTION));
+                 String hexValue = Numeric.toHexString(signedMessage);
+
+
+                 EthSendTransaction ethSendTransaction = null;
+                 try {
+                     ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+                 } catch (
+                         ExecutionException e) {
+                     e.printStackTrace();
+                 } catch (
+                         InterruptedException e) {
+                     e.printStackTrace();
+                 }
+
+                 String transactionHash = ethSendTransaction.getTransactionHash();
+                 try {
+                     web3.ethGetTransactionByHash(transactionHash).sendAsync().get();
+                 } catch (
+                         ExecutionException e) {
+                     e.printStackTrace();
+                 } catch (
+                         InterruptedException e) {
+                     e.printStackTrace();
+                 }
+
+
+                 Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
+                 javaToken = null;
+
+                 try {
+                     javaToken = ERC20.load(AppConstants.FROM_ADDRESS, web3, creds, new DefaultGasProvider());
+
+                     TransactionReceipt receipt  = javaToken.transferFrom(AppConstants.FROM_ADDRESS,AppConstants.TO_ADDRESS,BigInteger.valueOf(1000)).send();
+
+                     List<ERC20.TransferEventResponse> events = javaToken.getTransferEvents(receipt);
+                     events.forEach(event
+                             -> System.out.println("from: " + event._from + ", to: " + event._to + ", value: " + event._value));
+
+                     javaToken.transferEventFlowable(DefaultBlockParameterName.EARLIEST, DefaultBlockParameterName.LATEST)
+                             .subscribe(event -> {
+                                 try {
+                                     System.err.printf("hash=%s from=%s to=%s amount=%s%n",
+                                             event.log.getTransactionHash(),
+                                             event._from,
+                                             event._to,
+                                             event._value);
+                                 }catch(Throwable e) {
+                                     e.printStackTrace();
+                                 }
+                             });
+
+
+                   //  return  getinfo(javaToken,token_address);
+
+
+
+
+
+
+
+
+
+                 } catch (Exception exception) {
+                     exception.printStackTrace();
+                 }
+
+             } else {
+
+                 //Show Error
+                // return null;
+             }
+         } catch (
+                 Exception e) {
+
+//Show Error
+
+         }
+
+
+         //return null;
+     }
 }

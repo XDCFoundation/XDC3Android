@@ -24,9 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Button submit_button;
     String token_address, xdcAddress;
-    String hex_to_dec;
-    BigInteger allowance, decimal, totalSupply, balance;
-    String symbol, name;
     ImageView transfer_amount;
     AutoCompleteTextView tokenAutoTV;
     TextView enterXdcAddress;
@@ -37,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         token_address = "0x847aefb3d207e69749e970f8574743a4f388b6f2";
-        hex_to_dec = "1000000000000000000";
-//        xdcAddress = token_address.replace("0x","xdc");
-
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
         enterXdcAddress.setText(token_address.replace("0x", "xdc"));
 
@@ -85,11 +79,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                TokenResponse tokenResponse =   Web3jClass.getInstance().getTokenoinfo(token_address);
-                Intent intent = new Intent(MainActivity.this, Details.class);
+               // TokenResponse tokenResponse =   Web3jClass.getInstance().getTokenoinfo(token_address);
+
+                Web3jClass.getInstance().TransferTokenEvent();
+                /*Intent intent = new Intent(MainActivity.this, Details.class);
                 intent.putExtra("tokendetail",(Serializable) tokenResponse);
                 startActivity(intent);
-
+*/
 
 
             }
