@@ -58,20 +58,6 @@ public class MainActivity extends AppCompatActivity {
         initUI();
 
 
-//        getApprove();
-//        getTransferFrom();
-//        web3.ethSendTransaction(Transaction.createEtherTransaction("0xff55cb8c656a4e94b4151df9bfb88cc069ceb3e1",BigInteger.valueOf(104),BigInteger.valueOf(1000),BigInteger.valueOf(1000),"0x63b32225813a3f2b877d77094d25f7ce6653b4b5",BigInteger.valueOf(60)));
-
-//        web3.ethSendRawTransaction("0xf86360833d090482c3559463b32225813a3f2b877d77094d25f7ce6653b4b51e80818aa0601700a68e581c2438c5b778633ce6e0a1dc02b25b05a8be2ec27db8c24e5c79a030086db486f4352fa343bb39ed9a506629d7c97b1428b7ed242d0b0febef6a4e");
-
-
-//        try {
-//            BigInteger allowance = javaToken.balanceOf(token_number).send();
-//        }Latest
-//        catch (Exception exception) {
-//            exception.printStackTrace();
-//        }
-
 
         submit_button = findViewById(R.id.submit);
 
@@ -79,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-               // TokenResponse tokenResponse =   Web3jClass.getInstance().getTokenoinfo(token_address);
+                TokenResponse tokenResponse =   Web3jClass.getInstance().getTokenoinfo(token_address);
 
-                Web3jClass.getInstance().TransferTokenEvent();
-                /*Intent intent = new Intent(MainActivity.this, Details.class);
+               // Web3jClass.getInstance().TransferTokenEvent();
+                Intent intent = new Intent(MainActivity.this, Details.class);
                 intent.putExtra("tokendetail",(Serializable) tokenResponse);
                 startActivity(intent);
-*/
+
 
 
             }

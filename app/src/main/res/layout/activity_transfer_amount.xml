@@ -7,110 +7,221 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/background">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_xdc_icon"
-            android:layout_centerInParent="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="20dp"
-            android:text="@string/xdc3_android"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/background">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:id="@+id/private_key"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:textColorHint="@color/hint"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="25dp"
-        android:textSize="16sp"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_xdc_icon" />
 
-        android:hint="@string/enter_private_key_here" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/xdc3_android"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/private_key"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/header"
-        android:textSize="16sp"
-        android:text="@string/receiver_address"/>
+            <EditText
+                android:id="@+id/private_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/black"
+
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:hint="@string/enter_private_key_here"
+                android:padding="15dp"
+                android:text="@string/privatekeytransfer"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/sender_address"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
 
 
+            <EditText
+                android:id="@+id/sender_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="15dp"
+                android:textColor="@color/black"
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:id="@+id/receiver_address"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:textColorHint="@color/hint"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="25dp"
-        android:textSize="16sp" />
+                android:text="@string/sender_add"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/header"
-        android:textSize="16sp"
-        android:text="@string/value"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/receiver_address"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
 
 
+            <EditText
+                android:id="@+id/receiver_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="15dp"
+                android:textColor="@color/black"
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:id="@+id/value"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:textColorHint="@color/hint"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="25dp"
-        android:textSize="16sp" />
+                android:text="@string/receiver_add"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/send"
-        android:id="@+id/send"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="39dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/background"
-        android:textAllCaps="false"
-        android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/value"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="15dp"
+                android:textColor="@color/black"
+
+                android:text="@string/value_transfer"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Gas Price"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/edt_gasprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="15dp"
+                android:text="4000004"
+                android:textColor="@color/black"
+
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Gas Limit"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/edt_gaslimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="15dp"
+
+                android:textColor="@color/black"
+                android:text="@string/gaslimit"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="39dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="@color/background"
+                android:padding="15dp"
+                android:text="@string/send"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

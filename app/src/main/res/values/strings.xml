@@ -27,5 +27,15 @@
     <string name="send">Send</string>
     <string name="enter_private_key_here">Enter Private Key here</string>
     <string name="receiver_address">Receiver Address:</string>
+    <string name="sender_address">Sender Address:</string>
+    <string name="private_key">Private Key:</string>
     <string name="value">Value:</string>
+    <string name="error_empty">This field cannot be empty</string>
+
+    <string name="gasprice">4000004</string>
+    <string name="gaslimit">50005</string>
+    <string name="value_transfer">1000000000000000000</string>
+    <string name="privatekeytransfer">0xd596a485cebc97afc2f114286599ff5ac7d62ee907b9543a290a994c6b1de9fb</string>
+    <string name="sender_add">0xff55cb8c656a4e94b4151df9bfb88cc069ceb3e1</string>
+    <string name="receiver_add">0x63b32225813a3f2b877d77094d25f7ce6653b4b5</string>
 </resources>
