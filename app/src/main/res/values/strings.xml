@@ -28,4 +28,5 @@
     <string name="enter_private_key_here">Enter Private Key here</string>
     <string name="receiver_address">Receiver Address:</string>
     <string name="value">Value:</string>
+    <string name="sender_s_address">Sender Address:</string>
 </resources>

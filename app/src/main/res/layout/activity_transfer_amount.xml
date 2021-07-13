@@ -45,6 +45,31 @@
 
         android:hint="@string/enter_private_key_here" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/header"
+        android:textSize="16sp"
+        android:text="@string/sender_s_address"/>
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:id="@+id/sender_address"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColorHint="@color/hint"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/edit_text_border"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="25dp"
+        android:textSize="16sp" />
+
 
 
     <TextView

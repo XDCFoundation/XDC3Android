@@ -13,15 +13,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.xinfin.Model.TokenResponse;
+import com.xinfin.Web.Web3jClass;
+
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.core.methods.response.EthSendRawTransaction;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
-import org.web3j.protocol.core.methods.response.EthTransaction;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
@@ -29,6 +31,7 @@ import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 import xinfin.sdk.constants.AppConstants;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView transfer_amount;
     AutoCompleteTextView tokenAutoTV;
     TextView enterXdcAddress;
+    String transactionHash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         hex_to_dec = "1000000000000000000";
 //        xdcAddress = token_address.replace("0x","xdc");
 
+        TokenResponse tokenResponse =   Web3jClass.getInstance().getTokenoinfo(token_address);
+
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
         enterXdcAddress.setText(token_address.replace("0x","xdc"));
 
@@ -65,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         transfer_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,TransferAmount.class);
+                Intent intent = new Intent(MainActivity.this,CreateAccount.class);
                 startActivity(intent);
             }
         });
@@ -99,20 +105,19 @@ public class MainActivity extends AppCompatActivity {
         initUI();
 
 
-//        getApprove();
-//        getTransferFrom();
+
 //        web3.ethSendTransaction(Transaction.createEtherTransaction("0xff55cb8c656a4e94b4151df9bfb88cc069ceb3e1",BigInteger.valueOf(104),BigInteger.valueOf(1000),BigInteger.valueOf(1000),"0x63b32225813a3f2b877d77094d25f7ce6653b4b5",BigInteger.valueOf(60)));
 
 //        web3.ethSendRawTransaction("0xf86360833d090482c3559463b32225813a3f2b877d77094d25f7ce6653b4b51e80818aa0601700a68e581c2438c5b778633ce6e0a1dc02b25b05a8be2ec27db8c24e5c79a030086db486f4352fa343bb39ed9a506629d7c97b1428b7ed242d0b0febef6a4e");
 
         web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST);
-        Toast.makeText(this, web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST).toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST).toString(), Toast.LENGTH_SHORT).show();
 
 
         EthGetTransactionCount ethGetTransactionCount = null;
         try {
             ethGetTransactionCount = web3.ethGetTransactionCount(
-                    AppConstants.TO_ADDRESS, DefaultBlockParameterName.LATEST).sendAsync().get();
+                    AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST).sendAsync().get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(
-                nonce, BigInteger.valueOf(4000004), BigInteger.valueOf(50005), AppConstants.TO_ADDRESS, BigInteger.valueOf(1000000000000000000L));
+                BigInteger.valueOf(131), BigInteger.valueOf(4000004), BigInteger.valueOf(50005), AppConstants.TO_ADDRESS, BigInteger.valueOf(1000000000000000000L));
 
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(AppConstants.PRIVATE_KEY_TRANSACTION));
         String hexValue = Numeric.toHexString(signedMessage);
@@ -136,14 +141,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String transactionHash = ethSendTransaction.getTransactionHash();
-        try {
-           web3.ethGetTransactionByHash(transactionHash).sendAsync().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+         transactionHash = ethSendTransaction.getTransactionHash();
+//        try {
+//           web3.ethGetTransactionByHash(transactionHash).sendAsync().get();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
 //        try {
 //            BigInteger allowance = javaToken.balanceOf(token_number).send();
@@ -178,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
                 getName();
                 getDecimal();
                 getAllowance();
+//                getApprove();
+//                getTransferFrom();
 
                 Intent intent = new Intent(MainActivity.this,Details.class);
                 if (balance != null){
@@ -234,10 +241,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
 //    public void getApprove(){
 //
+//
 //        try {
-//            TransactionReceipt approve = javaToken.approve("0x03c0d9bc556be68870b96976e81d32ebb49d335d",BigInteger.valueOf(1000)).send();
+//            TransactionReceipt approve = javaToken.approve(myStringInByte.toString(),BigInteger.valueOf(1000)).send();
 //        } catch (Exception exception) {
 //            exception.printStackTrace();
 //        }
