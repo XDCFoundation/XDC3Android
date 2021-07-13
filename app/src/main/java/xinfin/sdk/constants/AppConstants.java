@@ -1,6 +1,5 @@
 package xinfin.sdk.constants;
 
-//import com.example.cx.BuildConfig;
 
 public class AppConstants {
 

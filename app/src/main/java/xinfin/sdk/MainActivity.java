@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(
-                BigInteger.valueOf(131), BigInteger.valueOf(4000004), BigInteger.valueOf(50005), AppConstants.TO_ADDRESS, BigInteger.valueOf(1000000000000000000L));
+                nonce, BigInteger.valueOf(4000004), BigInteger.valueOf(50005), AppConstants.TO_ADDRESS, BigInteger.valueOf(1000000000000000000L));
 
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(AppConstants.PRIVATE_KEY_TRANSACTION));
         String hexValue = Numeric.toHexString(signedMessage);
