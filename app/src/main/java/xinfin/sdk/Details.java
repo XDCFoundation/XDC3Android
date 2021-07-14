@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.xinfin.Model.TokenResponse;
+import com.xinfin.Model.TokenDetailsResponse;
 
 import java.math.BigInteger;
 
@@ -16,7 +16,7 @@ public class Details extends AppCompatActivity {
             transfer_value,allowance_value,approve_value,transfer_from_value,increase_allowance_value,decrease_allowance_value;
     String hex_to_dec;
     BigInteger dec_bal,dec_supply;
-    TokenResponse tokenResponse = new TokenResponse();
+    TokenDetailsResponse tokenResponse = new TokenDetailsResponse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class Details extends AppCompatActivity {
 
 
         if (getIntent().hasExtra("tokendetail")) {
-            tokenResponse = (TokenResponse) getIntent().getSerializableExtra("tokendetail");
+            tokenResponse = (TokenDetailsResponse) getIntent().getSerializableExtra("tokendetail");
 
             Log.e("cardetail", tokenResponse.getName()+"");
         }

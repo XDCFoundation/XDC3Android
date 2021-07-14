@@ -4,27 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xinfin.Model.TokenResponse;
+import com.xinfin.Model.TokenDetailsResponse;
+import com.xinfin.Model.TokenTransferResponse;
 import com.xinfin.Web.Web3jClass;
+import com.xinfin.callback.TokenDetailCallback;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.ArrayList;
+
+import xinfin.sdk.utils.Utility;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private Button submit_button;
     String token_address, xdcAddress;
-    ImageView transfer_amount;
+    Button transfer_amount;
     AutoCompleteTextView tokenAutoTV;
     TextView enterXdcAddress;
 
@@ -65,12 +70,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                TokenResponse tokenResponse =   Web3jClass.getInstance().getTokenoinfo(token_address);
+
+                /*try {
+                    Web3jClass.getInstance().tranferfrom();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+
+               Utility.showProcess(MainActivity.this);
+                 Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+                    @Override
+                    public void success(TokenDetailsResponse tokenDetailsResponse)
+                    {
+                        Utility.dismissProcess();
+                        Intent intent = new Intent(MainActivity.this, Details.class);
+                        intent.putExtra("tokendetail",(Serializable) tokenDetailsResponse);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void failure(Throwable t)
+                    {
+                        Utility.dismissProcess();
+                        Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void failure(String message)
+                    {
+                        Utility.dismissProcess();
+                        Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
+                    }
+                });
 
                // Web3jClass.getInstance().TransferTokenEvent();
-                Intent intent = new Intent(MainActivity.this, Details.class);
-                intent.putExtra("tokendetail",(Serializable) tokenResponse);
-                startActivity(intent);
+
 
 
 
@@ -93,13 +127,32 @@ public class MainActivity extends AppCompatActivity {
 
         //Set adapter
         tokenAutoTV.setAdapter(adapter);
+
+        tokenAutoTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+                /*Toast.makeText(MainActivity.this,
+                        adapter.getItem(position).toString(),
+                        Toast.LENGTH_SHORT).show();*/
+
+
+                token_address = adapter.getItem(position).toString();
+
+            }
+        });
+
+
     }
 
     private ArrayList<String> getCustomerList() {
         ArrayList<String> address = new ArrayList<>();
-        address.add("xdc847aefb3d207e69749e970f8574743a4f388b6f2");
-        address.add("xdce7c09f7c38156eaff9864d5d2dc83723b804f927");
-        address.add("xdcce20035eceecd1f94ac4a828de5e3f9b7d2c7898");
+
+        address.add("0xc4bd1127a5227659b5ef3070092b6740046f3c3a");
+        address.add("0xce20035eceecd1f94ac4a828de5e3f9b7d2c7898");
+        address.add("0x847aefb3d207e69749e970f8574743a4f388b6f2");
         return address;
     }
 

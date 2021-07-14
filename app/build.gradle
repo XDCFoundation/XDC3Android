@@ -17,6 +17,17 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+    signingConfigs {
+        release {
+            storeFile file('xinfin.jks')
+            storePassword 'leeway321'
+            keyAlias = 'xinfin'
+            keyPassword 'leeway321'
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false

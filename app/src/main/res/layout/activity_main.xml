@@ -22,8 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_group_194"
-            android:id="@+id/transfer_amount"
+
             android:layout_marginLeft="25dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"/>
         <TextView
@@ -103,6 +104,23 @@
       android:backgroundTint="@color/background"
       android:textAllCaps="false"
       android:textSize="16sp"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="Transfer Token"
+        android:id="@+id/transfer_amount"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="39dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/background"
+        android:textAllCaps="false"
+        android:textSize="16sp"/>
 
 
 </LinearLayout>

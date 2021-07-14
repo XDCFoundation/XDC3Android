@@ -41,6 +41,9 @@
             </RelativeLayout>
 
 
+
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -218,6 +221,18 @@
                 android:text="@string/send"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+
+                android:id="@+id/text_transaction_hash"
+                android:textColor="@color/background"
                 android:textSize="16sp" />
 
         </LinearLayout>
