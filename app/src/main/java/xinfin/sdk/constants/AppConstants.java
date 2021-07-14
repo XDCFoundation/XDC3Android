@@ -14,7 +14,9 @@ public class AppConstants {
 
     public static final String PRIVATE_KEY_TRANSACTION = "0xd596a485cebc97afc2f114286599ff5ac7d62ee907b9543a290a994c6b1de9fb";
 
+    public static final String TRANSFER_BASE_URL = "https://explorer.apothem.network";
 
+    public static final String TAG = "XINFIN_LOGS";
 
 
 }

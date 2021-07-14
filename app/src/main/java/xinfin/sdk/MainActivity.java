@@ -3,6 +3,7 @@ package xinfin.sdk;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,18 +17,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.TokenTransferResponse;
+import com.xinfin.Web.AppConstants;
 import com.xinfin.Web.Web3jClass;
 import com.xinfin.callback.TokenDetailCallback;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import xinfin.sdk.model.api.app.ApiTransferResponseModel;
+import xinfin.sdk.transfer.presenter.ITransferNowPresenter;
+import xinfin.sdk.transfer.presenter.TransferPresenter;
+import xinfin.sdk.transfer.view.ITransferView;
 import xinfin.sdk.utils.Utility;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ITransferView {
 
     private Button submit_button;
+    private ITransferNowPresenter iTransferNowPresenter;
     String token_address, xdcAddress;
     Button transfer_amount;
     AutoCompleteTextView tokenAutoTV;
@@ -66,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
         submit_button = findViewById(R.id.submit);
 
+        initPresenter();
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
 
+                transferValue();
                 /*try {
                     Web3jClass.getInstance().tranferfrom();
                 } catch (Exception e) {
@@ -115,6 +126,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void transferValue()
+    {
+        Log.e("gettransfer","gettransfer");
+        Map<String, String> requestData = new HashMap<>();
+        requestData.put("module", "status");
+        requestData.put("action", "tokentransfers");
+        requestData.put("contractaddress", AppConstants.TO_ADDRESS);
+
+        iTransferNowPresenter.TransferApi(this, requestData);
+
+    }
+
+    private void initPresenter() {
+        iTransferNowPresenter = new TransferPresenter(this);
+    }
+
     private void initUI() {
         //UI reference of textView
         tokenAutoTV = findViewById(R.id.customerTextView);
@@ -156,5 +183,14 @@ public class MainActivity extends AppCompatActivity {
         return address;
     }
 
+    @Override
+    public void onTransferFailure(String failure) {
+        Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTransferSuccess(ApiTransferResponseModel apiTransferResponseModel) {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+    }
 
 }
