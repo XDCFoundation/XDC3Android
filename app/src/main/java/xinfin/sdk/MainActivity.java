@@ -24,8 +24,10 @@ import com.xinfin.callback.TokenDetailCallback;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import xinfin.sdk.model.api.ResultDataResponseModel;
 import xinfin.sdk.model.api.app.ApiTransferResponseModel;
 import xinfin.sdk.transfer.presenter.ITransferNowPresenter;
 import xinfin.sdk.transfer.presenter.TransferPresenter;
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements ITransferView {
         Map<String, String> requestData = new HashMap<>();
         requestData.put("module", "status");
         requestData.put("action", "tokentransfers");
-        requestData.put("contractaddress", AppConstants.TO_ADDRESS);
+        requestData.put("contractaddress", "xdcd18fF933268b05eb7ff6107e9DC169cBF783632c");
 
         iTransferNowPresenter.TransferApi(this, requestData);
 
@@ -189,8 +191,9 @@ public class MainActivity extends AppCompatActivity implements ITransferView {
     }
 
     @Override
-    public void onTransferSuccess(ApiTransferResponseModel apiTransferResponseModel) {
+    public void onTransferSuccess(List<ResultDataResponseModel> getTransfer) {
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        getTransfer.size();
     }
 
 }

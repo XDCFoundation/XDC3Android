@@ -6,12 +6,14 @@ import android.content.Context;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
 import java.util.Map;
 
 import xinfin.sdk.constants.EventConstants;
 import xinfin.sdk.managers.api.TransferApiManager;
 
 
+import xinfin.sdk.model.api.ResultDataResponseModel;
 import xinfin.sdk.model.api.app.ApiTransferResponseModel;
 import xinfin.sdk.model.api.app.EventModel;
 import xinfin.sdk.transfer.view.ITransferView;
@@ -63,7 +65,8 @@ public class TransferPresenter implements ITransferNowPresenter {
 
         ApiTransferResponseModel updateResponseModel = (ApiTransferResponseModel) eventModel.responseObj;
 
-        iTransferView.onTransferSuccess(updateResponseModel);
+        List<ResultDataResponseModel> getTransfer = updateResponseModel.getResult();
+        iTransferView.onTransferSuccess(getTransfer);
 
     }
 

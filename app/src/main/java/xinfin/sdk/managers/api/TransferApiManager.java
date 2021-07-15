@@ -80,7 +80,7 @@ public class TransferApiManager {
     }
 
     public void transferApi(final EventModel eventModel){
-        Call<ApiTransferResponseModel> call = apiService.transfer((Map<String, String>) eventModel.requestObj);
+        Call<ApiTransferResponseModel> call = apiService.transfer((Map<String, Object>) eventModel.requestObj);
 
         call.enqueue(new Callback<ApiTransferResponseModel>(){
             @Override

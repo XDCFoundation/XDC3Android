@@ -14,6 +14,6 @@ public interface ApiService {
 
 
     @POST("/publicAPI")
-    Call<ApiTransferResponseModel> transfer(@Body Map<String, String>  params);
+    Call<ApiTransferResponseModel> transfer(@QueryMap Map<String, Object>  params);
 
 }
