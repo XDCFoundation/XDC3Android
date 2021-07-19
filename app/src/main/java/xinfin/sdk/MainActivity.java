@@ -2,6 +2,7 @@ package xinfin.sdk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import com.xinfin.Model.TokenTransferResponse;
 import com.xinfin.Web.Web3jClass;
 import com.xinfin.callback.TokenDetailCallback;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -71,13 +73,36 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                /*try {
+                /*File path = Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES),"web3j");
+               */
+
+
+                try {
+
+                    File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES.toString() +
+                            File.separator + "web3j");
+                    path.mkdir();
+
+                    Web3jClass.getInstance().generateWallet(path);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                /* try {
+                    Web3jClass.getInstance().approve();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+
+               /* try {
                     Web3jClass.getInstance().tranferfrom();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }*/
 
-               Utility.showProcess(MainActivity.this);
+              /* Utility.showProcess(MainActivity.this);
                  Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
@@ -102,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
                 });
-
-               // Web3jClass.getInstance().TransferTokenEvent();
+*/
+              //  Web3jClass.getInstance().TransferTokenEvent();
 
 
 

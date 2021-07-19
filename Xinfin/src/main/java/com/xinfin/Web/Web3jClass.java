@@ -2,13 +2,20 @@ package com.xinfin.Web;
 
 import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.TokenTransferResponse;
+import com.xinfin.Model.TransactionResponse;
 import com.xinfin.callback.TokenDetailCallback;
 import com.xinfin.callback.TokenTransferCallback;
 import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
+import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.HumanStandardToken;
 
+import org.web3j.crypto.Bip39Wallet;
+import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
+import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
@@ -17,22 +24,28 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.utils.Flowables;
 import org.web3j.utils.Numeric;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 
 
 public class Web3jClass {
     Web3j web3;
     public static Web3jClass instance;
     ERC20 javaToken;
+    HumanStandardToken humanStandardToken;
     BigInteger allowance, decimal, totalSupply, balance;
     String symbol, name;
     TokenDetailsResponse tokenResponse;
+    private WalletFile wallet;
+    private String password = "PASSWORD";
 
     public static Web3jClass getInstance() {
         if (instance == null)
@@ -61,6 +74,55 @@ public class Web3jClass {
             return false;
         }
     }
+
+    public void generateWallet(File walletDirectory) {
+
+        try {
+
+
+            Bip39Wallet walletName = WalletUtils.generateBip39Wallet("1234567890", walletDirectory);
+            System.out.println("wallet location: " + walletDirectory + "/" + walletName);
+            Credentials credentials = WalletUtils.loadBip39Credentials("1234567890", walletName.getMnemonic());
+            String accountAddress = credentials.getAddress();
+            System.out.println("Account address: " + accountAddress);
+
+            ECKeyPair ecKeyPair = credentials.getEcKeyPair();
+            String privateKey = ecKeyPair.getPrivateKey().toString(16);
+            String publickeyKey = ecKeyPair.getPrivateKey().toString(16);
+            System.out.println("privateKey: " + ecKeyPair.getPrivateKey());
+            System.out.println("sPrivatekeyInHex: " + privateKey);
+
+            String seedPhrase = walletName.getMnemonic();
+
+            Credentials restoreCredentials = WalletUtils.loadBip39Credentials("1234567890",
+                    seedPhrase);
+            ECKeyPair restoredPrivateKey = restoreCredentials.getEcKeyPair();
+            String restoredAccountAddress = restoreCredentials.getAddress();
+
+
+
+
+          /*  setupBouncyCastle();
+
+
+            try {
+                wallet = createWallet();
+            } catch (Exception e) {
+                System.out.println("BIG RIP");
+            }
+*/
+
+
+        } catch (IOException | CipherException e) {
+
+            e.printStackTrace();
+           /* LOGGER.info("::::::::::::::::message esception " + e.getMessage());
+            result.put("responseMessage", "error");
+            result.put("errorMessage", "Error, Your wallet not created");*/
+            //return result;
+        }
+    }
+
 
     public void getTokenoinfo(String token_address, TokenDetailCallback tokenDetailCallback) {
 
@@ -245,15 +307,33 @@ public class Web3jClass {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
                 Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
-                javaToken = null;
+                humanStandardToken = null;
                 try {
-                    javaToken = ERC20.load(AppConstants.FROM_ADDRESS, web3, creds, new DefaultGasProvider());
-                    TransactionReceipt transfer = javaToken.transferFrom(AppConstants.FROM_ADDRESS, AppConstants.TO_ADDRESS, BigInteger.valueOf(1000000000000L)).send();
-                        ;
-                        // ArrayList<ERC20.TransferEventResponse> responses = (ArrayList<ERC20.TransferEventResponse>) javaToken.getTransferEvents(transfer);
+
+/*
+                    HumanStandardToken contract = HumanStandardToken
+
+                            .deploy(
+                                    web3, creds,new DefaultGasProvider(),
+                                    (BigInteger.valueOf(1000000)),
+                                    new Utf8String("web3j tokens"),
+                                    (BigInteger.TEN),
+                                    new Utf8String("w3j$"))
+                            .get();*/
+
+                    ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                            AppConstants.FROM_ADDRESS);
+                    humanStandardToken = HumanStandardToken.load(AppConstants.TO_ADDRESS, web3, creds, new DefaultGasProvider());
+                    // TransactionReceipt transfer = javaToken.transferFrom(AppConstants.FROM_ADDRESS, AppConstants.TO_ADDRESS, BigInteger.valueOf(10000)).send();
 
 
+                    // transferFrom(AppConstants.APPROVE_SENDER, AppConstants.TO_ADDRESS, BigInteger.valueOf(10000)).send();
+                    //                     processTransferEventsResponse(humanStandardToken, humanStandardToken.transferFrom(new Address(AppConstants.APPROVE_SENDER),new Address(AppConstants.TO_ADDRESS) ,new Uint256(BigInteger.valueOf(1000000000000L))));
 
+                    processTransferEventsResponse(humanStandardToken, humanStandardToken.transferFrom(AppConstants.TO_ADDRESS, AppConstants.FROM_ADDRESS, BigInteger.valueOf(10000)).send());
+
+
+                    // ArrayList<ERC20.TransferEventResponse> responses = (ArrayList<ERC20.TransferEventResponse>) javaToken.getTransferEvents(transfer);
 
 
                 } catch (Exception exception) {
@@ -269,6 +349,110 @@ public class Web3jClass {
 
         }
 
+    }
+
+
+    public void approve() {
+
+
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        try {
+            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+            if (!clientVersion.hasError()) {
+                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY_APPROVE);
+                javaToken = null;
+                try {
+                    javaToken = ERC20.load(AppConstants.APPROVE_contract, web3, creds, new DefaultGasProvider());
+                    // TransactionReceipt transfer = javaToken.transferFrom(AppConstants.FROM_ADDRESS, AppConstants.TO_ADDRESS, BigInteger.valueOf(10000)).send();
+
+
+                    TransactionReceipt transactionReceipt = javaToken.approve(AppConstants.APPROVE_SENDER, BigInteger.valueOf(1000)).send();
+
+
+                    // ArrayList<ERC20.TransferEventResponse> responses = (ArrayList<ERC20.TransferEventResponse>) javaToken.getTransferEvents(transfer);
+
+
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    System.err.printf("hash=%s from=%s to=%s amount=%s%n", exception.getMessage());
+                }
+
+            }
+        } catch (
+                Exception e) {
+
+//Show Error
+
+        }
+
+    }
+
+    private TransactionResponse<TransferEventResponse>
+    processTransferEventsResponse(
+            HumanStandardToken humanStandardToken,
+            TransactionReceipt transactionReceipt) {
+
+        return processEventResponse(
+                humanStandardToken.getTransferEvents(transactionReceipt),
+                transactionReceipt,
+                TransferEventResponse::new);
+    }
+
+
+    @SuppressWarnings("NewApi")
+    private <T, R> TransactionResponse<R> processEventResponse(
+            List<T> eventResponses, TransactionReceipt transactionReceipt, Function<T, R> map) {
+        if (!eventResponses.isEmpty()) {
+            return new TransactionResponse<>(
+                    transactionReceipt.getTransactionHash(),
+                    map.apply(eventResponses.get(0)));
+        } else {
+            return new TransactionResponse<>(
+                    transactionReceipt.getTransactionHash());
+        }
+    }
+
+
+    public static class TransferEventResponse {
+        private String from;
+        private String to;
+        private long value;
+
+        public TransferEventResponse() {
+        }
+
+        public TransferEventResponse(
+                HumanStandardToken.TransferEventResponse transferEventResponse) {
+            this.from = transferEventResponse._from;
+            this.to = transferEventResponse._to;
+            this.value = transferEventResponse._value.longValueExact();
+        }
+
+        public String getFrom() {
+            return from;
+        }
+
+        public void setFrom(String from) {
+            this.from = from;
+        }
+
+        public String getTo() {
+            return to;
+        }
+
+        public void setTo(String to) {
+            this.to = to;
+        }
+
+        public long getValue() {
+            return value;
+        }
+
+        public void setValue(long value) {
+            this.value = value;
+        }
     }
 
 }
