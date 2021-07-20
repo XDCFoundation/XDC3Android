@@ -59,9 +59,11 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/edit_text_border"
         android:layout_marginEnd="20dp"
+        android:textColor="@color/black"
         android:layout_marginTop="25dp"
         android:inputType="textPassword"
         android:textSize="16sp"
+        android:id="@+id/edt_password"
 
         android:hint="@string/enter_xdc_password" />
 
@@ -72,7 +74,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="@string/create"
-        android:id="@+id/create"
+        android:id="@+id/btn_createacc"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -82,6 +84,28 @@
         android:backgroundTint="@color/background"
         android:textAllCaps="false"
         android:textSize="16sp"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:hint="Account Info will be displayed here"
+        android:id="@+id/txt_info"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/background"
+        android:backgroundTint="@color/background"
+        android:textAllCaps="false"
+        android:textSize="16sp"/>
+
+
+
+
 
 
 </LinearLayout>

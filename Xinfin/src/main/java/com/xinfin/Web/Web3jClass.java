@@ -3,6 +3,8 @@ package com.xinfin.Web;
 import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.TokenTransferResponse;
 import com.xinfin.Model.TransactionResponse;
+import com.xinfin.Model.WalletData;
+import com.xinfin.callback.CreateAccountCallback;
 import com.xinfin.callback.TokenDetailCallback;
 import com.xinfin.callback.TokenTransferCallback;
 import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
@@ -45,7 +47,6 @@ public class Web3jClass {
     String symbol, name;
     TokenDetailsResponse tokenResponse;
     private WalletFile wallet;
-    private String password = "PASSWORD";
 
     public static Web3jClass getInstance() {
         if (instance == null)
@@ -75,14 +76,15 @@ public class Web3jClass {
         }
     }
 
-    public void generateWallet(File walletDirectory) {
+    public void generateWallet(File walletDirectory, String Password, CreateAccountCallback createAccountCallback)
+    {
 
         try {
 
 
-            Bip39Wallet walletName = WalletUtils.generateBip39Wallet("1234567890", walletDirectory);
+            Bip39Wallet walletName = WalletUtils.generateBip39Wallet(Password, walletDirectory);
             System.out.println("wallet location: " + walletDirectory + "/" + walletName);
-            Credentials credentials = WalletUtils.loadBip39Credentials("1234567890", walletName.getMnemonic());
+            Credentials credentials = WalletUtils.loadBip39Credentials(Password, walletName.getMnemonic());
             String accountAddress = credentials.getAddress();
             System.out.println("Account address: " + accountAddress);
 
@@ -94,10 +96,19 @@ public class Web3jClass {
 
             String seedPhrase = walletName.getMnemonic();
 
-            Credentials restoreCredentials = WalletUtils.loadBip39Credentials("1234567890",
+
+            WalletData walletData = new WalletData();
+            walletData.setAccountAddress(accountAddress);
+            walletData.setPrivateKey(privateKey);
+            walletData.setPublickeyKey(publickeyKey);
+            walletData.setSeedPhrase(seedPhrase);
+
+            createAccountCallback.success(walletData);
+
+           /* Credentials restoreCredentials = WalletUtils.loadBip39Credentials("1234567890",
                     seedPhrase);
             ECKeyPair restoredPrivateKey = restoreCredentials.getEcKeyPair();
-            String restoredAccountAddress = restoreCredentials.getAddress();
+            String restoredAccountAddress = restoreCredentials.getAddress();*/
 
 
 
@@ -116,10 +127,8 @@ public class Web3jClass {
         } catch (IOException | CipherException e) {
 
             e.printStackTrace();
-           /* LOGGER.info("::::::::::::::::message esception " + e.getMessage());
-            result.put("responseMessage", "error");
-            result.put("errorMessage", "Error, Your wallet not created");*/
-            //return result;
+            createAccountCallback.failure(e.getMessage());
+
         }
     }
 
@@ -169,7 +178,7 @@ public class Web3jClass {
             decimal = javaToken.decimals().send();
             String contract = javaToken.getContractAddress();
 
-            int transfer = gettransfercount(javaToken);
+
 
 
             tokenResponse = new TokenDetailsResponse();
@@ -190,14 +199,10 @@ public class Web3jClass {
 
     }
 
-    private int gettransfercount(ERC20 javaToken) {
 
-
-        return 0;
-    }
 
     @SuppressWarnings("NewApi")
-    public void TransferToken(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, BigInteger value, Long gasprice, Long gaslimit, TokenTransferCallback tokenCallback) {
+    public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, BigInteger value, Long gasprice, Long gaslimit, TokenTransferCallback tokenCallback) {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -306,7 +311,7 @@ public class Web3jClass {
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
-                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
+                Credentials creds = org.web3j.crypto.Credentials.create("0xbd6b2f02f90e4fd438af6b3fb636cc6912a8b384bb4767487d191c3dfe9713ae");
                 humanStandardToken = null;
                 try {
 
@@ -323,14 +328,14 @@ public class Web3jClass {
 
                     ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                             AppConstants.FROM_ADDRESS);
-                    humanStandardToken = HumanStandardToken.load(AppConstants.TO_ADDRESS, web3, creds, new DefaultGasProvider());
+                    humanStandardToken = HumanStandardToken.load("0x5543f72F0bDB8B38453478403148Fb5E4AF49B23", web3, creds, new DefaultGasProvider());
                     // TransactionReceipt transfer = javaToken.transferFrom(AppConstants.FROM_ADDRESS, AppConstants.TO_ADDRESS, BigInteger.valueOf(10000)).send();
 
 
                     // transferFrom(AppConstants.APPROVE_SENDER, AppConstants.TO_ADDRESS, BigInteger.valueOf(10000)).send();
                     //                     processTransferEventsResponse(humanStandardToken, humanStandardToken.transferFrom(new Address(AppConstants.APPROVE_SENDER),new Address(AppConstants.TO_ADDRESS) ,new Uint256(BigInteger.valueOf(1000000000000L))));
 
-                    processTransferEventsResponse(humanStandardToken, humanStandardToken.transferFrom(AppConstants.TO_ADDRESS, AppConstants.FROM_ADDRESS, BigInteger.valueOf(10000)).send());
+                    processTransferEventsResponse(humanStandardToken, humanStandardToken.transferFrom("0x5543f72F0bDB8B38453478403148Fb5E4AF49B23", AppConstants.FROM_ADDRESS, BigInteger.valueOf(10000)).send());
 
 
                     // ArrayList<ERC20.TransferEventResponse> responses = (ArrayList<ERC20.TransferEventResponse>) javaToken.getTransferEvents(transfer);

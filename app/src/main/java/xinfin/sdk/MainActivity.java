@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.TokenTransferResponse;
 import com.xinfin.Web.Web3jClass;
+import com.xinfin.Web.Web3jTokenTransfer;
 import com.xinfin.callback.TokenDetailCallback;
 
 import java.io.File;
@@ -29,7 +30,7 @@ import xinfin.sdk.utils.Utility;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button submit_button;
+    private Button submit_button,btn_createaccount;
     String token_address, xdcAddress;
     Button transfer_amount;
     AutoCompleteTextView tokenAutoTV;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         token_address = "0x847aefb3d207e69749e970f8574743a4f388b6f2";
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
+        btn_createaccount = (Button)findViewById(R.id.btn_createaccount);
         enterXdcAddress.setText(token_address.replace("0x", "xdc"));
 
         transfer_amount = findViewById(R.id.transfer_amount);
@@ -73,18 +75,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                /*File path = Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES),"web3j");
-               */
 
-
-                try {
-
-                    File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES.toString() +
-                            File.separator + "web3j");
-                    path.mkdir();
-
-                    Web3jClass.getInstance().generateWallet(path);
+                 try {
+                    Web3jTokenTransfer.getInstance().TransferToken();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }*/
 
-              /* Utility.showProcess(MainActivity.this);
+             /*  Utility.showProcess(MainActivity.this);
                  Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
@@ -126,13 +119,22 @@ public class MainActivity extends AppCompatActivity {
                         Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
-                });
-*/
+                });*/
+
               //  Web3jClass.getInstance().TransferTokenEvent();
 
 
 
 
+            }
+        });
+
+
+        btn_createaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+                startActivity(intent);
             }
         });
 

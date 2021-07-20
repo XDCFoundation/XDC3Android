@@ -1,10 +1,11 @@
 package com.xinfin.callback;
 
 import com.xinfin.Model.TokenDetailsResponse;
+import com.xinfin.Model.WalletData;
 
 public interface CreateAccountCallback
 {
-    void success( TokenDetailsResponse tokenApiModel);
+    void success( WalletData walletData);
 
 
 
