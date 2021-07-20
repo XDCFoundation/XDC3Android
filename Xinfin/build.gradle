@@ -18,6 +18,8 @@ buildscript {
 }
 plugins {
     id 'java-library'
+    id "org.web3j" version "4.8.4"
+
 }
 
 java {

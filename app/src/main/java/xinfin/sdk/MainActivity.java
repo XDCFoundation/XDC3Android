@@ -77,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
 
 
                  try {
-                    Web3jTokenTransfer.getInstance().TransferToken();
+                    Web3jTokenTransfer.getInstance().transferERC20Token();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
 
-                /* try {
+               /*  try {
                     Web3jClass.getInstance().approve();
                 } catch (Exception e) {
                     e.printStackTrace();

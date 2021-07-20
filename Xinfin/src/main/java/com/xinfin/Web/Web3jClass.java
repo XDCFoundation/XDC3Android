@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
@@ -315,6 +316,7 @@ public class Web3jClass {
                 humanStandardToken = null;
                 try {
 
+
 /*
                     HumanStandardToken contract = HumanStandardToken
 
@@ -366,14 +368,14 @@ public class Web3jClass {
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
-                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY_APPROVE);
+                Credentials creds = org.web3j.crypto.Credentials.create("0xe258e6b92739236070ca1baf6ee4ae63203237fec29249a96d122f24f18f7ded");
                 javaToken = null;
                 try {
-                    javaToken = ERC20.load(AppConstants.APPROVE_contract, web3, creds, new DefaultGasProvider());
+                    javaToken = ERC20.load("0xd3d1ea96362d2660d38c749c196370b5619a3620", web3, creds, new DefaultGasProvider());
                     // TransactionReceipt transfer = javaToken.transferFrom(AppConstants.FROM_ADDRESS, AppConstants.TO_ADDRESS, BigInteger.valueOf(10000)).send();
 
 
-                    TransactionReceipt transactionReceipt = javaToken.approve(AppConstants.APPROVE_SENDER, BigInteger.valueOf(1000)).send();
+                    CompletableFuture<TransactionReceipt> transactionReceipt = javaToken.approve("0x73585ae0c1aa818db5f360ed734ffad68d9b2ef8", BigInteger.valueOf(123)).sendAsync();
 
 
                     // ArrayList<ERC20.TransferEventResponse> responses = (ArrayList<ERC20.TransferEventResponse>) javaToken.getTransferEvents(transfer);
