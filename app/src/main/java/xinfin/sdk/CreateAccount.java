@@ -1,71 +1,91 @@
 package xinfin.sdk;
 
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xinfin.Model.WalletData;
-import com.xinfin.Web.Web3jClass;
-import com.xinfin.callback.CreateAccountCallback;
+import android.os.Bundle;
 
-import java.io.File;
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGasPrice;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Numeric;
+
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.ExecutionException;
+
+import xinfin.sdk.constants.AppConstants;
 
 public class CreateAccount extends AppCompatActivity {
-    EditText edt_password;
-    Button btn_createacc;
-    TextView txt_info;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-        edt_password = (EditText) findViewById(R.id.edt_password);
-        btn_createacc = (Button) findViewById(R.id.btn_createacc);
-        txt_info = (TextView) findViewById(R.id.txt_info);
+        try {
+            transferERC20Token();
+        } catch (ExecutionException | IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-        btn_createacc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edt_password.getText().toString().length() > 0) {
-                    try {
+    public static String transferERC20Token() throws ExecutionException, InterruptedException, IOException {
+        Web3j web3j = Web3j.build(new HttpService(AppConstants.BASE_URL));
+        // Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create("0xe258e6b92739236070ca1baf6ee4ae63203237fec29249a96d122f24f18f7ded");
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount("0x32f158af29c171392a1ff35a7387583ff4959053", DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3j.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+//        value = value.multiply(VALUE);
+        Function function = new Function(
+                "transfer",
+                Arrays.asList(new Address("0x73585ae0c1aa818db5f360ed734ffad68d9b2ef8"), new Uint256(BigInteger.valueOf(1000))),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));
+        // Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                "0xd3d1ea96362d2660d38c749c196370b5619a3620", encodedFunction);
 
-                        File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES.toString() +
-                                File.separator + "web3j");
-                        path.mkdir();
-
-                        Web3jClass.getInstance().generateWallet(path, edt_password.getText().toString(), new CreateAccountCallback() {
-                            @Override
-                            public void success(WalletData walletData) {
-
-                                txt_info.setText("Account address: " + walletData.getAccountAddress() + "\n" + "privateKey: " + walletData.getPrivateKey());
-                            }
-
-                            @Override
-                            public void failure(Throwable t) {
-                                txt_info.setText(t.getMessage());
-                            }
-
-                            @Override
-                            public void failure(String message) {
-                                txt_info.setText(message);
-
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(CreateAccount.this, "Please Enter Password", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
     }
 }

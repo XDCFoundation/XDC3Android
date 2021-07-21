@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         transfer_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TransferAmount.class);
+                Intent intent = new Intent(MainActivity.this, CreateAccount.class);
                 startActivity(intent);
             }
         });
