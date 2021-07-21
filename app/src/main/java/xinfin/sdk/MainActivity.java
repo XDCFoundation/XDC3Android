@@ -2,8 +2,8 @@ package xinfin.sdk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,28 +17,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.TokenTransferResponse;
-import com.xinfin.Web.AppConstants;
 import com.xinfin.Web.Web3jClass;
+import com.xinfin.Web.Web3jTokenTransfer;
 import com.xinfin.callback.TokenDetailCallback;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import xinfin.sdk.model.api.ResultDataResponseModel;
-import xinfin.sdk.model.api.app.ApiTransferResponseModel;
-import xinfin.sdk.transfer.presenter.ITransferNowPresenter;
-import xinfin.sdk.transfer.presenter.TransferPresenter;
-import xinfin.sdk.transfer.view.ITransferView;
 import xinfin.sdk.utils.Utility;
 
 
-public class MainActivity extends AppCompatActivity implements ITransferView {
+public class MainActivity extends AppCompatActivity {
 
-    private Button submit_button;
-    private ITransferNowPresenter iTransferNowPresenter;
+    private Button submit_button,btn_createaccount;
     String token_address, xdcAddress;
     Button transfer_amount;
     AutoCompleteTextView tokenAutoTV;
@@ -51,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements ITransferView {
 
         token_address = "0x847aefb3d207e69749e970f8574743a4f388b6f2";
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
+        btn_createaccount = (Button)findViewById(R.id.btn_createaccount);
         enterXdcAddress.setText(token_address.replace("0x", "xdc"));
 
         transfer_amount = findViewById(R.id.transfer_amount);
@@ -77,20 +70,32 @@ public class MainActivity extends AppCompatActivity implements ITransferView {
 
         submit_button = findViewById(R.id.submit);
 
-        initPresenter();
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
 
-                transferValue();
-                /*try {
+
+                 try {
+                    Web3jTokenTransfer.getInstance().TransferToken();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                /* try {
+                    Web3jClass.getInstance().approve();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+
+               /* try {
                     Web3jClass.getInstance().tranferfrom();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }*/
 
-               Utility.showProcess(MainActivity.this);
+             /*  Utility.showProcess(MainActivity.this);
                  Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
@@ -114,9 +119,9 @@ public class MainActivity extends AppCompatActivity implements ITransferView {
                         Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
 
-               // Web3jClass.getInstance().TransferTokenEvent();
+              //  Web3jClass.getInstance().TransferTokenEvent();
 
 
 
@@ -125,24 +130,17 @@ public class MainActivity extends AppCompatActivity implements ITransferView {
         });
 
 
-    }
+        btn_createaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+                startActivity(intent);
+            }
+        });
 
-
-    public void transferValue()
-    {
-        Log.e("gettransfer","gettransfer");
-        Map<String, String> requestData = new HashMap<>();
-        requestData.put("module", "status");
-        requestData.put("action", "tokentransfers");
-        requestData.put("contractaddress", "xdcd18fF933268b05eb7ff6107e9DC169cBF783632c");
-
-        iTransferNowPresenter.TransferApi(this, requestData);
 
     }
 
-    private void initPresenter() {
-        iTransferNowPresenter = new TransferPresenter(this);
-    }
 
     private void initUI() {
         //UI reference of textView
@@ -185,15 +183,5 @@ public class MainActivity extends AppCompatActivity implements ITransferView {
         return address;
     }
 
-    @Override
-    public void onTransferFailure(String failure) {
-        Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onTransferSuccess(List<ResultDataResponseModel> getTransfer) {
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-        getTransfer.size();
-    }
 
 }

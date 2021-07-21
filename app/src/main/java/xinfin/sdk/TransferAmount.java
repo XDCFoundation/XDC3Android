@@ -79,7 +79,7 @@ public class TransferAmount extends AppCompatActivity {
 
                    Utility.showProcess(TransferAmount.this);
 
-                    Web3jClass.getInstance().TransferToken(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString()), new TokenTransferCallback() {
+                    Web3jClass.getInstance().TransferXdc(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString()), new TokenTransferCallback() {
 
 
                         @Override
