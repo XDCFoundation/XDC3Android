@@ -63,7 +63,8 @@ public class Web3jClass {
                 HttpService(AppConstants.BASE_URL));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (!clientVersion.hasError())
+            {
                 //Connected
                 return true;
             } else {
