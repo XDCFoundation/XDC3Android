@@ -2,13 +2,7 @@ package com.xinfin.Web;
 
 import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.TokenTransferResponse;
-import com.xinfin.Model.TransactionResponse;
-import com.xinfin.Model.WalletData;
-import com.xinfin.callback.CreateAccountCallback;
-import com.xinfin.callback.TokenDetailCallback;
-import com.xinfin.callback.TokenTransferCallback;
 import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
-import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.HumanStandardToken;
 
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
@@ -16,14 +10,10 @@ import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.crypto.Bip39Wallet;
-import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
-import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletFile;
-import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
@@ -37,12 +27,10 @@ import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -50,7 +38,6 @@ public class Web3jTokenTransfer {
     Web3j web3;
     public static Web3jTokenTransfer instance;
     ERC20 javaToken;
-    HumanStandardToken humanStandardToken;
     BigInteger allowance, decimal, totalSupply, balance;
     String symbol, name;
     TokenDetailsResponse tokenResponse;
@@ -374,6 +361,140 @@ public class Web3jTokenTransfer {
         if (hash != null) {
             return hash;
         }
+        return null;
+    }
+
+
+
+    public  String transferfrom() throws Exception {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create("0xe258e6b92739236070ca1baf6ee4ae63203237fec29249a96d122f24f18f7ded");
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount("0x32f158af29c171392a1ff35a7387583ff4959053", DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+
+        ERC20 javaToken = ERC20.load("0xd3d1ea96362d2660d38c749c196370b5619a3620", web3, credentials, new DefaultGasProvider());
+       BigInteger allowance = javaToken.allowance("0x32f158af29c171392a1ff35a7387583ff4959053", "0x73585ae0c1aa818db5f360ed734ffad68d9b2ef8").send();
+
+      //  allowance = allowance.subtract( BigInteger.valueOf(123)) ;
+       /* Function function = new Function(
+                "transferFrom",
+                Arrays.asList(new Address("0x32f158af29c171392a1ff35a7387583ff4959053"), new Uint256(1)),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));*/
+
+
+
+
+        final Function function = new Function(
+                "transferFrom",
+                Arrays.<Type>asList(new Address("0x32f158af29c171392a1ff35a7387583ff4959053"),
+                        new Address("0x704f3519945c036c453b601549100bd9015ba4bc"),
+                        new Uint256(BigInteger.valueOf(10))),
+                Collections.<TypeReference<?>>emptyList());
+
+
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                "0xd3d1ea96362d2660d38c749c196370b5619a3620", encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
+
+
+    public  String getallownce() throws Exception {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create("0xe258e6b92739236070ca1baf6ee4ae63203237fec29249a96d122f24f18f7ded");
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount("0x32f158af29c171392a1ff35a7387583ff4959053", DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+
+        ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                "0x32f158af29c171392a1ff35a7387583ff4959053");
+
+        ERC20 javaToken = ERC20.load("0xd3d1ea96362d2660d38c749c196370b5619a3620", web3, transactionManager, new DefaultGasProvider());
+        BigInteger allowance = javaToken.allowance("0x32f158af29c171392a1ff35a7387583ff4959053", "0x73585ae0c1aa818db5f360ed734ffad68d9b2ef8").send();
+
+
+        System.out.println(allowance+"");
+        //  allowance = allowance.subtract( BigInteger.valueOf(123)) ;
+       /* Function function = new Function(
+                "transferFrom",
+                Arrays.asList(new Address("0x32f158af29c171392a1ff35a7387583ff4959053"), new Uint256(1)),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));*/
+
+
+
+
+    /*    final Function function = new Function(
+                "transferFrom",
+                Arrays.<Type>asList(new Address("0x32f158af29c171392a1ff35a7387583ff4959053"),
+                        new Address("0x704f3519945c036c453b601549100bd9015ba4bc"),
+                        new Uint256(BigInteger.valueOf(10))),
+                Collections.<TypeReference<?>>emptyList());
+
+
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                "0xd3d1ea96362d2660d38c749c196370b5619a3620", encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }*/
         return null;
     }
 
