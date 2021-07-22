@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e68383a4-64b7-4352-ad15-71c76747558d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/androidTest/java/xinfin/sdk_android/ExampleInstrumentedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/CreateAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/Details.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/TransferAmount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/api/ApiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/api/ApiTransactionResponseModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/api/TransactionApiMAnager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/constants/AppConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/java/xinfin/sdk_android/utils/Utility.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable/edit_text_border.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable/edit_text_border1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable/ic_back.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable/ic_group_194.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable/ic_xdc_dropdown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/drawable/ic_xdc_icon.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/layout/activity_create_account.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/layout/activity_details.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/layout/activity_transfer_amount.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/src/test/java/xinfin/sdk_android/ExampleUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/consumer-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/androidTest/java/xinfin/sdk/ExampleInstrumentedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Model/TokenDetailsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Model/TokenTransferResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Model/TransactionResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Model/WalletData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Web/AppConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Web/Web3jClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Web/Web3jClassdemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/Web/Web3jTokenTransfer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/callback/CreateAccountCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/callback/TokenDetailCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/callback/TokenTransferCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/scripts/generateWrappers.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/java/org/web3j/contracts/eip165/generated/ERC165.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/java/org/web3j/contracts/eip20/generated/ERC20.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/java/org/web3j/contracts/eip20/generated/ERCWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/java/org/web3j/contracts/eip20/generated/HumanStandardToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/java/org/web3j/contracts/eip721/generated/ERC721.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/java/org/web3j/contracts/eip721/generated/ERC721Enumerable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/java/org/web3j/contracts/eip721/generated/ERC721Metadata.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/resources/eip165/solidity/ERC165.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/resources/eip20/solidity/ERC20.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/resources/eip721/solidity/ERC721.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/resources/eip721/solidity/ERC721Enumerable.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/main/java/xinfin/sdk/contracts/src/main/resources/eip721/solidity/ERC721Metadata.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/xinfin_sdk/src/test/java/xinfin/sdk/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Xinfin_Sdk_Android" />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Android Library (SDK)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Android Library (SDK)" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1626949480409">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1626949480409" />
+  </component>
+</project>
