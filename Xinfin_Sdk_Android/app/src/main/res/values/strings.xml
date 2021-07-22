@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Xinfin SDK</string>
+    <string name="xdc3_android">XDC.Android</string>
+    <string name="enter_xdc_address_here">Enter XDC Address Here</string>
+    <string name="or">or</string>
+    <string name="submit">Submit</string>
+    <string name="todo">TODO</string>
+    <string name="xdc_address">XDC Address</string>
+    <string name="xdc_address_entered">xdc_address_entered</string>
+    <string name="name">Name:</string>
+    <string name="symbol">Symbol:</string>
+    <string name="decimals">Decimals:</string>
+    <string name="total_supply">Total Supply:</string>
+    <string name="balance_off">Balance off:</string>
+    <string name="transfer">Transfer:</string>
+    <string name="allowance">Allowance:</string>
+    <string name="approve">Approve:</string>
+    <string name="transfer_from">Transfer From:</string>
+    <string name="increase_allowance">Increase Allowance:</string>
+    <string name="decrease_allowance">Decrease Allowance:</string>
+    <string name="select_an_address">Select an address</string>
+    <string name="select_from_list">Select from list</string>
+    <string name="create">Create</string>
+    <string name="enter_xdc_password">Enter XDC Password</string>
+    <string name="password">Password</string>
+    <string name="new_account">New Account</string>
+    <string name="send">Send</string>
+    <string name="enter_private_key_here">Enter Private Key here</string>
+    <string name="receiver_address">Receiver Address:</string>
+    <string name="sender_address">Sender Address:</string>
+    <string name="private_key">Private Key:</string>
+    <string name="value">Value:</string>
+    <string name="error_empty">This field cannot be empty</string>
+
+
+
+    <string name="test_add">0x046550ba1d12a302e78996ce7c5d54cf66be0e9c</string>
+    <string name="gasprice">4000004</string>
+    <string name="gaslimit">50005</string>
+    <string name="value_transfer">1000000000000000000</string>
+    <string name="privatekeytransfer">0xd596a485cebc97afc2f114286599ff5ac7d62ee907b9543a290a994c6b1de9fb</string>
+    <string name="sender_add">0xff55cb8c656a4e94b4151df9bfb88cc069ceb3e1</string>
+    <string name="receiver_add">0x63b32225813a3f2b877d77094d25f7ce6653b4b5</string>
+</resources>
