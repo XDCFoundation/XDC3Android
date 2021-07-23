@@ -11,445 +11,853 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/background">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/background">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
-            android:layout_marginTop="28dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:contentDescription="@string/todo" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="28dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_back" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_xdc_icon"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/todo" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_xdc_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="20dp"
+                android:text="@string/xdc3_android"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/xdc_address"
+            android:textColor="@color/header"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/xdc_address_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_text_border"
+            android:padding="15dp"
+            android:textColor="@color/background"
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/edt_privatekey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight=".3"
+                android:background="@drawable/edit_text_border"
+                android:hint="@string/enter_key"
+                android:padding="15dp"
+                android:textColor="@color/background"
+                android:textColorHint="@color/hint"
+                android:textIsSelectable="true"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight=".7"
+                android:backgroundTint="@color/background"
+                android:gravity="center"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:text="@string/check_address"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="11dp"
+                android:text="Sender Address : "
+                android:textColor="@color/header"
+                android:layout_weight="0.65"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/text_contract_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.35"
+                android:textStyle="bold"
+                android:text=""
+                android:textIsSelectable="true"
+                android:maxLines="2"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="11dp"
+                android:textColor="@color/background"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/xdc3_android"/>
+            android:background="@drawable/edit_text_border1"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/xdc_address"
-        android:textColor="@color/header"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:layout_marginLeft="16dp" />
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/name"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_marginStart="20dp"
-        android:id="@+id/xdc_address_value"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/edit_text_border"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="7dp"
-        android:textColor="@color/background"
-        android:textSize="16sp"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text_border1">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:id="@+id/name"
-        android:textColor="@color/header"
-        android:layout_marginTop="17dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="11dp"
-        android:text="@string/name"
-        android:layout_marginStart="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/name_value"
-            android:layout_marginLeft="25dp"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-           android:layout_toRightOf="@+id/name"
-            android:layout_marginBottom="11dp"
-            android:text="-" />
+                <TextView
+                    android:id="@+id/name_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_toRightOf="@+id/name"
+                    android:text="-"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
 
-        <View
+            <View
+                android:id="@+id/name_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/symbol"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/symbol_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_toRightOf="@+id/symbol"
+                    android:text="-"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/symbol_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/decimals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/symbol_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/decimals"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/decimals_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/symbol_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_toRightOf="@id/decimals"
+                    android:text="-"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/decimals_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/decimals"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/total_supply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/decimals_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/total_supply"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/total_supply_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/decimals_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_toRightOf="@+id/total_supply"
+                    android:text="-"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/total_supply_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/total_supply"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/allowance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/transfer_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="@string/allowance"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/allowance_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/transfer_divider"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@+id/allowance"
+
+                        android:padding="5dp"
+                        android:text="-"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_weight=".75"
+                        android:text="@string/owner"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_allownce_owner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:layout_weight=".2"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="@string/owner_add"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_weight=".75"
+                        android:text="@string/spender"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_allownce_spender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:layout_weight=".2"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="@string/spender_add"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit_allownce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight=".7"
+                    android:backgroundTint="@color/background"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/allowance_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/allowance"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/balance_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="@string/balance_off"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/balance_off_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:text="-"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/balance_spenfer_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="@string/spender"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_balance_spender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="@string/spender_add"
+                        android:padding="5dp"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit_balanceof"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight=".7"
+                    android:backgroundTint="@color/background"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/name_divider"
-            android:layout_below="@+id/name"
-            android:background="@color/divider"/>
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_below="@+id/name_divider"
-            android:id="@+id/symbol"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/symbol"
-            android:layout_marginStart="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_below="@+id/name_divider"
-            android:id="@+id/symbol_value"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="11dp"
-            android:layout_toRightOf="@+id/symbol"
-            android:text="-"
-            android:layout_marginStart="20dp" />
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/edit_text_border1"
+            android:orientation="vertical"></LinearLayout>
 
 
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/symbol_divider"
-            android:layout_below="@+id/symbol"
-            android:background="@color/divider"/>
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/decimals"
-            android:layout_below="@+id/symbol_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/decimals"
-            android:layout_marginStart="20dp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_border1"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/decimals_value"
-            android:layout_below="@+id/symbol_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_toRightOf="@id/decimals"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_marginStart="20dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <View
+                <TextView
+                    android:id="@+id/approve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/transfer_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/approve"
+                    android:textStyle="bold"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/approve_trasactonhash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/allowance"
+                    android:hint="trasaction Hash"
+                    android:padding="5dp"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/spender"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_approve_spender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/spender_add"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/value"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_value_approve"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/value"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submit_approve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight=".7"
+                android:backgroundTint="@color/background"
+                android:gravity="center"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/decimals_divider"
-            android:layout_below="@+id/decimals"
-            android:background="@color/divider"/>
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/total_supply"
-            android:layout_below="@+id/decimals_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/total_supply"
-            android:layout_marginStart="20dp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_border1"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/total_supply_value"
-            android:layout_below="@+id/decimals_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/total_supply"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_marginStart="20dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/total_supply_divider"
-            android:layout_below="@+id/total_supply"
-            android:background="@color/divider"/>
+                <TextView
+                    android:id="@+id/transfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/transfer_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/transfer"
+                    android:textStyle="bold"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/balance_off"
-            android:layout_below="@+id/total_supply_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/balance_off"
-            android:layout_marginStart="20dp" />
+                <TextView
+                    android:id="@+id/transfer_trasactonhash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/balance_off_value"
-            android:layout_below="@+id/total_supply_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/balance_off"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_marginStart="20dp" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/allowance"
+                    android:hint="trasaction Hash"
+                    android:padding="5dp"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/balance_off_divider"
-            android:layout_below="@+id/balance_off"
-            android:background="@color/divider"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/transfer"
-            android:layout_below="@+id/balance_off_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/transfer"
-            android:layout_marginStart="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/transfer_value"
-            android:layout_below="@+id/balance_off_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/transfer"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_marginStart="20dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/transfer_divider"
-            android:layout_below="@+id/transfer"
-            android:background="@color/divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/allowance"
-            android:layout_below="@+id/transfer_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/allowance"
-            android:layout_marginStart="20dp" />
+                <TextView
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/allowance_value"
-            android:layout_below="@+id/transfer_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/allowance"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_marginStart="20dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="To"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/allowance_divider"
-            android:layout_below="@+id/allowance"
-            android:background="@color/divider"/>
+                <EditText
+                    android:id="@+id/edt_transfer_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/receiver_address"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/approve"
-            android:layout_below="@+id/allowance_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/approve"
-            android:layout_marginStart="20dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/approve_value"
-            android:layout_below="@+id/allowance_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/approve"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_marginStart="20dp" />
+                <TextView
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/approve_divider"
-            android:layout_below="@+id/approve"
-            android:background="@color/divider"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/value"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/transfer_from"
-            android:layout_below="@+id/approve_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/transfer_from"
-            android:layout_marginStart="20dp" />
+                <EditText
+                    android:id="@+id/edt_value_transfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/value"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/transfer_from_value"
-            android:layout_below="@+id/approve_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_toRightOf="@+id/transfer_from"
-            android:layout_marginStart="20dp" />
+            <Button
+                android:id="@+id/submit_transfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight=".7"
+                android:backgroundTint="@color/background"
+                android:gravity="center"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/transfer_from_divider"
-            android:layout_below="@+id/transfer_from"
-            android:background="@color/divider"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/increase_allowance"
-            android:layout_below="@+id/transfer_from_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/increase_allowance"
-            android:layout_marginStart="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/increase_allowance_value"
-            android:layout_below="@+id/transfer_from_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/increase_allowance"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_marginStart="20dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/increase_allowance_divider"
-            android:layout_below="@+id/increase_allowance"
-            android:background="@color/divider"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/decrease_allowance"
-            android:layout_below="@+id/increase_allowance_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/decrease_allowance"
-            android:layout_marginStart="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:id="@+id/decrease_allowance_value"
-            android:layout_below="@+id/increase_allowance_divider"
-            android:textColor="@color/header"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="11dp"
-            android:text="-"
-            android:layout_toRightOf="@+id/decrease_allowance"
-            android:layout_marginStart="20dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/decrease_allowance_divider"
-            android:layout_below="@+id/decrease_allowance"
-            android:background="@color/divider"/>
-
-    </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

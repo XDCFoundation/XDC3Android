@@ -134,6 +134,38 @@ public class Web3jClass {
     }
 
 
+    public String getContractAddress(String Privatekey)
+    {
+
+        if(isWeb3jConnected())
+        {
+            try {
+                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
+                if( creds.getAddress()!=null && creds.getAddress().length()>0)
+                {
+                    return  creds.getAddress();
+                }
+                else
+                {
+                    return "Please Enter Valid private key";
+                }
+            }
+            catch (Exception e)
+            {
+                return e.getMessage();
+
+            }
+
+                }
+        else
+        {
+            return "Please check your Connection" ;
+        }
+
+    }
+
+
+
     public void getTokenoinfo(String token_address, TokenDetailCallback tokenDetailCallback) {
 
         web3 = Web3j.build(new
@@ -143,7 +175,7 @@ public class Web3jClass {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
                 Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
-                javaToken = null;
+
                 try {
                     javaToken = ERC20.load(token_address, web3, creds, new DefaultGasProvider());
                     getinfo(javaToken, token_address, tokenDetailCallback);
@@ -164,6 +196,34 @@ public class Web3jClass {
             tokenDetailCallback.failure(e.getMessage());
 //Show Error
 
+        }
+
+
+    }
+
+
+    public String getAllowance(String token_address ,String owner_address,String spender_address)
+    {
+
+        if(isWeb3jConnected())
+        {
+
+            ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                    owner_address);
+            javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            try {
+                allowance = javaToken.allowance(owner_address, spender_address).send();
+                return String.valueOf(allowance);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+
+
+        }
+        else
+        {
+            return "check your connection";
         }
 
 

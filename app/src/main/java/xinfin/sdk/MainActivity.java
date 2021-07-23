@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
             {
 
 
-                 try {
-                    Web3jTokenTransfer.getInstance().getallownce();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                 try {
+//                    Web3jTokenTransfer.getInstance().getallownce();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 
 
               /*   try {
@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }*/
-
-            /* Utility.showProcess(MainActivity.this);
+                Utility.showProcess(MainActivity.this);
                  Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                         Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
-                });*/
+                });
 
               //  Web3jClass.getInstance().TransferTokenEvent();
 
