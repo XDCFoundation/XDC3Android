@@ -4,25 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
+    <expand />
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e68383a4-64b7-4352-ad15-71c76747558d" name="Default Changelist" comment="" />
+    <list default="true" id="e68383a4-64b7-4352-ad15-71c76747558d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/release/app-release.apk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/release/output-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Xinfin_Sdk_Android/app/xinfin.jks" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +31,11 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Xs-8385" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1vhkXsJxjP6Zx88YwX3hRm5Qem3" />
@@ -84,9 +79,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="Android Library (SDK)" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1627021786798">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1627027532099">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1627021786798" />
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1627027532099" />
   </component>
 </project>
