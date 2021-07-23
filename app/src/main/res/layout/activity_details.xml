@@ -128,7 +128,7 @@
                 android:layout_weight="0.65"
                 android:textSize="16sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/text_contract_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,6 +141,8 @@
                 android:text=""
                 android:textIsSelectable="true"
                 android:maxLines="2"
+                android:padding="7dp"
+                android:background="@drawable/edit_text_border"
                 android:layout_marginTop="17dp"
                 android:layout_marginBottom="11dp"
                 android:textColor="@color/background"
@@ -382,10 +384,11 @@
                         android:layout_gravity="center_vertical"
                         android:layout_margin="5dp"
                         android:layout_toRightOf="@+id/balance_off"
-                        android:layout_weight=".2"
+                        android:layout_weight=".25"
                         android:background="@drawable/edit_text_border"
                         android:hint="@string/owner_add"
                         android:padding="5dp"
+
                         android:singleLine="true"
                         android:textColor="@color/header"
                         android:textColorHint="@color/hint"
@@ -420,7 +423,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_margin="5dp"
                         android:layout_toRightOf="@+id/balance_off"
-                        android:layout_weight=".2"
+                        android:layout_weight=".25"
                         android:background="@drawable/edit_text_border"
                         android:hint="@string/spender_add"
                         android:padding="5dp"
@@ -609,7 +612,8 @@
                     android:layout_toRightOf="@+id/allowance"
                     android:hint="trasaction Hash"
                     android:padding="5dp"
-                    android:textColor="@color/header"
+                    android:textColor="@color/background"
+                    android:textIsSelectable="true"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -836,6 +840,182 @@
 
             <Button
                 android:id="@+id/submit_transfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight=".7"
+                android:backgroundTint="@color/background"
+                android:gravity="center"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_border1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/transfer_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/increase_allowance"
+                    android:textStyle="bold"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_increase_allow_trasactonhash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/allowance"
+                    android:hint="trasaction Hash"
+                    android:padding="5dp"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/owner"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_increase_owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/owner_add"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/spender"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_increase_spender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/spender_add"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/value"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_increase_allownce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/value"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submit_increase_Allownce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

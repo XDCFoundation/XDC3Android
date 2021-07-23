@@ -9,6 +9,12 @@ import com.xinfin.callback.TokenDetailCallback;
 import com.xinfin.callback.TokenTransferCallback;
 import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
 
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.crypto.Bip39Wallet;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
@@ -19,6 +25,7 @@ import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -32,10 +39,11 @@ import org.web3j.utils.Numeric;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
 
 
 public class Web3jClass {
@@ -363,6 +371,55 @@ public class Web3jClass {
     }
 
 
+
+    public  String approveERC20Token(String token_address, String private_key,String owner_address, String spender_address, String value) throws ExecutionException, InterruptedException, IOException {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create(private_key);
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        //token owner - wallet
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(owner_address, DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+        //receiver wallet address
+        org.web3j.abi.datatypes.Function function = new Function(
+                "approve",
+                Arrays.asList(new Address(spender_address), new Uint256(BigInteger.valueOf(10))),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        //token address
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                token_address, encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
 
 
 }
