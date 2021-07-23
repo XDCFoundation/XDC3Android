@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import xinfin.sdk.Model.TokenDetailsResponse;
 import xinfin.sdk.Web.Web3jClass;
+import xinfin.sdk.Web.Web3jTokenTransfer;
 import xinfin.sdk.callback.TokenDetailCallback;
 import xinfin.sdk_android.utils.Utility;
 
@@ -69,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
             {
 
 
-               /*  try {
-                    Web3jTokenTransfer.getInstance().decreaseAllownce();
+                try {
+                    Web3jTokenTransfer.getInstance().getallownce();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }*/
+                }
 
 
               /*   try {
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }*/
 
-                Utility.showProcess(MainActivity.this);
-                Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+            /* Utility.showProcess(MainActivity.this);
+                 Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
 
                 //  Web3jClass.getInstance().TransferTokenEvent();
 
