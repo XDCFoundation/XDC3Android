@@ -8,6 +8,9 @@ public class AppConstants {
 
     public static final String BASE_URL = "https://rpc.apothem.network/";
 
+//    https://rinkeby.infura.io/v3/b2f4b3f635d8425c96854c3d28ba6bb0
+// 0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2
+
     public static final String FROM_ADDRESS = "0xff55cb8c656a4e94b4151df9bfb88cc069ceb3e1";
 
     public static final String TO_ADDRESS = "0x63b32225813a3f2b877d77094d25f7ce6653b4b5";

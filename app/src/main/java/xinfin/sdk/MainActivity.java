@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
             {
 
 
-                 try {
-                    Web3jTokenTransfer.getInstance().TransferToken();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                 try {
+//                    Web3jTokenTransfer.getInstance().TransferToken();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 
 
                 /* try {
@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }*/
 
-             /*  Utility.showProcess(MainActivity.this);
-                 Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+               Utility.showProcess(MainActivity.this);
+                 Web3jClass.getInstance().getBalance("0x161cDB7F674eF7C4c8B09b83FB6342A12f1A12c2", new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
-                });*/
+                });
 
               //  Web3jClass.getInstance().TransferTokenEvent();
 
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
 
 
-                token_address = adapter.getItem(position).toString();
+//                token_address = adapter.getItem(position).toString();
 
             }
         });
