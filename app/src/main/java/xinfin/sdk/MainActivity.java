@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 }*/
 
                Utility.showProcess(MainActivity.this);
-                 Web3jClass.getInstance().getBalance("0x161cDB7F674eF7C4c8B09b83FB6342A12f1A12c2", new TokenDetailCallback() {
+                 Web3jClass.getInstance().getSupportInterface("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {

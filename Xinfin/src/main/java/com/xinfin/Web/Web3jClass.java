@@ -7,6 +7,7 @@ import com.xinfin.Model.WalletData;
 import com.xinfin.callback.CreateAccountCallback;
 import com.xinfin.callback.TokenDetailCallback;
 import com.xinfin.callback.TokenTransferCallback;
+import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip165.generated.ERC165;
 import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
 import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.HumanStandardToken;
 import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip721.generated.ERC721;
@@ -46,6 +47,7 @@ public class Web3jClass {
     public static Web3jClass instance;
     ERC721Metadata javaToken;
     ERC721 javaToken1;
+    ERC165 javaToken2;
     HumanStandardToken humanStandardToken;
     BigInteger allowance, decimal, totalSupply, balance;
     String symbol, name,tokenUri;
@@ -141,18 +143,19 @@ public class Web3jClass {
 
         web3 = Web3j.build(new
 
-                HttpService("https://rinkeby.infura.io/v3/b2f4b3f635d8425c96854c3d28ba6bb0"));
+                HttpService(AppConstants.BASE_URL));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
-                        "0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2");
+                        "0x301815025bd43513ec36b6c6159ebaa8dff5e36d");
 //                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
                 javaToken = null;
                 try {
-                    javaToken = ERC721Metadata.load("0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2", web3, transactionManager, new DefaultGasProvider());
+                    javaToken = ERC721Metadata.load("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", web3, transactionManager, new DefaultGasProvider());
                     String name = javaToken.name().send();
-                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
+                    String tokenUri = javaToken.tokenURI(BigInteger.valueOf(21)).send();
+                    getinfo(javaToken,"0x301815025bd43513ec36b6c6159ebaa8dff5e36d" , tokenDetailCallback);
                     // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
                     // return getinfo(javaToken, token_address);
                 } catch (Exception exception) {
@@ -179,20 +182,64 @@ public class Web3jClass {
 
         web3 = Web3j.build(new
 
-                HttpService("https://rinkeby.infura.io/v3/b2f4b3f635d8425c96854c3d28ba6bb0"));
+                HttpService(AppConstants.BASE_URL));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
-                        "0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2");
+                        "0x301815025bd43513ec36b6c6159ebaa8dff5e36d");
 //                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
                 javaToken1 = null;
                 try {
-                    javaToken1 = ERC721.load("0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2", web3, transactionManager, new DefaultGasProvider());
+                    javaToken1 = ERC721.load("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", web3, transactionManager, new DefaultGasProvider());
 //                    String name = javaToken.name().send();
 //                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
-                  RemoteCall<BigInteger> balance =   javaToken1.balanceOf("0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2");
+                  BigInteger balance =   javaToken1.balanceOf("0xd7813e7cfdf83d6fa3469d7411b52a50ed2b867f").send();
+                    String ownerOf =   javaToken1.ownerOf(BigInteger.valueOf(21)).send();
 
+
+                    // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
+                    // return getinfo(javaToken, token_address);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    tokenDetailCallback.failure(exception.getMessage());
+                }
+
+            } else {
+
+                //Show Error
+                tokenDetailCallback.failure("Connection has been failed");
+            }
+        } catch (
+                Exception e) {
+            tokenDetailCallback.failure(e.getMessage());
+//Show Error
+
+        }
+
+
+    }
+
+    public void getSupportInterface(String s, TokenDetailCallback tokenDetailCallback) {
+
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        try {
+            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+            if (!clientVersion.hasError()) {
+                ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                        "0x301815025bd43513ec36b6c6159ebaa8dff5e36d");
+//                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
+                javaToken2 = null;
+                try {
+                    ERC165 javaToken2 = ERC165.load("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", web3, transactionManager, new DefaultGasProvider());
+//                    String name = javaToken.name().send();
+//                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
+                    String s1="0x80ac58cd";
+                    byte[] b = new BigInteger(s1,16).toByteArray();
+                    Boolean supportInterface =   javaToken2.supportsInterface(b).send();
+                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
 
                     // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
                     // return getinfo(javaToken, token_address);
