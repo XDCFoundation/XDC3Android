@@ -2,6 +2,12 @@ package xinfin.sdk.Web;
 
 
 
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.crypto.Bip39Wallet;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
@@ -12,6 +18,7 @@ import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -25,10 +32,11 @@ import org.web3j.utils.Numeric;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
 
 import xinfin.sdk.Model.TokenDetailsResponse;
 import xinfin.sdk.Model.TokenTransferResponse;
@@ -135,6 +143,38 @@ public class Web3jClass {
     }
 
 
+    public String getContractAddress(String Privatekey)
+    {
+
+        if(isWeb3jConnected())
+        {
+            try {
+                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
+                if( creds.getAddress()!=null && creds.getAddress().length()>0)
+                {
+                    return  creds.getAddress();
+                }
+                else
+                {
+                    return "Please Enter Valid private key";
+                }
+            }
+            catch (Exception e)
+            {
+                return e.getMessage();
+
+            }
+
+        }
+        else
+        {
+            return "Please check your Connection" ;
+        }
+
+    }
+
+
+
     public void getTokenoinfo(String token_address, TokenDetailCallback tokenDetailCallback) {
 
         web3 = Web3j.build(new
@@ -144,10 +184,10 @@ public class Web3jClass {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
                 Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
-                javaToken = null;
+
                 try {
                     javaToken = ERC20.load(token_address, web3, creds, new DefaultGasProvider());
-                    getinfo(javaToken, token_address, tokenDetailCallback);
+                    getinfo(javaToken, token_address, tokenDetailCallback,creds.getAddress());
                     // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
                     // return getinfo(javaToken, token_address);
                 } catch (Exception exception) {
@@ -170,9 +210,65 @@ public class Web3jClass {
 
     }
 
-    public void getinfo(ERC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
+
+    public String getAllowance(String token_address ,String owner_address,String spender_address)
+    {
+
+        if(isWeb3jConnected())
+        {
+
+            ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                    owner_address);
+            javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            try {
+                allowance = javaToken.allowance(owner_address, spender_address).send();
+                return String.valueOf(allowance);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+
+
+        }
+        else
+        {
+            return "check your connection";
+        }
+
+
+    }
+
+
+    public String getBalance(String token_address ,String owner_address)
+    {
+
+        if(isWeb3jConnected())
+        {
+
+            ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                    owner_address);
+            javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            try {
+                allowance = javaToken.balanceOf( owner_address).send();
+                return String.valueOf(allowance);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+
+
+        }
+        else
+        {
+            return "check your connection";
+        }
+
+
+    }
+
+    public void getinfo(ERC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback, String owner_address) {
         try {
-            allowance = javaToken.allowance(token_address, "0x2e550836caaa79884f36e78626363f59ca50e96e").send();
+            //allowance = javaToken.allowance(token_address, "0x2e550836caaa79884f36e78626363f59ca50e96e").send();
             balance = javaToken.balanceOf(token_address).send();
             symbol = javaToken.symbol().send();
             totalSupply = javaToken.totalSupply().send();
@@ -184,7 +280,7 @@ public class Web3jClass {
 
 
             tokenResponse = new TokenDetailsResponse();
-            tokenResponse.setAllowance(allowance);
+            tokenResponse.setAllowance(BigInteger.valueOf(0));
             tokenResponse.setBalance(balance);
             tokenResponse.setSymbol(symbol);
             tokenResponse.setTotalSupply(totalSupply);
@@ -304,6 +400,344 @@ public class Web3jClass {
     }
 
 
+
+    public  String approveERC20Token(String token_address, String private_key, String spender_address, String value) throws ExecutionException, InterruptedException, IOException {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create(private_key);
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        //token owner - wallet
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+        //receiver wallet address
+        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                "approve",
+                Arrays.asList(new Address(spender_address), new Uint256(BigInteger.valueOf(Long.parseLong(value)))),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        //token address
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                token_address, encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
+
+    public static String transferERC20Token(String token_address, String private_key, String receiver_add, String value) throws ExecutionException, InterruptedException, IOException {
+        Web3j web3j = Web3j.build(new HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create(private_key);
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3j.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+
+
+
+        BigInteger a
+                = new BigInteger(value);
+        BigInteger b
+                = new BigInteger("1000000000000000000");
+
+        // Using divide() method
+        BigInteger  value_final = a.multiply(b);
+
+        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                "transfer",
+                Arrays.asList(new Address(receiver_add), new Uint256(value_final)),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                token_address, encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
+
+
+
+    public  String increaseAllownce(String owner_Address, String spender_address, String private_key, String value,String token_address) throws Exception {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create(private_key);
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+
+        ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
+        BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
+
+        allowance = allowance.add( BigInteger.valueOf(Long.parseLong(value))) ;
+        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                "approve",
+                Arrays.asList(new Address(spender_address), new Uint256(allowance)),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                token_address, encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
+
+
+    public  String decreaseAllownce(String owner_Address, String spender_address, String private_key, String value,String token_address) throws Exception {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create(private_key);
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(owner_Address, DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+
+        ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
+        BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
+
+        allowance = allowance.subtract( BigInteger.valueOf(Long.parseLong(value))) ;
+        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                "approve",
+                Arrays.asList(new Address(spender_address), new Uint256(allowance)),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                token_address, encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
+
+
+    //                        approved_hash = Web3jClass.getInstance().approveERC20Token("0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd",edt_allownce_spender.getText().toString(),edt_privatekey.getText().toString(),tokenResponse.getSpender_address(),edt_value_approve.getText().toString() );
+    public  String approve(String owner_Address, String spender_address, String private_key, String value,String token_address) throws Exception {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        Credentials credentials = Credentials.create(private_key);
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(owner_Address, DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+
+        // ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
+        //BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
+
+        // allowance = allowance.subtract( BigInteger.valueOf(Long.parseLong(value))) ;
+        org.web3j.abi.datatypes.Function function = null;
+        try {
+            function = new org.web3j.abi.datatypes.Function(
+                    "approve",
+                    Arrays.asList(new Address(spender_address), new Uint256(Long.parseLong(value))),
+                    Collections.singletonList(new TypeReference<Type>() {
+                    }));
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                token_address, encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
+
+
+    public  String transferfrom(String spender_address, String to_address, String private_key, String value, String token_Address) throws Exception {
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        //Load the required documents for the transfer, with the private key
+        //spender privatekey
+        Credentials credentials = Credentials.create(private_key);
+        // Get nonce, the number of transactions
+        BigInteger nonce;
+        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+        if (ethGetTransactionCount == null) {
+            return null;
+        }
+        nonce = ethGetTransactionCount.getTransactionCount();
+        //gasPrice and gasLimit can be set manually
+        BigInteger gasPrice;
+        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+        if (ethGasPrice == null) {
+            return null;
+        }
+        gasPrice = ethGasPrice.getGasPrice();
+        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        //ERC20 token contract method
+        // value = value.multiply(value);
+
+        /*ERC20 javaToken = ERC20.load(token_Address, web3, credentials, new DefaultGasProvider());
+        BigInteger allowance = javaToken.allowance(token_owner, spender_address).send();
+*/
+
+
+
+        //  allowance = allowance.subtract( BigInteger.valueOf(123)) ;
+       /* Function function = new Function(
+                "transferFrom",
+                Arrays.asList(new Address("0x32f158af29c171392a1ff35a7387583ff4959053"), new Uint256(1)),
+                Collections.singletonList(new TypeReference<Type>() {
+                }));*/
+
+
+
+
+        final org.web3j.abi.datatypes.Function function = new Function(
+                "transferFrom",
+                Arrays.<Type>asList(new Address(spender_address),
+                        new Address(to_address),
+                        new Uint256(BigInteger.valueOf(Long.parseLong(value)))),
+                Collections.<TypeReference<?>>emptyList());
+
+
+        //Create RawTransaction transaction object
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                token_Address, encodedFunction);
+
+        //Signature Transaction
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //Send the transaction
+        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+        String hash = ethSendTransaction.getTransactionHash();
+        if (hash != null) {
+            return hash;
+        }
+        return null;
+    }
 
 
 }

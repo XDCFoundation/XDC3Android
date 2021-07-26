@@ -15,128 +15,130 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_xdc_icon"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_xdc_icon" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_group_194"
+            android:layout_alignParentLeft="true"
 
-            android:layout_marginLeft="25dp"
-            android:visibility="gone"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"/>
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/ic_group_194"
+            android:visibility="gone" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/white"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
             android:layout_marginBottom="20dp"
-            android:text="@string/xdc3_android"/>
+            android:text="@string/xdc3_android"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
     <EditText
+        android:id="@+id/enter_xdc_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:id="@+id/enter_xdc_address"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:textColorHint="@color/hint"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/edit_text_border"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="25dp"
-        android:textSize="16sp"
-
-        android:hint="@string/enter_xdc_address_here" />
+        android:hint="@string/enter_xdc_address_here"
+        android:padding="15dp"
+        android:text="@string/final_token_owner"
+        android:textColorHint="@color/hint"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/or"
-        android:textColor="@color/background"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:textSize="15sp"/>
+        android:text="@string/or"
+        android:textColor="@color/background"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:text="@string/select_from_list"
         android:textColor="@color/header"
-        android:textSize="16sp"
-        android:text="@string/select_from_list"/>
+        android:textSize="16sp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/customerSpinnerLayout"
-        android:layout_marginTop="7dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="20dp">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/customerTextView"
             android:layout_width="match_parent"
-            android:background="@drawable/edit_text_border"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
             android:clickable="true"
             tools:ignore="KeyboardInaccessibleWidget" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/background"
         android:padding="15dp"
         android:text="@string/submit"
-        android:id="@+id/submit"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/background"
         android:textAllCaps="false"
-        android:textSize="16sp"/>
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 
     <Button
+        android:id="@+id/transfer_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/background"
         android:padding="15dp"
         android:text="Transfer XDC"
-        android:id="@+id/transfer_amount"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="19dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/background"
         android:textAllCaps="false"
-        android:textSize="16sp"/>
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <Button
+        android:id="@+id/btn_createaccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Create Account"
-        android:id="@+id/btn_createaccount"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/white"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:backgroundTint="@color/background"
+        android:padding="15dp"
+        android:text="Create Account"
         android:textAllCaps="false"
-        android:textSize="16sp"/>
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 
 </LinearLayout>

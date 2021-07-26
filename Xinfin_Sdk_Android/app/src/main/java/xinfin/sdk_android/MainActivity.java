@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        token_address = "0xd3d1ea96362d2660d38c749c196370b5619a3620";
+        token_address = "0xba9d6a36fbc194f5d1aa48a2892ae4bdf6939cb9";
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
         btn_createaccount = (Button)findViewById(R.id.btn_createaccount);
         enterXdcAddress.setText(token_address.replace("0x", "xdc"));
@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
             {
 
 
-                try {
-                    Web3jTokenTransfer.getInstance().getallownce();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                 try {
+//                    Web3jTokenTransfer.getInstance().getallownce();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
 
 
               /*   try {
@@ -88,9 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }*/
-
-            /* Utility.showProcess(MainActivity.this);
-                 Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+                Utility.showProcess(MainActivity.this);
+                Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
-                });*/
+                });
 
                 //  Web3jClass.getInstance().TransferTokenEvent();
 
@@ -176,5 +175,6 @@ public class MainActivity extends AppCompatActivity {
         address.add("0x847aefb3d207e69749e970f8574743a4f388b6f2");
         return address;
     }
+
 
 }

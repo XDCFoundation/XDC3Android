@@ -30,14 +30,14 @@ public class TransferAmount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_amount);
 
-        edt_private_key = findViewById(R.id.private_key);
-        edt_sender_address = findViewById(R.id.sender_address);
-        edt_receiver_address = findViewById(R.id.receiver_address);
-        edt_token_totransfer = findViewById(R.id.value);
-        edt_gasprice = findViewById(R.id.edt_gasprice);
-        edt_gaslimit = findViewById(R.id.edt_gaslimit);
-        button_send = findViewById(R.id.send);
-        text_transaction_hash = findViewById(R.id.text_transaction_hash);
+        edt_private_key = (EditText) findViewById(R.id.private_key);
+        edt_sender_address = (EditText) findViewById(R.id.sender_address);
+        edt_receiver_address = (EditText) findViewById(R.id.receiver_address);
+        edt_token_totransfer = (EditText) findViewById(R.id.value);
+        edt_gasprice = (EditText) findViewById(R.id.edt_gasprice);
+        edt_gaslimit = (EditText) findViewById(R.id.edt_gaslimit);
+        button_send = (Button) findViewById(R.id.send);
+        text_transaction_hash = (TextView)findViewById(R.id.text_transaction_hash);
 
         button_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +75,7 @@ public class TransferAmount extends AppCompatActivity {
                 else {
 
 
-                   Utility.showProcess(TransferAmount.this);
+                    Utility.showProcess(TransferAmount.this);
 
                     Web3jClass.getInstance().TransferXdc(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString()), new TokenTransferCallback() {
 
@@ -86,7 +86,7 @@ public class TransferAmount extends AppCompatActivity {
                             Utility.dismissProcess();
 
 
-                        Toast.makeText(TransferAmount.this,"Token has been transfered and Transation has been approved",Toast.LENGTH_LONG).show();
+                            Toast.makeText(TransferAmount.this,"Token has been transfered and Transation has been approved",Toast.LENGTH_LONG).show();
 
                             text_transaction_hash.setText(tokenTransferResponse.getTransactionHash());
 

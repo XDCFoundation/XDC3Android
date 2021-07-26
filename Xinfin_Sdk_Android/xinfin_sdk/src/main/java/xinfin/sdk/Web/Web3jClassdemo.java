@@ -290,7 +290,7 @@ public class Web3jClassdemo {
         } catch (Exception exception) {
             exception.printStackTrace();
         }*//*
-*//*
+         *//*
 
         javaToken.transferFrom(AppConstants.FROM_ADDRESS, AppConstants.TO_ADDRESS, BigInteger.valueOf(1000)).flowable();
         javaToken.transferEventFlowable(DefaultBlockParameterName.EARLIEST, DefaultBlockParameterName.LATEST)
@@ -302,7 +302,7 @@ public class Web3jClassdemo {
                 });
 *//*
 
-*//*
+         *//*
 
         // Event definition
            Event MY_EVENT = new Event("MyEvent", Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Bytes32>(true) {}, new TypeReference<Uint8>(false) {}));
