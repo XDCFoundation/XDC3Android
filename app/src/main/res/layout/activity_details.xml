@@ -86,6 +86,7 @@
                 android:background="@drawable/edit_text_border"
                 android:hint="@string/enter_key"
                 android:padding="15dp"
+                android:text="@string/final_private_key"
                 android:textColor="@color/background"
                 android:textColorHint="@color/hint"
                 android:textIsSelectable="true"
@@ -111,11 +112,13 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="1"
-            android:layout_height="wrap_content">
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,9 +126,9 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginBottom="11dp"
+                android:layout_weight="0.65"
                 android:text="Sender Address : "
                 android:textColor="@color/header"
-                android:layout_weight="0.65"
                 android:textSize="16sp" />
 
             <EditText
@@ -134,23 +137,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="17dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="11dp"
                 android:layout_weight="0.35"
-                android:textStyle="bold"
-                android:text=""
-                android:textIsSelectable="true"
+                android:background="@drawable/edit_text_border"
                 android:maxLines="2"
                 android:padding="7dp"
-                android:background="@drawable/edit_text_border"
-                android:layout_marginTop="17dp"
-                android:layout_marginBottom="11dp"
+                android:text=""
                 android:textColor="@color/background"
-                android:textSize="16sp" />
+                android:textIsSelectable="true"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -346,9 +348,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/transfer_divider"
+                        android:layout_gravity="center_vertical"
                         android:layout_margin="5dp"
                         android:layout_toRightOf="@+id/allowance"
-
                         android:padding="5dp"
                         android:text="-"
                         android:textColor="@color/header"
@@ -388,8 +390,8 @@
                         android:background="@drawable/edit_text_border"
                         android:hint="@string/owner_add"
                         android:padding="5dp"
-
                         android:singleLine="true"
+                        android:text="@string/final_token_owner"
                         android:textColor="@color/header"
                         android:textColorHint="@color/hint"
                         android:textSize="16sp" />
@@ -428,6 +430,7 @@
                         android:hint="@string/spender_add"
                         android:padding="5dp"
                         android:singleLine="true"
+                        android:text="@string/final_spendar_address"
                         android:textColor="@color/header"
                         android:textColorHint="@color/hint"
                         android:textSize="16sp" />
@@ -495,7 +498,7 @@
                         android:layout_marginTop="17dp"
                         android:layout_marginBottom="11dp"
                         android:layout_toRightOf="@+id/balance_off"
-                        android:text="-"
+                        android:text=""
                         android:textColor="@color/header"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -533,6 +536,7 @@
                         android:background="@drawable/edit_text_border"
                         android:hint="@string/spender_add"
                         android:padding="5dp"
+                        android:text="@string/final_token_owner"
                         android:textColor="@color/header"
                         android:textColorHint="@color/hint"
                         android:textSize="16sp" />
@@ -598,9 +602,9 @@
                     android:layout_marginTop="17dp"
                     android:layout_marginBottom="11dp"
                     android:text="@string/approve"
-                    android:textStyle="bold"
                     android:textColor="@color/header"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/approve_trasactonhash"
@@ -613,12 +617,10 @@
                     android:hint="trasaction Hash"
                     android:padding="5dp"
                     android:textColor="@color/background"
-                    android:textIsSelectable="true"
                     android:textColorHint="@color/hint"
+                    android:textIsSelectable="true"
                     android:textSize="16sp" />
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -654,6 +656,7 @@
                     android:hint="@string/spender_add"
                     android:padding="5dp"
                     android:singleLine="true"
+                    android:text="@string/final_spendar_address"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
@@ -743,15 +746,14 @@
                     android:layout_marginTop="17dp"
                     android:layout_marginBottom="11dp"
                     android:text="@string/transfer"
-                    android:textStyle="bold"
                     android:textColor="@color/header"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/transfer_trasactonhash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
                     android:layout_toRightOf="@+id/allowance"
@@ -759,10 +761,9 @@
                     android:padding="5dp"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
+                    android:textIsSelectable="true"
                     android:textSize="16sp" />
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -795,6 +796,7 @@
                     android:hint="@string/receiver_address"
                     android:padding="5dp"
                     android:singleLine="true"
+                    android:text="@string/final_to_address_tfrom"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
@@ -884,15 +886,14 @@
                     android:layout_marginTop="17dp"
                     android:layout_marginBottom="11dp"
                     android:text="@string/increase_allowance"
-                    android:textStyle="bold"
                     android:textColor="@color/header"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/text_increase_allow_trasactonhash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
                     android:layout_toRightOf="@+id/allowance"
@@ -900,10 +901,9 @@
                     android:padding="5dp"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
+                    android:textIsSelectable="true"
                     android:textSize="16sp" />
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -936,6 +936,7 @@
                     android:hint="@string/owner_add"
                     android:padding="5dp"
                     android:singleLine="true"
+                    android:text="@string/final_token_owner"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
@@ -971,6 +972,7 @@
                     android:hint="@string/spender_add"
                     android:padding="5dp"
                     android:singleLine="true"
+                    android:text="@string/final_spendar_address"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
@@ -1036,6 +1038,393 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_border1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/transfer_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/decrease_allowance"
+                    android:textColor="@color/header"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_decrease_allow_trasactonhash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/allowance"
+                    android:hint="trasaction Hash"
+                    android:padding="5dp"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/owner"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_decrease_owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/owner_add"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/final_token_owner"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/spender"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_decrease_spender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/spender_add"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/final_spendar_address"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/value"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_decrease_allownce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/value"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submit_decrease_Allownce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight=".7"
+                android:backgroundTint="@color/background"
+                android:gravity="center"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_border1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/transfer_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="@string/transfer_from"
+                    android:textColor="@color/header"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_transferfrom_trasactonhash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/allowance"
+                    android:hint="trasaction Hash"
+                    android:padding="5dp"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/spender"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_tfrom_spender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/spender_add"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/final_spendar_address"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="Private Key"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_tfrom_spender_privatekey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="Spendar's Private Key"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/final_spendar_privatekey"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="To"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_tfrom_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="To Address"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/final_to_address_tfrom"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_weight=".75"
+                    android:text="@string/value"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_tfrom_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:layout_weight=".2"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/value"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submit_tfrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight=".7"
+                android:backgroundTint="@color/background"
+                android:gravity="center"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
 
 
     </LinearLayout>

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        token_address = "0xd3d1ea96362d2660d38c749c196370b5619a3620";
+        token_address = "0xba9d6a36fbc194f5d1aa48a2892ae4bdf6939cb9";
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
         btn_createaccount = (Button)findViewById(R.id.btn_createaccount);
         enterXdcAddress.setText(token_address.replace("0x", "xdc"));
