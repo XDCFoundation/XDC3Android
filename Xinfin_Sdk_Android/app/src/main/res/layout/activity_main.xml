@@ -52,7 +52,7 @@
         android:background="@drawable/edit_text_border"
         android:hint="@string/enter_xdc_address_here"
         android:padding="15dp"
-        android:text="@string/final_token_owner"
+        android:text="@string/final_token"
         android:textColorHint="@color/hint"
         android:textSize="16sp" />
 
