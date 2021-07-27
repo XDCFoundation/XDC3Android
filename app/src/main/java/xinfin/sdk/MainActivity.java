@@ -20,7 +20,6 @@ import com.xinfin.callback.TokenDetailCallback;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import xinfin.sdk.utils.Utility;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {
-                        Utility.dismissProcess();
                         Intent intent = new Intent(MainActivity.this, Details.class);
                         intent.putExtra("tokendetail",(Serializable) tokenDetailsResponse);
                         startActivity(intent);
@@ -82,14 +80,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void failure(Throwable t)
                     {
-                        Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void failure(String message)
                     {
-                        Utility.dismissProcess();
                         Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                     }
                 });

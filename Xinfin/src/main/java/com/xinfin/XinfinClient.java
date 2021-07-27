@@ -4,7 +4,7 @@ import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.WalletData;
 import com.xinfin.callback.CreateAccountCallback;
 import com.xinfin.callback.TokenDetailCallback;
-import com.xinfin.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
+import com.xinfin.contracts.src.main.java.XRC20;
 
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
@@ -42,7 +42,7 @@ import java.util.concurrent.ExecutionException;
 public class XinfinClient {
     Web3j web3;
     public static XinfinClient instance;
-    ERC20 javaToken;
+    com.xinfin.contracts.src.main.java.XRC20 javaToken;
     BigInteger allowance, decimal, totalSupply, balance;
     String symbol, name;
     TokenDetailsResponse tokenResponse;
@@ -168,7 +168,7 @@ public class XinfinClient {
                 //  Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
 
                 try {
-                    javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+                    javaToken = com.xinfin.contracts.src.main.java.XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
                     getinfo(javaToken, token_address, tokenDetailCallback);
                     // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
                     // return getinfo(javaToken, token_address);
@@ -199,7 +199,7 @@ public class XinfinClient {
 
             ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                     owner_address);
-            javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            javaToken = com.xinfin.contracts.src.main.java.XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
             try {
                 allowance = javaToken.allowance(owner_address, spender_address).send();
                 return String.valueOf(allowance);
@@ -223,7 +223,7 @@ public class XinfinClient {
 
             ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                     owner_address);
-            javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            javaToken = com.xinfin.contracts.src.main.java.XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
             try {
                 allowance = javaToken.balanceOf(owner_address).send();
                 return String.valueOf(allowance);
@@ -240,7 +240,7 @@ public class XinfinClient {
 
     }
 
-    public void getinfo(ERC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
+    public void getinfo(com.xinfin.contracts.src.main.java.XRC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
         try {
             //allowance = javaToken.allowance(token_address, "0x2e550836caaa79884f36e78626363f59ca50e96e").send();
             balance = javaToken.balanceOf(token_address).send();
@@ -473,7 +473,7 @@ public class XinfinClient {
         //ERC20 token contract method
         // value = value.multiply(value);
 
-        ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
+        com.xinfin.contracts.src.main.java.XRC20 javaToken = com.xinfin.contracts.src.main.java.XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
         BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
 
         allowance = allowance.add(BigInteger.valueOf(Long.parseLong(value)));
@@ -525,7 +525,7 @@ public class XinfinClient {
         //ERC20 token contract method
         // value = value.multiply(value);
 
-        ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
+        com.xinfin.contracts.src.main.java.XRC20 javaToken = XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
         BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
 
         allowance = allowance.subtract(BigInteger.valueOf(Long.parseLong(value)));

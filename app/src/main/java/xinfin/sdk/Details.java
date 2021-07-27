@@ -115,7 +115,9 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
     public void assignValues() {
 
-        xdc_address_value.setText(tokenResponse.getSpender_address().replace("0x", "xdc"));
+        //xdc_address_value.setText(tokenResponse.getSpender_address().replace("0x", "xdc"));
+
+        xdc_address_value.setText(tokenResponse.getSpender_address());
 
         if (name_value != null) {
             name_value.setText(tokenResponse.getName());

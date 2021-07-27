@@ -1,4 +1,4 @@
-package com.xinfin.contracts.src.main.java.org.web3j.contracts.eip165.generated;
+package com.xinfin.contracts.src.main.java;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -22,26 +22,26 @@ import org.web3j.tx.gas.ContractGasProvider;
  *
  * <p>Generated with web3j version 4.1.1.
  */
-public class ERC165 extends Contract {
+public class XRC165 extends Contract {
     private static final String BINARY = "Bin file was not provided";
 
     public static final String FUNC_SUPPORTSINTERFACE = "supportsInterface";
 
     @Deprecated
-    protected ERC165(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+    protected XRC165(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
-    protected ERC165(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+    protected XRC165(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, credentials, contractGasProvider);
     }
 
     @Deprecated
-    protected ERC165(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+    protected XRC165(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    protected ERC165(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+    protected XRC165(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
@@ -53,20 +53,20 @@ public class ERC165 extends Contract {
     }
 
     @Deprecated
-    public static ERC165 load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return new ERC165(contractAddress, web3j, credentials, gasPrice, gasLimit);
+    public static XRC165 load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new XRC165(contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
     @Deprecated
-    public static ERC165 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return new ERC165(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    public static XRC165 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new XRC165(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    public static ERC165 load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return new ERC165(contractAddress, web3j, credentials, contractGasProvider);
+    public static XRC165 load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return new XRC165(contractAddress, web3j, credentials, contractGasProvider);
     }
 
-    public static ERC165 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return new ERC165(contractAddress, web3j, transactionManager, contractGasProvider);
+    public static XRC165 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return new XRC165(contractAddress, web3j, transactionManager, contractGasProvider);
     }
 }
