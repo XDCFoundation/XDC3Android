@@ -238,7 +238,7 @@ public class Web3jClass {
 //                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
                     String s1="0x80ac58cd";
                     byte[] b = new BigInteger(s1,16).toByteArray();
-                    Boolean supportInterface =   javaToken2.supportsInterface(b).send();
+                    Boolean supportInterface =   javaToken2.supportsInterface().send();
                     getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
 
                     // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
@@ -259,6 +259,45 @@ public class Web3jClass {
 //Show Error
 
         }
+
+        public void getApproved(String s, TokenDetailCallback tokenDetailCallback) {
+
+            web3 = Web3j.build(new
+
+                    HttpService(AppConstants.BASE_URL));
+            try {
+                Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+                if (!clientVersion.hasError()) {
+                    ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                            "0x301815025bd43513ec36b6c6159ebaa8dff5e36d");
+//                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
+                    javaToken2 = null;
+                    try {
+                        javaToken1 = ERC721.load("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", web3, transactionManager, new DefaultGasProvider());
+//                    String name = javaToken.name().send();
+//                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
+                        String getApproved = javaToken1.getApproved(BigInteger.valueOf(21)).send();
+
+
+
+                        // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
+                        // return getinfo(javaToken, token_address);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                        tokenDetailCallback.failure(exception.getMessage());
+                    }
+
+                } else {
+
+                    //Show Error
+                    tokenDetailCallback.failure("Connection has been failed");
+                }
+            } catch (
+                    Exception e) {
+                tokenDetailCallback.failure(e.getMessage());
+//Show Error
+
+            }
 
 
     }
