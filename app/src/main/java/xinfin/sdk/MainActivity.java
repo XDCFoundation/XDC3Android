@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                Utility.showProcess(MainActivity.this);
+              //  Utility.showProcess(MainActivity.this);
                  XinfinClient.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
