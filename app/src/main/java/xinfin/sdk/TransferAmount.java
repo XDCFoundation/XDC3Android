@@ -1,6 +1,5 @@
 package xinfin.sdk;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,13 +9,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xinfin.Model.TokenDetailsResponse;
 import com.xinfin.Model.TokenTransferResponse;
-import com.xinfin.Web.Web3jClass;
-import com.xinfin.callback.TokenDetailCallback;
+import com.xinfin.XinfinClient;
 import com.xinfin.callback.TokenTransferCallback;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 
 import xinfin.sdk.utils.Utility;
@@ -79,26 +75,18 @@ public class TransferAmount extends AppCompatActivity {
 
                    Utility.showProcess(TransferAmount.this);
 
-                    Web3jClass.getInstance().TransferXdc(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString()), new TokenTransferCallback() {
+                    XinfinClient.getInstance().TransferXdc(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString());
+/*
+                    XinfinClient.getInstance().TransferXdc(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString()), new TokenTransferCallback() {
 
 
-                        @Override
-                        public void success(TokenTransferResponse tokenTransferResponse)
-                        {
-                            Utility.dismissProcess();
 
-
-                        Toast.makeText(TransferAmount.this,"Token has been transfered and Transation has been approved",Toast.LENGTH_LONG).show();
-
-                            text_transaction_hash.setText(tokenTransferResponse.getTransactionHash());
-
-                        }
 
                         @Override
                         public void success(String message)
                         {
                             Utility.dismissProcess();
-                            Toast.makeText(TransferAmount.this,"Token has been transfered and Transation has been approved",Toast.LENGTH_LONG).show();
+                           // Toast.makeText(TransferAmount.this,"Token has been transfered and Transation has been approved",Toast.LENGTH_LONG).show();
 
                             text_transaction_hash.setText(message);
                         }
@@ -122,6 +110,7 @@ public class TransferAmount extends AppCompatActivity {
                         }
 
                     });
+*/
 
                 }
             }

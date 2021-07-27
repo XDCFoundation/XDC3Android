@@ -2,26 +2,21 @@ package xinfin.sdk;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.xinfin.Model.TokenDetailsResponse;
-import com.xinfin.Model.TokenTransferResponse;
-import com.xinfin.Web.Web3jClass;
-import com.xinfin.Web.Web3jTokenTransfer;
+import com.xinfin.XinfinClient;
 import com.xinfin.callback.TokenDetailCallback;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -41,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        token_address = "0xba9d6a36fbc194f5d1aa48a2892ae4bdf6939cb9";
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
         btn_createaccount = (Button)findViewById(R.id.btn_createaccount);
-        enterXdcAddress.setText(token_address.replace("0x", "xdc"));
-
+        token_address = enterXdcAddress.getText().toString();
         transfer_amount = findViewById(R.id.transfer_amount);
 
         transfer_amount.setOnClickListener(new View.OnClickListener() {
@@ -75,27 +68,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 
-
-//                 try {
-//                    Web3jTokenTransfer.getInstance().getallownce();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-
-              /*   try {
-                    Web3jClass.getInstance().approve();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-*/
-               /* try {
-                    Web3jClass.getInstance().tranferfrom();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }*/
                 Utility.showProcess(MainActivity.this);
-                 Web3jClass.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+                 XinfinClient.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {
@@ -160,9 +134,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id)
             {
-                /*Toast.makeText(MainActivity.this,
-                        adapter.getItem(position).toString(),
-                        Toast.LENGTH_SHORT).show();*/
 
 
                 token_address = adapter.getItem(position).toString();

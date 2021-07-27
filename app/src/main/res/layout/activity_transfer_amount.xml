@@ -67,7 +67,7 @@
                 android:background="@drawable/edit_text_border"
                 android:hint="@string/enter_private_key_here"
                 android:padding="15dp"
-                android:text="@string/privatekeytransfer"
+                android:text="@string/final_private_key"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -94,7 +94,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/sender_add"
+                android:text="@string/final_token_owner"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -121,7 +121,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/test_add"
+                android:text="@string/final_spendar_address"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -230,6 +230,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
+                android:textIsSelectable="true"
 
                 android:id="@+id/text_transaction_hash"
                 android:textColor="@color/background"

@@ -8,7 +8,7 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import java.util.Optional;
 
 public interface TokenTransferCallback {
-    void success( TokenTransferResponse tokenApiModel);
+  //  void success( TokenTransferResponse tokenApiModel);
     void success(String message);
     void failure(Throwable t);
 
