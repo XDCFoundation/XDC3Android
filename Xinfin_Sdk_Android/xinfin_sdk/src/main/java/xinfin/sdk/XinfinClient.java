@@ -1,6 +1,4 @@
-package xinfin.sdk.Web;
-
-
+package xinfin.sdk;
 
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
@@ -20,9 +18,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
@@ -34,45 +30,39 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import xinfin.sdk.Model.TokenDetailsResponse;
-import xinfin.sdk.Model.TokenTransferResponse;
 import xinfin.sdk.Model.WalletData;
 import xinfin.sdk.callback.CreateAccountCallback;
 import xinfin.sdk.callback.TokenDetailCallback;
-import xinfin.sdk.callback.TokenTransferCallback;
-import xinfin.sdk.contracts.src.main.java.org.web3j.contracts.eip20.generated.ERC20;
+import xinfin.sdk.contracts.src.main.java.XRC20;
 
 
-public class Web3jClass {
+public class XinfinClient {
     Web3j web3;
-    public static Web3jClass instance;
-    ERC20 javaToken;
+    public static XinfinClient instance;
+   XRC20 javaToken;
     BigInteger allowance, decimal, totalSupply, balance;
     String symbol, name;
     TokenDetailsResponse tokenResponse;
     private WalletFile wallet;
 
-    public static Web3jClass getInstance() {
+    public static XinfinClient getInstance() {
         if (instance == null)
-            instance = new Web3jClass();
+            instance = new XinfinClient();
 
         return instance;
     }
 
 
-    public Boolean isWeb3jConnected()
-    {
+    public Boolean isWeb3jConnected() {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError())
-            {
+            if (!clientVersion.hasError()) {
                 //Connected
                 return true;
             } else {
@@ -86,8 +76,7 @@ public class Web3jClass {
         }
     }
 
-    public void generateWallet(File walletDirectory, String Password, CreateAccountCallback createAccountCallback)
-    {
+    public void generateWallet(File walletDirectory, String Password, CreateAccountCallback createAccountCallback) {
 
         try {
 
@@ -108,6 +97,7 @@ public class Web3jClass {
 
 
             WalletData walletData = new WalletData();
+            accountAddress = accountAddress.replace("0x", "xdc");
             walletData.setAccountAddress(accountAddress);
             walletData.setPrivateKey(privateKey);
             walletData.setPublickeyKey(publickeyKey);
@@ -143,36 +133,26 @@ public class Web3jClass {
     }
 
 
-    public String getContractAddress(String Privatekey)
-    {
+    public String getContractAddress(String Privatekey) {
 
-        if(isWeb3jConnected())
-        {
+        if (isWeb3jConnected()) {
             try {
-                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
-                if( creds.getAddress()!=null && creds.getAddress().length()>0)
-                {
-                    return  creds.getAddress();
-                }
-                else
-                {
+                Credentials creds = Credentials.create(Privatekey);
+                if (creds.getAddress() != null && creds.getAddress().length() > 0) {
+                    return creds.getAddress();
+                } else {
                     return "Please Enter Valid private key";
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 return e.getMessage();
 
             }
 
-        }
-        else
-        {
-            return "Please check your Connection" ;
+        } else {
+            return "Please check your Connection";
         }
 
     }
-
 
 
     public void getTokenoinfo(String token_address, TokenDetailCallback tokenDetailCallback) {
@@ -183,11 +163,13 @@ public class Web3jClass {
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
-                Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
+                ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                        token_address);
+                //  Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
 
                 try {
-                    javaToken = ERC20.load(token_address, web3, creds, new DefaultGasProvider());
-                    getinfo(javaToken, token_address, tokenDetailCallback,creds.getAddress());
+                    javaToken = XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+                    getinfo(javaToken, token_address, tokenDetailCallback);
                     // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
                     // return getinfo(javaToken, token_address);
                 } catch (Exception exception) {
@@ -211,15 +193,13 @@ public class Web3jClass {
     }
 
 
-    public String getAllowance(String token_address ,String owner_address,String spender_address)
-    {
+    public String getAllowance(String token_address, String owner_address, String spender_address) {
 
-        if(isWeb3jConnected())
-        {
+        if (isWeb3jConnected()) {
 
             ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                     owner_address);
-            javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            javaToken = XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
             try {
                 allowance = javaToken.allowance(owner_address, spender_address).send();
                 return String.valueOf(allowance);
@@ -229,9 +209,7 @@ public class Web3jClass {
             }
 
 
-        }
-        else
-        {
+        } else {
             return "check your connection";
         }
 
@@ -239,17 +217,15 @@ public class Web3jClass {
     }
 
 
-    public String getBalance(String token_address ,String owner_address)
-    {
+    public String getBalance(String token_address, String owner_address) {
 
-        if(isWeb3jConnected())
-        {
+        if (isWeb3jConnected()) {
 
             ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                     owner_address);
-            javaToken = ERC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            javaToken = XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
             try {
-                allowance = javaToken.balanceOf( owner_address).send();
+                allowance = javaToken.balanceOf(owner_address).send();
                 return String.valueOf(allowance);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -257,16 +233,14 @@ public class Web3jClass {
             }
 
 
-        }
-        else
-        {
+        } else {
             return "check your connection";
         }
 
 
     }
 
-    public void getinfo(ERC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback, String owner_address) {
+    public void getinfo(XRC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
         try {
             //allowance = javaToken.allowance(token_address, "0x2e550836caaa79884f36e78626363f59ca50e96e").send();
             balance = javaToken.balanceOf(token_address).send();
@@ -275,8 +249,6 @@ public class Web3jClass {
             name = javaToken.name().send();
             decimal = javaToken.decimals().send();
             String contract = javaToken.getContractAddress();
-
-
 
 
             tokenResponse = new TokenDetailsResponse();
@@ -298,9 +270,8 @@ public class Web3jClass {
     }
 
 
-
     @SuppressWarnings("NewApi")
-    public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, BigInteger value, Long gasprice, Long gaslimit, TokenTransferCallback tokenCallback) {
+    public String TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, BigInteger value, Long gasprice, Long gaslimit) {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -319,11 +290,12 @@ public class Web3jClass {
                 } catch (
                         ExecutionException e) {
                     e.printStackTrace();
-                    tokenCallback.failure(e.getMessage());
+                    return e.getMessage();
+                    //tokenCallback.failure(e.getMessage());
                 } catch (
                         InterruptedException e) {
                     e.printStackTrace();
-                    tokenCallback.failure(e.getMessage());
+                    return e.getMessage();
                 }
 
                 BigInteger nonce = ethGetTransactionCount.getTransactionCount();
@@ -342,54 +314,26 @@ public class Web3jClass {
                 } catch (
                         ExecutionException e) {
                     e.printStackTrace();
-                    tokenCallback.failure(e.getMessage());
+                    return e.getMessage();
+
                 } catch (
                         InterruptedException e) {
                     e.printStackTrace();
-                    tokenCallback.failure(e.getMessage());
+
+                    return e.getMessage();
                 }
 
-                try {
-                    String transactionHash = ethSendTransaction.getTransactionHash();
-                    EthGetTransactionReceipt transactionReceipt =
-                            web3.ethGetTransactionReceipt(transactionHash).send();
+                String transactionHash = ethSendTransaction.getTransactionHash();
+                return transactionHash;
 
 
-                    if (transactionHash != null && transactionHash.length() > 0) {
-                        if (transactionReceipt.getTransactionReceipt().isPresent()) {
-                            TransactionReceipt receipt_data = transactionReceipt.getResult();
-                            TokenTransferResponse tokenTransferResponse = new TokenTransferResponse();
-                            tokenTransferResponse.setBlockHash(receipt_data.getBlockHash());
-                            tokenTransferResponse.setBlockNumber(receipt_data.getBlockNumberRaw());
-                            tokenTransferResponse.setTransactionHash(receipt_data.getTransactionHash());
-                            tokenTransferResponse.setStatus(receipt_data.getStatus());
-                            tokenTransferResponse.setFrom(receipt_data.getFrom());
-                            tokenTransferResponse.setTo(receipt_data.getTo());
-                            tokenTransferResponse.setContractAddress(receipt_data.getContractAddress());
-                            tokenTransferResponse.setGasUsed(receipt_data.getGasUsedRaw());
-
-
-                            tokenCallback.success(tokenTransferResponse);
-                        } else {
-                            tokenCallback.success(transactionHash);
-                            //tokenCallback.success("Token has been transfered and Transation has been approved ");
-                        }
-
-                    } else {
-                        tokenCallback.failure("Failed");
-                    }
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                    tokenCallback.failure(ioException.getMessage());
-                }
             } else {
-
-                tokenCallback.failure("Failed");
+                return "Failed";
             }
         } catch (
                 Exception e) {
 
-            tokenCallback.failure(e.getMessage());
+            return e.getMessage();
 //Show Error
 
         }
@@ -400,8 +344,7 @@ public class Web3jClass {
     }
 
 
-
-    public  String approveERC20Token(String token_address, String private_key, String spender_address, String value) throws ExecutionException, InterruptedException, IOException {
+    public String approveERC20Token(String token_address, String private_key, String spender_address, String value) throws ExecutionException, InterruptedException, IOException {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -427,7 +370,7 @@ public class Web3jClass {
         //ERC20 token contract method
         // value = value.multiply(value);
         //receiver wallet address
-        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+        Function function = new Function(
                 "approve",
                 Arrays.asList(new Address(spender_address), new Uint256(BigInteger.valueOf(Long.parseLong(value)))),
                 Collections.singletonList(new TypeReference<Type>() {
@@ -474,16 +417,15 @@ public class Web3jClass {
         // value = value.multiply(value);
 
 
-
         BigInteger a
                 = new BigInteger(value);
         BigInteger b
                 = new BigInteger("1000000000000000000");
 
         // Using divide() method
-        BigInteger  value_final = a.multiply(b);
+        BigInteger value_final = a.multiply(b);
 
-        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+        Function function = new Function(
                 "transfer",
                 Arrays.asList(new Address(receiver_add), new Uint256(value_final)),
                 Collections.singletonList(new TypeReference<Type>() {
@@ -506,8 +448,7 @@ public class Web3jClass {
     }
 
 
-
-    public  String increaseAllownce(String owner_Address, String spender_address, String private_key, String value,String token_address) throws Exception {
+    public String increaseAllownce(String owner_Address, String spender_address, String private_key, String value, String token_address) throws Exception {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -532,11 +473,11 @@ public class Web3jClass {
         //ERC20 token contract method
         // value = value.multiply(value);
 
-        ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
+        XRC20 javaToken = XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
         BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
 
-        allowance = allowance.add( BigInteger.valueOf(Long.parseLong(value))) ;
-        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+        allowance = allowance.add(BigInteger.valueOf(Long.parseLong(value)));
+        Function function = new Function(
                 "approve",
                 Arrays.asList(new Address(spender_address), new Uint256(allowance)),
                 Collections.singletonList(new TypeReference<Type>() {
@@ -559,7 +500,7 @@ public class Web3jClass {
     }
 
 
-    public  String decreaseAllownce(String owner_Address, String spender_address, String private_key, String value,String token_address) throws Exception {
+    public String decreaseAllownce(String owner_Address, String spender_address, String private_key, String value, String token_address) throws Exception {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -584,11 +525,11 @@ public class Web3jClass {
         //ERC20 token contract method
         // value = value.multiply(value);
 
-        ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
+        XRC20 javaToken = XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
         BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
 
-        allowance = allowance.subtract( BigInteger.valueOf(Long.parseLong(value))) ;
-        org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+        allowance = allowance.subtract(BigInteger.valueOf(Long.parseLong(value)));
+        Function function = new Function(
                 "approve",
                 Arrays.asList(new Address(spender_address), new Uint256(allowance)),
                 Collections.singletonList(new TypeReference<Type>() {
@@ -612,7 +553,7 @@ public class Web3jClass {
 
 
     //                        approved_hash = Web3jClass.getInstance().approveERC20Token("0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd",edt_allownce_spender.getText().toString(),edt_privatekey.getText().toString(),tokenResponse.getSpender_address(),edt_value_approve.getText().toString() );
-    public  String approve(String owner_Address, String spender_address, String private_key, String value,String token_address) throws Exception {
+    public String approve(String owner_Address, String spender_address, String private_key, String value, String token_address) throws Exception {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -641,16 +582,14 @@ public class Web3jClass {
         //BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
 
         // allowance = allowance.subtract( BigInteger.valueOf(Long.parseLong(value))) ;
-        org.web3j.abi.datatypes.Function function = null;
+        Function function = null;
         try {
-            function = new org.web3j.abi.datatypes.Function(
+            function = new Function(
                     "approve",
                     Arrays.asList(new Address(spender_address), new Uint256(Long.parseLong(value))),
                     Collections.singletonList(new TypeReference<Type>() {
                     }));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return e.getMessage();
         }
 
@@ -672,7 +611,7 @@ public class Web3jClass {
     }
 
 
-    public  String transferfrom(String spender_address, String to_address, String private_key, String value, String token_Address) throws Exception {
+    public String transferfrom(String spender_address, String to_address, String private_key, String value, String token_Address) throws Exception {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -703,7 +642,6 @@ public class Web3jClass {
 */
 
 
-
         //  allowance = allowance.subtract( BigInteger.valueOf(123)) ;
        /* Function function = new Function(
                 "transferFrom",
@@ -712,9 +650,7 @@ public class Web3jClass {
                 }));*/
 
 
-
-
-        final org.web3j.abi.datatypes.Function function = new Function(
+        final Function function = new Function(
                 "transferFrom",
                 Arrays.<Type>asList(new Address(spender_address),
                         new Address(to_address),

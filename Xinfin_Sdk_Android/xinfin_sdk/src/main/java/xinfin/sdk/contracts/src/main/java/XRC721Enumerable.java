@@ -1,4 +1,4 @@
-package xinfin.sdk.contracts.src.main.java.org.web3j.contracts.eip721.generated;
+package xinfin.sdk.contracts.src.main.java;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import org.web3j.tx.gas.ContractGasProvider;
  *
  * <p>Generated with web3j version 4.1.1.
  */
-public class ERC721Enumerable extends Contract {
+public class XRC721Enumerable extends Contract {
     private static final String BINARY = "Bin file was not provided";
 
     public static final String FUNC_TOTALSUPPLY = "totalSupply";
@@ -32,20 +32,20 @@ public class ERC721Enumerable extends Contract {
     public static final String FUNC_TOKENBYINDEX = "tokenByIndex";
 
     @Deprecated
-    protected ERC721Enumerable(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+    protected XRC721Enumerable(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
-    protected ERC721Enumerable(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+    protected XRC721Enumerable(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, credentials, contractGasProvider);
     }
 
     @Deprecated
-    protected ERC721Enumerable(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+    protected XRC721Enumerable(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    protected ERC721Enumerable(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+    protected XRC721Enumerable(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
@@ -72,20 +72,20 @@ public class ERC721Enumerable extends Contract {
     }
 
     @Deprecated
-    public static ERC721Enumerable load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return new ERC721Enumerable(contractAddress, web3j, credentials, gasPrice, gasLimit);
+    public static XRC721Enumerable load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new XRC721Enumerable(contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
     @Deprecated
-    public static ERC721Enumerable load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return new ERC721Enumerable(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    public static XRC721Enumerable load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new XRC721Enumerable(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    public static ERC721Enumerable load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return new ERC721Enumerable(contractAddress, web3j, credentials, contractGasProvider);
+    public static XRC721Enumerable load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return new XRC721Enumerable(contractAddress, web3j, credentials, contractGasProvider);
     }
 
-    public static ERC721Enumerable load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return new ERC721Enumerable(contractAddress, web3j, transactionManager, contractGasProvider);
+    public static XRC721Enumerable load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return new XRC721Enumerable(contractAddress, web3j, transactionManager, contractGasProvider);
     }
 }

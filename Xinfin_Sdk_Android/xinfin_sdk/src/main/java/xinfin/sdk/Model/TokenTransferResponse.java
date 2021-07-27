@@ -1,22 +1,11 @@
 package xinfin.sdk.Model;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.ObjectReader;
-
-import org.web3j.protocol.ObjectMapperFactory;
-import org.web3j.protocol.core.Response;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.utils.Numeric;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 public class TokenTransferResponse   {
     private String transactionHash;
@@ -210,11 +199,11 @@ public class TokenTransferResponse   {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof org.web3j.protocol.core.methods.response.TransactionReceipt)) {
+        if (!(o instanceof TransactionReceipt)) {
             return false;
         }
 
-        org.web3j.protocol.core.methods.response.TransactionReceipt that = (org.web3j.protocol.core.methods.response.TransactionReceipt) o;
+        TransactionReceipt that = (TransactionReceipt) o;
 
         if (getTransactionHash() != null
                 ? !getTransactionHash().equals(that.getTransactionHash())

@@ -15,7 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 
 import xinfin.sdk.Model.WalletData;
-import xinfin.sdk.Web.Web3jClass;
+
+import xinfin.sdk.XinfinClient;
 import xinfin.sdk.callback.CreateAccountCallback;
 
 public class CreateAccount extends AppCompatActivity {
@@ -42,7 +43,7 @@ public class CreateAccount extends AppCompatActivity {
                                 File.separator + "web3j");
                         path.mkdir();
 
-                        Web3jClass.getInstance().generateWallet(path, edt_password.getText().toString(), new CreateAccountCallback() {
+                        XinfinClient.getInstance().generateWallet(path, edt_password.getText().toString(), new CreateAccountCallback() {
                             @Override
                             public void success(WalletData walletData) {
 
