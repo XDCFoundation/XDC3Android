@@ -20,6 +20,11 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".XDC721MainActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

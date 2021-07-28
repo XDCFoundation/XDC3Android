@@ -56,7 +56,7 @@ dependencies {
 
     implementation project(":Xinfin")
 
-
+   // implementation 'com.leewayhertz.tokeezlibrary:2wls-android:0.0.1'
 
 
 }
