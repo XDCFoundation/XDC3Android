@@ -24,11 +24,13 @@ public class AppConstants {
 //    id = 21
 
 //    Token Address : 0x301815025bd43513ec36b6c6159ebaa8dff5e36d -> Token id = 21
-//    Owner Address: 0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd
+//    sender Address: 0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd
 //    private key > 0x07d2fb9a1f3a912000bbf9215ee0815a969b1d49e7e4c5ec94600ae2dfcfa4ce
-//    spender Address: 0xd7813e7cfdf83d6fa3469d7411b52a50ed2b867f
+//    owner Address: 0xd7813e7cfdf83d6fa3469d7411b52a50ed2b867f
 //    private key >0x8a32103448a851b2fed3e95d2b4fbaa5e564f3b8cc42eac0d3be15a96311f355
 //    reciever address: 0xedb472070566e072f3bdaa50cfa076e772135f33
+
+//    remain tip kingdom luggage either novel square play prefer artefact tuna mutual
 
     public static final String FROM_ADDRESS = "0xff55cb8c656a4e94b4151df9bfb88cc069ceb3e1";
 

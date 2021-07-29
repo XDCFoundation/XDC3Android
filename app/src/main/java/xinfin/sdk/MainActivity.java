@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 }*/
 
                Utility.showProcess(MainActivity.this);
-                 Web3jClass.getInstance().getSupportInterface("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", new TokenDetailCallback() {
+                 Web3jClass.getInstance().getApproved("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {
@@ -133,8 +133,13 @@ public class MainActivity extends AppCompatActivity {
         btn_createaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateAccount.class);
-                startActivity(intent);
+                try {
+                    Web3jClass.getInstance().approve();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+//                startActivity(intent);
             }
         });
 
