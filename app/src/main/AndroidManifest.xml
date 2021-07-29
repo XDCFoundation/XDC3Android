@@ -23,6 +23,11 @@
 
         </activity>
         <activity
+            android:name=".Details721"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+        <activity
             android:name=".XDC721MainActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>

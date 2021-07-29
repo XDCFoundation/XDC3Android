@@ -45,7 +45,8 @@ public class XRC165 extends Contract {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
-    public RemoteCall<Boolean> supportsInterface(byte[] interfaceID) {
+    public RemoteCall<Boolean> supportsInterface(byte[] interfaceID)
+    {
         final Function function = new Function(FUNC_SUPPORTSINTERFACE, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes4(interfaceID)), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));

@@ -4,45 +4,67 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xinfin.Model.TokenDetailsResponse;
-import com.xinfin.XinfinClient;
-import com.xinfin.XinfinClient_721;
+import com.xinfin.Model.Token721DetailsResponse;
+import com.xinfin.Xinfin721Client;
+import com.xinfin.callback.Token721DetailCallback;
 import com.xinfin.callback.TokenDetailCallback;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 
 public class XDC721MainActivity extends AppCompatActivity {
 
     private Button submit_button;
-    String token_address;
     TextView enterXdcAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main721);
 
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
         submit_button = findViewById(R.id.submit);
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
 
+                if(enterXdcAddress.getText().toString()!=null && enterXdcAddress.getText().toString().length()>0)
+                {
+                    Xinfin721Client.getInstance().getTokenoinfo(enterXdcAddress.getText().toString(), new Token721DetailCallback() {
+                        @Override
+                        public void success(Token721DetailsResponse tokenDetailsResponse) {
+                            Intent intent = new Intent(XDC721MainActivity.this, Details721.class);
+                            intent.putExtra("tokendetail",(Serializable) tokenDetailsResponse);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void failure(Throwable t) {
+
+                        }
+
+                        @Override
+                        public void failure(String message) {
+
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(XDC721MainActivity.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
+                }
+
               //  Utility.showProcess(MainActivity.this);
-                 XinfinClient_721.getInstance().getsupportInterface();
+
               //  Web3jClass.getInstance().TransferTokenEvent();
 
 
