@@ -45,6 +45,8 @@ import org.web3j.utils.Numeric;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -245,9 +247,19 @@ public class Web3jClass {
                     ERC165 javaToken2 = ERC165.load("0x301815025bd43513ec36b6c6159ebaa8dff5e36d", web3, transactionManager, new DefaultGasProvider());
 //                    String name = javaToken.name().send();
 //                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
-                    String s1 = "0x80ac58cd";
-                    byte[] b = new BigInteger(s1, 16).toByteArray();
-//                    Boolean supportInterface = javaToken2.supportsInterface().send();
+//                    String s1 = "0x80ac58cd";
+//                    byte[] b = new BigInteger(s1, 16).toByteArray();
+//                    int  i = 0x80ac58cd;
+//
+//                    byte[] a =    ByteBuffer.allocate(4).order(ByteOrder.nativeOrder()).putInt(i).array();
+
+                    ByteBuffer b = ByteBuffer.allocate(4);
+//b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
+                    b.putInt(0x80ac58cd);
+
+                    byte[] result = b.array();
+                    Boolean supportInterface = javaToken2.supportsInterface(result).send();
+
 //                    getinfo(javaToken,"0x161cdb7f674ef7c4c8b09b83fb6342a12f1a12c2" , tokenDetailCallback);
 
                     // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
