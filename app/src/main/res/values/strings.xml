@@ -71,6 +71,8 @@
     <string name="xdc_721address">XDC 721 Token Address</string>
     <string name="final_tokenUri">0x613fb5f43ae37a60d5f6683d921613c53d75d85d</string>
 
+
+    
     <string name="getOwnerof">OwnerOf</string>
     <string name="getapproved">GetApproved</string>
     <string name="isapprovedForAll">isApprovedForAll</string>
