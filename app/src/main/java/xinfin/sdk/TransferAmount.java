@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xinfin.XinfinClient;
+import com.XDCJava.XDC20Client;
 
 import java.math.BigInteger;
 
@@ -50,7 +50,7 @@ public class TransferAmount extends AppCompatActivity {
                 } else {
 
 
-                    String trasaction_hash = XinfinClient.getInstance().TransferXdc(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString()));
+                    String trasaction_hash = XDC20Client.getInstance().TransferXdc(edt_private_key.getText().toString(), edt_sender_address.getText().toString(), edt_receiver_address.getText().toString(), new BigInteger(String.valueOf(edt_token_totransfer.getText())), Long.parseLong(edt_gasprice.getText().toString()), Long.parseLong(edt_gaslimit.getText().toString()));
 
                     text_transaction_hash.setText(trasaction_hash);
 

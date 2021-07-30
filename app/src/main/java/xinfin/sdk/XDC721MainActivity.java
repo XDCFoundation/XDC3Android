@@ -10,10 +10,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xinfin.Model.Token721DetailsResponse;
-import com.xinfin.Xinfin721Client;
-import com.xinfin.callback.Token721DetailCallback;
-import com.xinfin.callback.TokenDetailCallback;
+import com.XDCJava.Model.Token721DetailsResponse;
+import com.XDCJava.XDC721Client;
+import com.XDCJava.callback.Token721DetailCallback;
 
 import java.io.Serializable;
 
@@ -39,7 +38,7 @@ public class XDC721MainActivity extends AppCompatActivity {
 
                 if(enterXdcAddress.getText().toString()!=null && enterXdcAddress.getText().toString().length()>0)
                 {
-                    Xinfin721Client.getInstance().getTokenoinfo(enterXdcAddress.getText().toString(), new Token721DetailCallback() {
+                    XDC721Client.getInstance().getTokenoinfo(enterXdcAddress.getText().toString(), new Token721DetailCallback() {
                         @Override
                         public void success(Token721DetailsResponse tokenDetailsResponse) {
                             Intent intent = new Intent(XDC721MainActivity.this, Details721.class);

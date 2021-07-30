@@ -1,0 +1,54 @@
+
+
+
+
+buildscript {
+    repositories
+            {
+                jcenter()
+                // mavenCentral()
+                google()
+            }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.github.dcendents:android-maven-plugin:1.0'
+    }
+
+}
+plugins {
+    id 'java-library'
+    id "org.web3j" version "4.8.4"
+
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+dependencies {
+
+    //implementation group: 'org.web3j', name: 'core', version: '4.8.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'org.web3j:core:4.8.4'
+    // implementation "androidx.appcompat:appcompat:1.1.0"
+
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    testImplementation 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+
+
+
+}
+
+allprojects {
+    repositories {
+        //mavenCentral()
+        google()
+        jcenter()
+        // maven { url "https://jitpack.io" }
+    }
+
+}

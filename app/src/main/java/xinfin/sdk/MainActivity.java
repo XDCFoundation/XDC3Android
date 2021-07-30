@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xinfin.Model.TokenDetailsResponse;
-import com.xinfin.XinfinClient;
-import com.xinfin.callback.TokenDetailCallback;
+import com.XDCJava.Model.TokenDetailsResponse;
+import com.XDCJava.XDC20Client;
+import com.XDCJava.callback.TokenDetailCallback;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             {
 
               //  Utility.showProcess(MainActivity.this);
-                 XinfinClient.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+                 XDC20Client.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {

@@ -54,7 +54,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
 
-    implementation project(":Xinfin")
+    implementation project(':XDC3Java')
 
    // implementation 'com.leewayhertz.tokeezlibrary:2wls-android:0.0.1'
 
