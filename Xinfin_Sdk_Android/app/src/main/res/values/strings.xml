@@ -60,9 +60,31 @@
     <string name="final_to_address_tfrom">0xedb472070566e072f3bdaa50cfa076e772135f33</string>
 
 
+    <string name="final721_token">0x301815025bd43513ec36b6c6159ebaa8dff5e36d</string>
+    <string name="final721_tokenOwner">0xd7813e7cfdf83d6fa3469d7411b52a50ed2b867f</string>
+    <string name="final721_owner_privatekey">0x8a32103448a851b2fed3e95d2b4fbaa5e564f3b8cc42eac0d3be15a96311f355</string>
+    <string name="final721_spendar_address">0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd</string>
+    <string name="final721_spendar_privatekey">0x07d2fb9a1f3a912000bbf9215ee0815a969b1d49e7e4c5ec94600ae2dfcfa4ce</string>
+    <string name="final721_receiver_address">0xedb472070566e072f3bdaa50cfa076e772135f33</string>
+    <string name="final721_tokenId">21</string>
+    <string name="final721_interfaceId">0x80ac58cd</string>
+    <string name="xdc_721address">XDC 721 Token Address</string>
+    <string name="final_tokenUri">0x613fb5f43ae37a60d5f6683d921613c53d75d85d</string>
 
 
 
+    <string name="getOwnerof">OwnerOf</string>
+    <string name="getapproved">GetApproved</string>
+    <string name="isapprovedForAll">isApprovedForAll</string>
+    <string name="support_interface">Supports Interface</string>
+    <string name="setApprovalForAll">SetApprovalForAll</string>
+
+
+    <string name="final721_token_read">0xf6b4102b25756a33a90f8f192c74e53d22a9628e</string>
+    <string name="final721_tokenOwner_read">0x517b6be05e5c50df6876906909c23ad130476cc7</string>
+    <string name="final721_owner_privatekey_read">0x7415687b87e1f1bcf55b26e0ddb086f9eb1d31cdc2059a296ce05de51b043258</string>
+    <string name="final721_tokenId_read">19</string>
+    <string name="final721_token_Index">0</string>
 
 
 </resources>

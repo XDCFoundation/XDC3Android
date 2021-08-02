@@ -22,7 +22,8 @@ import org.web3j.tx.gas.ContractGasProvider;
  *
  * <p>Generated with web3j version 4.1.1.
  */
-public class XRC721Enumerable extends Contract {
+public class XRC721Enumerable extends Contract
+ {
     private static final String BINARY = "Bin file was not provided";
 
     public static final String FUNC_TOTALSUPPLY = "totalSupply";

@@ -18,12 +18,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import xinfin.sdk.Model.TokenDetailsResponse;
-import xinfin.sdk.XinfinClient;
+import xinfin.sdk.XDC20Client;
 import xinfin.sdk.callback.TokenDetailCallback;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button submit_button,btn_createaccount;
+    private Button submit_button,btn_createaccount,btn_test721;
     String token_address, xdcAddress;
     Button transfer_amount;
     AutoCompleteTextView tokenAutoTV;
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         btn_createaccount = (Button)findViewById(R.id.btn_createaccount);
         token_address = enterXdcAddress.getText().toString();
         transfer_amount = findViewById(R.id.transfer_amount);
+        btn_test721 = (Button)findViewById(R.id.btn_test721);
 
         transfer_amount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
         initUI();
 
+        btn_test721.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, XDC721MainActivity.class);
 
+                startActivity(intent);
+            }
+        });
 
         submit_button = findViewById(R.id.submit);
 
@@ -67,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             {
 
                 //  Utility.showProcess(MainActivity.this);
-                XinfinClient.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+                XDC20Client.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
                     {

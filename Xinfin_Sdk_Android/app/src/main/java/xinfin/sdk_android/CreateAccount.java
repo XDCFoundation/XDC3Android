@@ -9,14 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
-
 import java.io.File;
 
 import xinfin.sdk.Model.WalletData;
 
-import xinfin.sdk.XinfinClient;
+import xinfin.sdk.XDC20Client;
 import xinfin.sdk.callback.CreateAccountCallback;
 
 public class CreateAccount extends AppCompatActivity {
@@ -43,7 +40,7 @@ public class CreateAccount extends AppCompatActivity {
                                 File.separator + "web3j");
                         path.mkdir();
 
-                        XinfinClient.getInstance().generateWallet(path, edt_password.getText().toString(), new CreateAccountCallback() {
+                        XDC20Client.getInstance().generateWallet(path, edt_password.getText().toString(), new CreateAccountCallback() {
                             @Override
                             public void success(WalletData walletData) {
 

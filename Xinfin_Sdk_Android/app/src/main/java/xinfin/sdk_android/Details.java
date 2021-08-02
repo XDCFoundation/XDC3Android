@@ -15,7 +15,7 @@ import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
 import xinfin.sdk.Model.TokenDetailsResponse;
-import xinfin.sdk.XinfinClient;
+import xinfin.sdk.XDC20Client;
 
 public class Details extends AppCompatActivity implements View.OnClickListener {
 
@@ -225,7 +225,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XinfinClient.getInstance().transferfrom(edt_tfrom_spender.getText().toString(), edt_tfrom_to.getText().toString(), edt_tfrom_spender_privatekey.getText().toString(), edt_tfrom_value.getText().toString(), tokenResponse.getSpender_address() );
+                            approved_hash = XDC20Client.getInstance().transferfrom(edt_tfrom_spender.getText().toString(), edt_tfrom_to.getText().toString(), edt_tfrom_spender_privatekey.getText().toString(), edt_tfrom_value.getText().toString(), tokenResponse.getSpender_address() );
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -266,7 +266,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XinfinClient.getInstance().increaseAllownce(edt_increase_owner.getText().toString(), edt_increase_spender.getText().toString(), edt_privatekey.getText().toString(), edt_increase_allownce_value.getText().toString(), tokenResponse.getSpender_address());
+                            approved_hash = XDC20Client.getInstance().increaseAllownce(edt_increase_owner.getText().toString(), edt_increase_spender.getText().toString(), edt_privatekey.getText().toString(), edt_increase_allownce_value.getText().toString(), tokenResponse.getSpender_address());
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -305,7 +305,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XinfinClient.getInstance().decreaseAllownce(edt_decrease_owner.getText().toString(), edt_decrease_spender.getText().toString(), edt_privatekey.getText().toString(), edt_decrease_allownce.getText().toString(), tokenResponse.getSpender_address());
+                            approved_hash = XDC20Client.getInstance().decreaseAllownce(edt_decrease_owner.getText().toString(), edt_decrease_spender.getText().toString(), edt_privatekey.getText().toString(), edt_decrease_allownce.getText().toString(), tokenResponse.getSpender_address());
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -345,7 +345,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                     String approved_hash = null;
                     try {
-                        approved_hash = XinfinClient.getInstance().transferERC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(),  edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
+                        approved_hash = XDC20Client.getInstance().transferERC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(),  edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -379,7 +379,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                     String approved_hash = null;
                     try {
-                        approved_hash = XinfinClient.getInstance().approveERC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(), edt_allownce_spender.getText().toString(), edt_value_approve.getText().toString());
+                        approved_hash = XDC20Client.getInstance().approveERC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(), edt_allownce_spender.getText().toString(), edt_value_approve.getText().toString());
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -408,7 +408,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
             if (edt_allownce_spender.getText().toString() != null && edt_allownce_spender.getText().toString().length() > 0) {
 
-                String allownce = XinfinClient.getInstance().getAllowance(tokenResponse.getSpender_address(), edt_allownce_owner.getText().toString(), edt_allownce_spender.getText().toString());
+                String allownce = XDC20Client.getInstance().getAllowance(tokenResponse.getSpender_address(), edt_allownce_owner.getText().toString(), edt_allownce_spender.getText().toString());
                 allowance_value.setText(allownce);
 
             } else {
@@ -423,7 +423,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         if (edt_balance_spender.getText().toString() != null && edt_balance_spender.getText().toString().length() > 0) {
 
 
-            String allownce = XinfinClient.getInstance().getBalance(tokenResponse.getSpender_address(), edt_balance_spender.getText().toString());
+            String allownce = XDC20Client.getInstance().getBalance(tokenResponse.getSpender_address(), edt_balance_spender.getText().toString());
             balance_off_value.setText(allownce);
 
 
@@ -434,7 +434,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
     private void verifyPrivatekey() {
         if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
-            String contract_address = XinfinClient.getInstance().getContractAddress(edt_privatekey.getText().toString());
+            String contract_address = XDC20Client.getInstance().getContractAddress(edt_privatekey.getText().toString());
             text_contract_address.setText(contract_address);
         } else {
             Toast.makeText(Details.this, "Please Enter Private key", Toast.LENGTH_LONG).show();

@@ -39,18 +39,18 @@ import xinfin.sdk.callback.TokenDetailCallback;
 import xinfin.sdk.contracts.src.main.java.XRC20;
 
 
-public class XinfinClient {
+public class XDC20Client {
     Web3j web3;
-    public static XinfinClient instance;
+    public static XDC20Client instance;
    XRC20 javaToken;
     BigInteger allowance, decimal, totalSupply, balance;
     String symbol, name;
     TokenDetailsResponse tokenResponse;
     private WalletFile wallet;
 
-    public static XinfinClient getInstance() {
+    public static XDC20Client getInstance() {
         if (instance == null)
-            instance = new XinfinClient();
+            instance = new XDC20Client();
 
         return instance;
     }
