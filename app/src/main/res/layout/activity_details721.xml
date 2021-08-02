@@ -380,42 +380,111 @@
 
             </LinearLayout>
 
+
+
             <View
-                android:id="@+id/decimals_divider"
+                android:id="@+id/total_supply_devider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/decimals"
+                android:layout_below="@+id/total_supply"
                 android:background="@color/divider" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/total_supply"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="@string/total_supply"
+                        android:textColor="@color/header"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/total_supply_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:text=""
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/total_supply_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="token Address"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_total_supply_token"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="@string/spender_add"
+                        android:padding="5dp"
+                        android:text="@string/final721_token_read"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit_total_supply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/decimals_divider"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="17dp"
-                    android:layout_marginBottom="11dp"
-                    android:text="@string/total_supply"
-                    android:textColor="@color/header"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/total_supply_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/decimals_divider"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="17dp"
-                    android:layout_marginBottom="11dp"
-                    android:layout_toRightOf="@+id/total_supply"
-                    android:text="-"
-                    android:textColor="@color/header"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight=".7"
+                    android:backgroundTint="@color/background"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -525,6 +594,338 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/balance_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/total_supply"
+                android:background="@color/divider" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tokenbyindex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="Token by Index"
+                        android:textStyle="bold"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tokenbyindex_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:text=""
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tokenbyindex__add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="Token Address"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/tokenbyindex_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="token address"
+                        android:padding="5dp"
+                        android:text="@string/final721_token_read"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tokenby_index"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="Token index"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_tokenby_index_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="index"
+                        android:padding="5dp"
+                        android:text="@string/final721_token_Index"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit_tokenby_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight=".7"
+                    android:backgroundTint="@color/background"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+
+            <View
+                android:id="@+id/tokenindex_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/total_supply"
+                android:background="@color/divider" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tokenownerbyindex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="11dp"
+                        android:text="Token Owner by Index"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tokenownerbyindex_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:text=""
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="Token Address"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_tokenbyownerindex_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="token address"
+                        android:padding="5dp"
+                        android:text="@string/final721_token_read"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="Owner Address"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_owner_index_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="token address"
+                        android:padding="5dp"
+                        android:text="@string/final721_tokenOwner_read"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginBottom="11dp"
+                        android:text="Token index"
+                        android:textColor="@color/header"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_tokenownerby_index_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_supply_divider"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toRightOf="@+id/balance_off"
+                        android:background="@drawable/edit_text_border"
+                        android:hint="index"
+                        android:padding="5dp"
+                        android:text="@string/final721_token_Index"
+                        android:textColor="@color/header"
+                        android:textColorHint="@color/hint"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit_tokenownerby_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight=".7"
+                    android:backgroundTint="@color/background"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
 
 
             <View

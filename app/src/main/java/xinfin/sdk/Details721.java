@@ -19,7 +19,7 @@ import java.math.BigInteger;
 public class Details721 extends AppCompatActivity implements View.OnClickListener {
 
     TextView xdc_address_value, name_value, symbol_value, total_supply_value, balance_off_value, ownerof_value, is_Supoortinterface, approve_trasactonhash, getapproved_value,
-            isapprovedForAll_value, setapprovedForAll_value, safeTransferFrom_trasactonhash, transferFrom_trasactonhash, token_Uri_value;
+            isapprovedForAll_value, setapprovedForAll_value, safeTransferFrom_trasactonhash, transferFrom_trasactonhash, token_Uri_value,tokenbyindex_value,tokenownerbyindex_value;
     String hex_to_dec;
     BigInteger dec_bal, dec_supply;
     Token721DetailsResponse tokenResponse = new Token721DetailsResponse();
@@ -27,10 +27,11 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     EditText edt_tokenid, edt_balance_spender,
             edt_privatekey, edt_contract_address, edt_interfaceID, edt_approve_tokenid, edt_approve_spender, edt_getapprove_tokenid,
             edt_isapproveforall_spender, edt_setapproveforall_spender, edt_safeTransferFrom_spender, edt_safetrans_tokenid, edt_transferFrom_spender,
-            edt_trans_tokenid, edt_setapprobe_booean, edt_token_address, edt_token_uri_tokenid;
+            edt_trans_tokenid, edt_setapprobe_booean, edt_token_address, edt_token_uri_tokenid,tokenbyindex_address,edt_tokenby_index_value,edt_tokenbyownerindex_address,
+            edt_owner_index_address,edt_tokenownerby_index_value,edt_total_supply_token;
     Button submit_ownerof,
             check_address, submit_balanceof, submit_interface, submit_approve, submit_getapproved, submit_isapprovedforall,
-            submit_setapprovedforall, submit_safetrans, submit_trans, submit_tokenuri;
+            submit_setapprovedforall, submit_safetrans, submit_trans, submit_tokenuri,submit_tokenby_index,submit_tokenownerby_index,submit_total_supply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,6 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         xdc_address_value = findViewById(R.id.xdc_address_value);
         name_value = findViewById(R.id.name_value);
         symbol_value = findViewById(R.id.symbol_value);
-        total_supply_value = findViewById(R.id.total_supply_value);
         balance_off_value = findViewById(R.id.balance_off_value);
 
         edt_privatekey = findViewById(R.id.edt_privatekey);
@@ -104,6 +104,26 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         submit_tokenuri = findViewById(R.id.submit_tokenuri);
         submit_tokenuri.setOnClickListener(this::onClick);
 
+
+        tokenbyindex_value = findViewById(R.id.tokenbyindex_value);
+        tokenbyindex_address = findViewById(R.id.tokenbyindex_address);
+        edt_tokenby_index_value = findViewById(R.id.edt_tokenby_index_value);
+        submit_tokenby_index = findViewById(R.id.submit_tokenby_index);
+        submit_tokenby_index.setOnClickListener(this::onClick);
+
+
+        tokenownerbyindex_value = findViewById(R.id.tokenownerbyindex_value);
+        edt_tokenbyownerindex_address = findViewById(R.id.edt_tokenbyownerindex_address);
+        edt_owner_index_address = findViewById(R.id.edt_owner_index_address);
+        edt_tokenownerby_index_value = findViewById(R.id.edt_tokenownerby_index_value);
+        submit_tokenownerby_index = findViewById(R.id.submit_tokenownerby_index);
+        submit_tokenownerby_index.setOnClickListener(this::onClick);
+
+
+        total_supply_value = findViewById(R.id.total_supply_value);
+        edt_total_supply_token = findViewById(R.id.edt_total_supply_token);
+        submit_total_supply = findViewById(R.id.submit_total_supply);
+        submit_total_supply.setOnClickListener(this::onClick);
         if (getIntent().hasExtra("tokendetail")) {
             tokenResponse = (Token721DetailsResponse) getIntent().getSerializableExtra("tokendetail");
 
@@ -193,8 +213,74 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
             case R.id.submit_tokenuri:
                 getTokenUri();
                 break;
+            case R.id.submit_tokenby_index:
+                getTokenbyIndex();
+                break;
+
+            case R.id.submit_tokenownerby_index:
+                getTokenOwnerbyIndex();
+                break;
+
+            case R.id.submit_total_supply:
+                gettotalSupply();
+                break;
+
+
+
+
         }
 
+    }
+
+    private void gettotalSupply()
+    {
+        if (edt_total_supply_token.getText().toString() != null && edt_total_supply_token.getText().toString().length() > 0) {
+
+
+            String balance = XDC721Client.getInstance().gettotalSupply(edt_total_supply_token.getText().toString());
+            total_supply_value.setText(balance);
+
+
+        } else {
+            Toast.makeText(Details721.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void getTokenOwnerbyIndex() {
+
+        if (edt_tokenbyownerindex_address.getText().toString() != null && edt_tokenbyownerindex_address.getText().toString().length() > 0) {
+            if (edt_owner_index_address.getText().toString() != null && edt_owner_index_address.getText().toString().length() > 0) {
+                if (edt_tokenownerby_index_value.getText().toString() != null && edt_tokenownerby_index_value.getText().toString().length() > 0) {
+                    String tokenbyIndex = XDC721Client.getInstance().tokenOfOwnerByIndex(edt_tokenbyownerindex_address.getText().toString(), edt_owner_index_address.getText().toString(),edt_tokenownerby_index_value.getText().toString());
+                    tokenownerbyindex_value.setText(tokenbyIndex);
+                } else {
+                    Toast.makeText(Details721.this, "Please Enter Token index", Toast.LENGTH_LONG).show();
+                }
+            }
+            else
+            {
+                Toast.makeText(Details721.this, "Please Enter Owner Address", Toast.LENGTH_LONG).show();
+            }
+
+
+        } else {
+            Toast.makeText(Details721.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void getTokenbyIndex() {
+
+        if (tokenbyindex_address.getText().toString() != null && tokenbyindex_address.getText().toString().length() > 0) {
+            if (edt_tokenby_index_value.getText().toString() != null && edt_tokenby_index_value.getText().toString().length() > 0) {
+                String tokenbyIndex = XDC721Client.getInstance().gettokenByIndex(tokenbyindex_address.getText().toString(), edt_tokenby_index_value.getText().toString());
+                tokenbyindex_value.setText(tokenbyIndex);
+            } else {
+                Toast.makeText(Details721.this, "Please Enter Token index", Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            Toast.makeText(Details721.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void getTokenUri() {

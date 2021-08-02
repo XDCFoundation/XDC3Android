@@ -5,6 +5,7 @@ import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.callback.Token721DetailCallback;
 import com.XDCJava.contracts.src.main.java.XRC165;
 import com.XDCJava.contracts.src.main.java.XRC721;
+import com.XDCJava.contracts.src.main.java.XRC721Enumerable;
 import com.XDCJava.contracts.src.main.java.XRC721Metadata;
 
 import org.web3j.abi.FunctionEncoder;
@@ -39,7 +40,6 @@ public class XDC721Client {
     Web3j web3;
     public static XDC721Client instance;
     XRC721 javaToken;
-    BigInteger allowance, decimal, totalSupply, balance;
     String symbol, name;
     TokenDetailsResponse tokenResponse;
     private WalletFile wallet;
@@ -203,6 +203,127 @@ public class XDC721Client {
 
 
     }
+
+
+    public String gettotalSupply(String tokenAddress) {
+
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        try {
+            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+            if (!clientVersion.hasError()) {
+                ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                        tokenAddress);
+                try {
+                    XRC721Enumerable javaToken1 = XRC721Enumerable.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
+                    BigInteger totalSupply = javaToken1.totalSupply().send();
+
+
+                    return String.valueOf(totalSupply);
+
+                    // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
+                    // return getinfo(javaToken, token_address);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    return exception.getMessage();
+                }
+
+            } else {
+
+                //Show Error
+                return "Connection has been failed";
+            }
+        } catch (
+                Exception e) {
+            return e.getMessage();
+//Show Error
+
+        }
+
+
+    }
+
+
+    public String gettokenByIndex(String tokenAddress, String index) {
+
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        try {
+            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+            if (!clientVersion.hasError()) {
+                ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                        tokenAddress);
+                try {
+                    XRC721Enumerable javaToken1 = XRC721Enumerable.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
+                    BigInteger token = javaToken1.tokenByIndex(new BigInteger(index)).send();
+
+
+                    return String.valueOf(token);
+
+                    // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
+                    // return getinfo(javaToken, token_address);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    return exception.getMessage();
+                }
+
+            } else {
+
+                //Show Error
+                return "Connection has been failed";
+            }
+        } catch (
+                Exception e) {
+            return e.getMessage();
+//Show Error
+
+        }
+
+
+    }
+
+
+    public String tokenOfOwnerByIndex(String tokenAddress, String ownerAddress,String index) {
+
+        web3 = Web3j.build(new
+
+                HttpService(AppConstants.BASE_URL));
+        try {
+            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+            if (!clientVersion.hasError()) {
+                ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                        tokenAddress);
+                try {
+                    XRC721Enumerable javaToken1 = XRC721Enumerable.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
+                    BigInteger token = javaToken1.tokenOfOwnerByIndex(ownerAddress,new BigInteger(index)).send();
+
+
+                    return String.valueOf(token);
+
+                    // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
+                    // return getinfo(javaToken, token_address);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    return exception.getMessage();
+                }
+
+            } else {
+
+                //Show Error
+                return "Connection has been failed";
+            }
+        } catch (
+                Exception e) {
+            return e.getMessage();
+//Show Error
+
+        }
+
+
+    }
+
 
 
     public String getOwnerof(String tokenAddress, String tokenid) {
