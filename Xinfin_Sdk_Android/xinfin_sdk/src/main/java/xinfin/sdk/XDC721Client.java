@@ -580,18 +580,18 @@ public class XDC721Client {
         if (ethGasPrice == null) {
             return null;
         }
-        gasPrice = ethGasPrice.getGasPrice();
+//        gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        BigInteger gasLimit = BigInteger.valueOf(3000000L);
         final Function function = new Function(
                 "safeTransferFrom",
-                Arrays.<Type>asList(new Address(receiverAddress),
-                        new Address(credentials.getAddress()),
+                Arrays.<Type>asList(new Address(credentials.getAddress()),
+                        new Address(receiverAddress),
                         new Uint256(Long.parseLong(tokenid))),
                 Collections.<TypeReference<?>>emptyList());
         //Create RawTransaction transaction object
         String encodedFunction = FunctionEncoder.encode(function);
-        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, BigInteger.valueOf(3000000L), gasLimit,
                 tokenAddress, encodedFunction);
 
         //Signature Transaction
@@ -626,20 +626,20 @@ public class XDC721Client {
         if (ethGasPrice == null) {
             return null;
         }
-        gasPrice = ethGasPrice.getGasPrice();
+//        gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        BigInteger gasLimit = BigInteger.valueOf(3000000L);
         final Function function = new Function(
                 "transferFrom",
-                Arrays.<Type>asList(new Address(receiverAddress),
-                        new Address(credentials.getAddress()),
+                Arrays.<Type>asList(new Address(credentials.getAddress()),
+                        new Address(receiverAddress),
                         new Uint256(Long.parseLong(tokenid))),
                 Collections.<TypeReference<?>>emptyList());
 
 
         //Create RawTransaction transaction object
         String encodedFunction = FunctionEncoder.encode(function);
-        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, BigInteger.valueOf(3000000L), gasLimit,
                 tokenAddress, encodedFunction);
 
         //Signature Transaction
