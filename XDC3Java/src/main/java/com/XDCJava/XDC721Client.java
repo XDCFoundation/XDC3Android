@@ -32,6 +32,7 @@ import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -365,7 +366,7 @@ public class XDC721Client {
 
     }
 
-    public boolean getsupportInterface(String tokenAddress,String interfaceID) {
+    public boolean getsupportInterface(String tokenAddress, String interfaceID) {
 
         web3 = Web3j.build(new
                 HttpService(AppConstants.BASE_URL));
@@ -379,6 +380,12 @@ public class XDC721Client {
                     ByteBuffer b = ByteBuffer.allocate(4);
                     b.putInt(0x80ac58cd);
                     byte[] result = b.array();
+
+                   /* final char[] chars = Character.toChars(Integer.parseInt("80ac58cd"));
+                    final String s = new String(chars);
+                    @SuppressWarnings("NewApi") final byte[] asBytes = s.getBytes(StandardCharsets.UTF_8);*/
+
+
                     Boolean supportInterface = javaToken2.supportsInterface(result).send();
                     return supportInterface;
                 } catch (Exception exception) {
@@ -580,13 +587,13 @@ public class XDC721Client {
         if (ethGasPrice == null) {
             return null;
         }
-        gasPrice = ethGasPrice.getGasPrice();
+        gasPrice = BigInteger.valueOf(3000000L);
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        BigInteger gasLimit = BigInteger.valueOf(3000000L);
         final org.web3j.abi.datatypes.Function function = new Function(
                 "safeTransferFrom",
-                Arrays.<Type>asList(new Address(receiverAddress),
-                        new Address(credentials.getAddress()),
+                Arrays.<Type>asList(new Address(credentials.getAddress()),
+                        new Address(receiverAddress),
                         new Uint256(Long.parseLong(tokenid))),
                 Collections.<TypeReference<?>>emptyList());
         //Create RawTransaction transaction object
@@ -626,13 +633,14 @@ public class XDC721Client {
         if (ethGasPrice == null) {
             return null;
         }
-        gasPrice = ethGasPrice.getGasPrice();
+       // gasPrice = ethGasPrice.getGasPrice();
+        gasPrice = BigInteger.valueOf(3000000L);
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        BigInteger gasLimit = BigInteger.valueOf(3000000L);
         final Function function = new Function(
                 "transferFrom",
-                Arrays.<Type>asList(new Address(receiverAddress),
-                        new Address(credentials.getAddress()),
+                Arrays.<Type>asList(new Address(credentials.getAddress()),
+                        new Address(receiverAddress),
                         new Uint256(Long.parseLong(tokenid))),
                 Collections.<TypeReference<?>>emptyList());
 

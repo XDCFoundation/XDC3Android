@@ -1757,7 +1757,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginEnd="5dp"
                     android:singleLine="true"
-                    android:text="@string/final721_receiver_address"
+                    android:text="@string/final721_spendar_address"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
@@ -1906,7 +1906,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginEnd="5dp"
                     android:singleLine="true"
-                    android:text="@string/final721_receiver_address"
+                    android:text="@string/final721_spendar_address"
                     android:textColor="@color/header"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
