@@ -165,13 +165,10 @@ public class XDC20Client {
             if (!clientVersion.hasError()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         token_address);
-                //  Credentials creds = org.web3j.crypto.Credentials.create(AppConstants.PRIVATE_KEY);
 
                 try {
                     javaToken = com.XDCJava.contracts.src.main.java.XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
                     getinfo(javaToken, token_address, tokenDetailCallback);
-                    // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
-                    // return getinfo(javaToken, token_address);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     tokenDetailCallback.failure(exception.getMessage());
@@ -185,7 +182,7 @@ public class XDC20Client {
         } catch (
                 Exception e) {
             tokenDetailCallback.failure(e.getMessage());
-//Show Error
+                //Show Error
 
         }
 
@@ -242,7 +239,6 @@ public class XDC20Client {
 
     public void getinfo(com.XDCJava.contracts.src.main.java.XRC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
         try {
-            //allowance = javaToken.allowance(token_address, "0x2e550836caaa79884f36e78626363f59ca50e96e").send();
             balance = javaToken.balanceOf(token_address).send();
             symbol = javaToken.symbol().send();
             totalSupply = javaToken.totalSupply().send();
@@ -279,8 +275,6 @@ public class XDC20Client {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if (!clientVersion.hasError()) {
 
-                // web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST);
-                // Log.e("response", web3.ethGetTransactionCount(AppConstants.FROM_ADDRESS, DefaultBlockParameterName.LATEST);
 
 
                 EthGetTransactionCount ethGetTransactionCount = null;
@@ -291,7 +285,6 @@ public class XDC20Client {
                         ExecutionException e) {
                     e.printStackTrace();
                     return e.getMessage();
-                    //tokenCallback.failure(e.getMessage());
                 } catch (
                         InterruptedException e) {
                     e.printStackTrace();
@@ -334,21 +327,17 @@ public class XDC20Client {
                 Exception e) {
 
             return e.getMessage();
-//Show Error
+            //Show Error
 
         }
-
-
-        //return null;
-
     }
 
 
-    public String approveERC20Token(String token_address, String private_key, String spender_address, String value) throws ExecutionException, InterruptedException, IOException {
+    public String approveXRC20Token(String token_address, String private_key, String spender_address, String value) throws ExecutionException, InterruptedException, IOException {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
-        //Load the required documents for the transfer, with the private key
+        //Load the required data for the approve, with the private key
         Credentials credentials = Credentials.create(private_key);
         // Get nonce, the number of transactions
         BigInteger nonce;
@@ -367,9 +356,7 @@ public class XDC20Client {
         gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
         BigInteger gasLimit = BigInteger.valueOf(60000L);
-        //ERC20 token contract method
-        // value = value.multiply(value);
-        //receiver wallet address
+        //XRC20 token contract method
         org.web3j.abi.datatypes.Function function = new Function(
                 "approve",
                 Arrays.asList(new Address(spender_address), new Uint256(BigInteger.valueOf(Long.parseLong(value)))),
@@ -393,7 +380,7 @@ public class XDC20Client {
         return null;
     }
 
-    public static String transferERC20Token(String token_address, String private_key, String receiver_add, String value) throws ExecutionException, InterruptedException, IOException {
+    public static String transferXRC20Token(String token_address, String private_key, String receiver_add, String value) throws ExecutionException, InterruptedException, IOException {
         Web3j web3j = Web3j.build(new HttpService(AppConstants.BASE_URL));
         //Load the required documents for the transfer, with the private key
         Credentials credentials = Credentials.create(private_key);
@@ -413,10 +400,7 @@ public class XDC20Client {
         gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
         BigInteger gasLimit = BigInteger.valueOf(60000L);
-        //ERC20 token contract method
-        // value = value.multiply(value);
-
-
+        //XRC20 token contract method
         BigInteger a
                 = new BigInteger(value);
         BigInteger b
@@ -470,9 +454,7 @@ public class XDC20Client {
         gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
         BigInteger gasLimit = BigInteger.valueOf(60000L);
-        //ERC20 token contract method
-        // value = value.multiply(value);
-
+        //XRC20 token contract method
         com.XDCJava.contracts.src.main.java.XRC20 javaToken = com.XDCJava.contracts.src.main.java.XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
         BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
 
@@ -522,8 +504,7 @@ public class XDC20Client {
         gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
         BigInteger gasLimit = BigInteger.valueOf(60000L);
-        //ERC20 token contract method
-        // value = value.multiply(value);
+        //XRC20 token contract method
 
         com.XDCJava.contracts.src.main.java.XRC20 javaToken = XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
         BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
@@ -552,7 +533,6 @@ public class XDC20Client {
     }
 
 
-    //                        approved_hash = Web3jClass.getInstance().approveERC20Token("0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd",edt_allownce_spender.getText().toString(),edt_privatekey.getText().toString(),tokenResponse.getSpender_address(),edt_value_approve.getText().toString() );
     public String approve(String owner_Address, String spender_address, String private_key, String value, String token_address) throws Exception {
         web3 = Web3j.build(new
 
@@ -575,13 +555,7 @@ public class XDC20Client {
         gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
         BigInteger gasLimit = BigInteger.valueOf(60000L);
-        //ERC20 token contract method
-        // value = value.multiply(value);
-
-        // ERC20 javaToken = ERC20.load(token_address, web3, credentials, new DefaultGasProvider());
-        //BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
-
-        // allowance = allowance.subtract( BigInteger.valueOf(Long.parseLong(value))) ;
+        //XRC20 token contract method
         Function function = null;
         try {
             function = new Function(
@@ -634,22 +608,7 @@ public class XDC20Client {
         gasPrice = ethGasPrice.getGasPrice();
         //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
         BigInteger gasLimit = BigInteger.valueOf(60000L);
-        //ERC20 token contract method
-        // value = value.multiply(value);
-
-        /*ERC20 javaToken = ERC20.load(token_Address, web3, credentials, new DefaultGasProvider());
-        BigInteger allowance = javaToken.allowance(token_owner, spender_address).send();
-*/
-
-
-        //  allowance = allowance.subtract( BigInteger.valueOf(123)) ;
-       /* Function function = new Function(
-                "transferFrom",
-                Arrays.asList(new Address("0x32f158af29c171392a1ff35a7387583ff4959053"), new Uint256(1)),
-                Collections.singletonList(new TypeReference<Type>() {
-                }));*/
-
-
+        //XRC20 token contract method
         final Function function = new Function(
                 "transferFrom",
                 Arrays.<Type>asList(new Address(spender_address),

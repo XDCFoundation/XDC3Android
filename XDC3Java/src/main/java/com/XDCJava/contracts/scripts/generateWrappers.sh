@@ -4,11 +4,11 @@ set -e
 set -o pipefail
 
 targetFileIn=(
-"src/main/resources/eip20/solidity/ERC20"
-"src/main/resources/eip165/solidity/ERC165"
-"src/main/resources/eip721/solidity/ERC721"
-"src/main/resources/eip721/solidity/ERC721Enumerable"
-"src/main/resources/eip721/solidity/ERC721Metadata")
+"src/main/resources/eip20/solidity/XRC20"
+"src/main/resources/eip165/solidity/XRC165"
+"src/main/resources/eip721/solidity/XRC721"
+"src/main/resources/eip721/solidity/XRC721Enumerable"
+"src/main/resources/eip721/solidity/XRC721Metadata")
 
 targetPackageOut=(
 "org.web3j.contracts.eip20.generated"

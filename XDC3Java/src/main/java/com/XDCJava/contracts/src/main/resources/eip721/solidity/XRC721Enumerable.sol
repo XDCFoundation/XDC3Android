@@ -1,9 +1,8 @@
 pragma solidity ^0.4.20;
 
-/// @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
-/// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
-///  Note: the ERC-165 identifier for this interface is 0x780e9d63.
-interface ERC721Enumerable {
+/// @title XRC-721 Non-Fungible Token Standard, optional enumeration extension
+///  Note: the XRC-165 identifier for this interface is 0x780e9d63.
+interface XRC721Enumerable {
     /// @notice Count NFTs tracked by this contract
     /// @return A count of valid NFTs tracked by this contract, where each one of
     ///  them has an assigned and queryable owner not equal to the zero address

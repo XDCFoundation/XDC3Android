@@ -115,7 +115,6 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
     public void assignValues() {
 
-        //xdc_address_value.setText(tokenResponse.getSpender_address().replace("0x", "xdc"));
 
         xdc_address_value.setText(tokenResponse.getSpender_address());
 
@@ -345,7 +344,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XDC20Client.getInstance().transferERC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(),  edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
+                            approved_hash = XDC20Client.getInstance().transferXRC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(),  edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -379,7 +378,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                     String approved_hash = null;
                     try {
-                        approved_hash = XDC20Client.getInstance().approveERC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(), edt_allownce_spender.getText().toString(), edt_value_approve.getText().toString());
+                        approved_hash = XDC20Client.getInstance().approveXRC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(), edt_allownce_spender.getText().toString(), edt_value_approve.getText().toString());
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {

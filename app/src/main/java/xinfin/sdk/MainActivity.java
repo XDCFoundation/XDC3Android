@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 
-              //  Utility.showProcess(MainActivity.this);
                  XDC20Client.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
                     public void success(TokenDetailsResponse tokenDetailsResponse)
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-              //  Web3jClass.getInstance().TransferTokenEvent();
 
 
 

@@ -62,9 +62,6 @@ public class XDC721MainActivity extends AppCompatActivity {
                     Toast.makeText(XDC721MainActivity.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
                 }
 
-              //  Utility.showProcess(MainActivity.this);
-
-              //  Web3jClass.getInstance().TransferTokenEvent();
 
 
 

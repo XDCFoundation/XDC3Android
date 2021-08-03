@@ -68,10 +68,9 @@ library SafeMath {
 
 
 /**
- * @title ERC20 interface
- * @dev see https://github.com/ethereum/EIPs/issues/20
+ * @title XRC20 interface
  */
-interface IERC20 {
+interface IXRC20 {
   function totalSupply() external view returns (uint256);
 
   function balanceOf(address who) external view returns (uint256);
@@ -104,13 +103,11 @@ interface IERC20 {
 
 
 /**
- * @title Standard ERC20 token
+ * @title Standard XRC20 token
  *
  * @dev Implementation of the basic standard token.
- * https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
- * Originally based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  */
-contract ERC20 is IERC20 {
+contract XRC20 is IXRC20 {
   using SafeMath for uint256;
 
   mapping (address => uint256) internal  _balances;
@@ -132,7 +129,7 @@ contract ERC20 is IERC20 {
   /**
    * constructor
    */
-    function ERC20(uint256 _value){
+    function XRC20(uint256 _value){
         _totalSupply = _value;
         _balances[this]= _totalSupply;
         _owner = msg.sender;
@@ -191,7 +188,6 @@ contract ERC20 is IERC20 {
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
-   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
    */
@@ -351,14 +347,14 @@ contract ERC20 is IERC20 {
 
 
 /**
- * @title SafeERC20
- * @dev Wrappers around ERC20 operations that throw on failure.
- * To use this library you can add a `using SafeERC20 for ERC20;` statement to your contract,
+ * @title SafeXRC20
+ * @dev Wrappers around XRC20 operations that throw on failure.
+ * To use this library you can add a `using SafeXRC20 for XRC20;` statement to your contract,
  * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
  */
-library SafeERC20 {
+library SafeXRC20 {
   function safeTransfer(
-    IERC20 token,
+    IXRC20 token,
     address to,
     uint256 value
   )
@@ -368,7 +364,7 @@ library SafeERC20 {
   }
 
   function safeTransferFrom(
-    IERC20 token,
+    IXRC20 token,
     address from,
     address to,
     uint256 value
@@ -379,7 +375,7 @@ library SafeERC20 {
   }
 
   function safeApprove(
-    IERC20 token,
+    IXRC20 token,
     address spender,
     uint256 value
   )
@@ -393,12 +389,11 @@ library SafeERC20 {
 
 
 /**
- * @title ERC20Detailed token
+ * @title XRC20Detailed token
  * @dev The decimals are only for visualization purposes.
  * All the operations are done using the smallest and indivisible token unit,
- * just as on Ethereum all the operations are done in wei.
  */
-contract ERC20Detailed is IERC20 {
+contract XRC20Detailed is IXRC20 {
   string private _name;
   string private _symbol;
   uint8 private _decimals;
@@ -729,7 +724,7 @@ contract UpgradeAgent {
  * A token upgrade mechanism where users can opt-in amount of tokens to the next smart contract revision.
  */
 
-contract Upgradeable is ERC20 {
+contract Upgradeable is XRC20 {
 
   using SafeMath for uint256;
 
@@ -907,9 +902,9 @@ contract Pausable is PauserRole {
 
 /**
  * @title Pausable token
- * @dev ERC20 modified with pausable transfers.
+ * @dev XRC20 modified with pausable transfers.
  **/
-contract ERC20Pausable is ERC20, Pausable {
+contract XRC20Pausable is XRC20, Pausable {
 
   function transfer(
     address to,
@@ -974,7 +969,7 @@ contract ERC20Pausable is ERC20, Pausable {
  * @title Burnable Token
  * @dev Token that can be irreversibly burned (destroyed).
  */
-contract ERC20Burnable is ERC20 {
+contract XRC20Burnable is XRC20 {
 
   /**
    * @dev Burns a specific amount of tokens.
@@ -994,7 +989,7 @@ contract ERC20Burnable is ERC20 {
   }
 
   /**
-   * @dev Overrides ERC20._burn in order for burn and burnFrom to emit
+   * @dev Overrides XRC20._burn in order for burn and burnFrom to emit
    * an additional Burn event.
    */
   function _burn(address who, uint256 value) internal {
@@ -1008,10 +1003,10 @@ contract ERC20Burnable is ERC20 {
 
 
 /**
- * @title ERC20Mintable
- * @dev ERC20 minting logic
+ * @title XRC20Mintable
+ * @dev XRC20 minting logic
  */
-contract ERC20Mintable is ERC20, MinterRole {
+contract XRC20Mintable is XRC20, MinterRole {
   event MintingFinished();
 
   bool private _mintingFinished = false;
@@ -1070,7 +1065,7 @@ contract ERC20Mintable is ERC20, MinterRole {
  * @title Capped token
  * @dev Mintable token with a token cap.
  */
-contract ERC20Capped is ERC20Mintable {
+contract XRC20Capped is XRC20Mintable {
 
   uint256 private _cap;
 
@@ -1110,7 +1105,7 @@ contract ERC20Capped is ERC20Mintable {
 
 
 
-contract Coin is ERC20,Ownable,ERC20Detailed, ERC20Burnable , ERC20Pausable, ERC20Mintable,ERC20Capped , Upgradeable{
-    constructor() ERC20(123456000000000000000000)ERC20Detailed('AYu','AYUS',18)ERC20Capped(1234560000000000000000000){}
+contract Coin is XRC20,Ownable, XRC20Detailed, XRC20Burnable, XRC20Pausable, XRC20Mintable, XRC20Capped, Upgradeable{
+    constructor() XRC20(123456000000000000000000)XRC20Detailed('AYu','AYUS',18)XRC20Capped(1234560000000000000000000){}
 }
 

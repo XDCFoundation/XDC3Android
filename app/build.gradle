@@ -56,7 +56,6 @@ dependencies {
 
     implementation project(':XDC3Java')
 
-   // implementation 'com.leewayhertz.tokeezlibrary:2wls-android:0.0.1'
 
 
 }
