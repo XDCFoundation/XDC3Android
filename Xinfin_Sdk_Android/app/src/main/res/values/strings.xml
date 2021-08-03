@@ -60,16 +60,37 @@
     <string name="final_to_address_tfrom">0xedb472070566e072f3bdaa50cfa076e772135f33</string>
 
 
-    <string name="final721_token">0x301815025bd43513ec36b6c6159ebaa8dff5e36d</string>
-    <string name="final721_tokenOwner">0xd7813e7cfdf83d6fa3469d7411b52a50ed2b867f</string>
-    <string name="final721_owner_privatekey">0x8a32103448a851b2fed3e95d2b4fbaa5e564f3b8cc42eac0d3be15a96311f355</string>
-    <string name="final721_spendar_address">0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd</string>
-    <string name="final721_spendar_privatekey">0x07d2fb9a1f3a912000bbf9215ee0815a969b1d49e7e4c5ec94600ae2dfcfa4ce</string>
-    <string name="final721_receiver_address">0xedb472070566e072f3bdaa50cfa076e772135f33</string>
-    <string name="final721_tokenId">21</string>
-    <string name="final721_interfaceId">0x80ac58cd</string>
-    <string name="xdc_721address">XDC 721 Token Address</string>
+    <!--  <string name="final721_token">0x301815025bd43513ec36b6c6159ebaa8dff5e36d</string>
+     <string name="final721_token">0x301815025bd43513ec36b6c6159ebaa8dff5e36d</string>
+     <string name="final721_tokenOwner">0xd7813e7cfdf83d6fa3469d7411b52a50ed2b867f</string>
+     <string name="final721_owner_privatekey">0x8a32103448a851b2fed3e95d2b4fbaa5e564f3b8cc42eac0d3be15a96311f355</string>
+     <string name="final721_spendar_address">0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd</string>
+     <string name="final721_spendar_privatekey">0x07d2fb9a1f3a912000bbf9215ee0815a969b1d49e7e4c5ec94600ae2dfcfa4ce</string>
+     <string name="final721_receiver_address">0xedb472070566e072f3bdaa50cfa076e772135f33</string>
+     <string name="final721_tokenId">21</string>
+     <string name="final721_interfaceId">0x80ac58cd</string>
+     <string name="xdc_721address">XDC 721 Token Address</string>
+     <string name="final_tokenUri">0x613fb5f43ae37a60d5f6683d921613c53d75d85d</string> -->
+
+
+
+        <string name="final721_token">0xc246e82fb67bdfcf6fc9859c66c613730f8650c4</string>
+        <string name="final721_tokenOwner">0x79dbbbe40993253aa18e930a39d3636b15866725</string>
+        <string name="final721_owner_privatekey">0x03098465d0a7a39e05ca8ab431789507c1d576a2da1de6934964e33ea8d6986a</string>
+        <string name="final721_spendar_address">0x7af2f691d78c51d0f0368a3c367634c9d76cfe7d</string>
+        <string name="final721_spendar_privatekey">0x78e5eff6026eeeee03401909c51a1b3bd3b2071dd333632bb4d54c279dc5f1ea</string>
+        <string name="final721_receiver_address">0xedb472070566e072f3bdaa50cfa076e772135f33</string>
+        <string name="final721_tokenId">27</string>
+        <string name="final721_interfaceId">0x80ac58cd</string>
+        <string name="xdc_721address">XDC 721 Token Address</string>
     <string name="final_tokenUri">0x613fb5f43ae37a60d5f6683d921613c53d75d85d</string>
+
+    <!--token: 0xc246e82fb67bdfcf6fc9859c66c613730f8650c4
++    previos owner : 0x79dbbbe40993253aa18e930a39d3636b15866725
++    private key previous key : 0x03098465d0a7a39e05ca8ab431789507c1d576a2da1de6934964e33ea8d6986a
++    new owner : 0x7af2f691d78c51d0f0368a3c367634c9d76cfe7d
++    private key new Owner : 0x78e5eff6026eeeee03401909c51a1b3bd3b2071dd333632bb4d54c279dc5f1ea
++    id : 27-->
 
 
 

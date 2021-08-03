@@ -381,6 +381,10 @@ public class XDC721Client {
                     byte[] result = b.array();
                     Boolean supportInterface = javaToken2.supportsInterface(result).send();
                     return supportInterface;
+
+                     /* final char[] chars = Character.toChars(Integer.parseInt("80ac58cd"));
++                    final String s = new String(chars);
++                    @SuppressWarnings("NewApi") final byte[] asBytes = s.getBytes(StandardCharsets.UTF_8);*/
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     return false;
