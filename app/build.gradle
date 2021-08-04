@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "xinfin.sdk"
+        applicationId "com.XDC.Example"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
@@ -20,9 +20,9 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('xinfin.jks')
+            storeFile file('XDC.jks')
             storePassword 'leeway321'
-            keyAlias = 'xinfin'
+            keyAlias = 'xdc'
             keyPassword 'leeway321'
         }
     }

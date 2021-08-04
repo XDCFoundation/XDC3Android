@@ -135,7 +135,8 @@ public class XDC20Client {
 
     public String getContractAddress(String Privatekey) {
 
-        if (isWeb3jConnected()) {
+        if (isWeb3jConnected())
+        {
             try {
                 Credentials creds = org.web3j.crypto.Credentials.create(Privatekey);
                 if (creds.getAddress() != null && creds.getAddress().length() > 0) {
@@ -155,7 +156,8 @@ public class XDC20Client {
     }
 
 
-    public void getTokenoinfo(String token_address, TokenDetailCallback tokenDetailCallback) {
+    public void getTokenoinfo(String token_address, TokenDetailCallback tokenDetailCallback)
+    {
 
         web3 = Web3j.build(new
 

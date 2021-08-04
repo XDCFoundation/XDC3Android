@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "xinfin.sdk",
+  "applicationId": "com.XDC.Example",
   "variantName": "processReleaseResources",
   "elements": [
     {

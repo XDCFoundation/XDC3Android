@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xinfin.sdk">
+    package="com.XDC">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,12 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
-        android:theme="@style/Theme.XinfinSDK">
-        <activity android:name=".TransferAmount"></activity>
-        <activity android:name=".CreateAccount" />
-        <activity android:name=".Details" />
+        android:theme="@style/Theme.com.XDC.Example">
+        <activity android:name="com.XDC.Example.TransferAmount"></activity>
+        <activity android:name="com.XDC.Example.CreateAccount" />
+        <activity android:name="com.XDC.Example.Details" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.XDC.Example.MainActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,12 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Details721"
+            android:name="com.XDC.Example.Details721"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
         </activity>
         <activity
-            android:name=".XDC721MainActivity"
+            android:name="com.XDC.Example.XDC721MainActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
         </activity>
