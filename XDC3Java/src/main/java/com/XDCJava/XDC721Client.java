@@ -32,7 +32,6 @@ import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -75,37 +74,26 @@ public class XDC721Client {
 
     public void getTokenoinfo(String tokenAddress, Token721DetailCallback tokenDetailCallback) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
-                ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
-                        tokenAddress);
-                javaToken = null;
-                try {
-                    XRC721Metadata javaToken = XRC721Metadata.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
-                    getinfo(javaToken, tokenAddress, tokenDetailCallback);
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                    tokenDetailCallback.failure(exception.getMessage());
-                }
-
-            } else {
-
-                //Show Error
-                tokenDetailCallback.failure("Connection has been failed");
+        if (isWeb3jConnected()) {
+            ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                    tokenAddress);
+            javaToken = null;
+            try {
+                XRC721Metadata javaToken = XRC721Metadata.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
+                getinfo(javaToken, tokenAddress, tokenDetailCallback);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                tokenDetailCallback.failure(exception.getMessage());
             }
-        } catch (
-                Exception e) {
-            tokenDetailCallback.failure(e.getMessage());
-//Show Error
 
+        } else {
+
+            //Show Error
+            tokenDetailCallback.failure("Connection has been failed");
         }
+
     }
-
-
 
 
     public void getinfo(XRC721Metadata javaToken, String tokenAddress, Token721DetailCallback tokenDetailCallback) {
@@ -129,51 +117,35 @@ public class XDC721Client {
 
     public String getTokenUri(String tokenAddress, String tokenid) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
-                ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
-                        tokenAddress);
-                try {
-                    XRC721Metadata javaToken1 = XRC721Metadata.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
-                    String balance = javaToken1.tokenURI(BigInteger.valueOf(Long.parseLong(tokenid))).send();
+        if (isWeb3jConnected()) {
+            ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
+                    tokenAddress);
+            try {
+                XRC721Metadata javaToken1 = XRC721Metadata.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
+                String balance = javaToken1.tokenURI(BigInteger.valueOf(Long.parseLong(tokenid))).send();
 
 
-                    return String.valueOf(balance);
+                return String.valueOf(balance);
 
-                    // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
-                    // return getinfo(javaToken, token_address);
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                    return exception.getMessage();
-                }
-
-            } else {
-
-                //Show Error
-                return "Connection has been failed";
+                // tokenDetailCallback.success(getinfo(javaToken, token_address,tokenDetailCallback));
+                // return getinfo(javaToken, token_address);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return exception.getMessage();
             }
-        } catch (
-                Exception e) {
-            return e.getMessage();
-//Show Error
 
+        } else {
+
+            //Show Error
+            return "Connection has been failed";
         }
-
-
     }
 
     public String getBalance(String tokenAddress, String ownerAddress) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
@@ -195,12 +167,7 @@ public class XDC721Client {
                 //Show Error
                 return "Connection has been failed";
             }
-        } catch (
-                Exception e) {
-            return e.getMessage();
-//Show Error
 
-        }
 
 
     }
@@ -208,12 +175,8 @@ public class XDC721Client {
 
     public String gettotalSupply(String tokenAddress) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
@@ -235,25 +198,13 @@ public class XDC721Client {
                 //Show Error
                 return "Connection has been failed";
             }
-        } catch (
-                Exception e) {
-            return e.getMessage();
-//Show Error
-
-        }
-
-
     }
 
 
     public String gettokenByIndex(String tokenAddress, String index) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
@@ -275,30 +226,18 @@ public class XDC721Client {
                 //Show Error
                 return "Connection has been failed";
             }
-        } catch (
-                Exception e) {
-            return e.getMessage();
-//Show Error
-
-        }
-
-
     }
 
 
-    public String tokenOfOwnerByIndex(String tokenAddress, String ownerAddress,String index) {
+    public String tokenOfOwnerByIndex(String tokenAddress, String ownerAddress, String index) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
                     XRC721Enumerable javaToken1 = XRC721Enumerable.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
-                    BigInteger token = javaToken1.tokenOfOwnerByIndex(ownerAddress,new BigInteger(index)).send();
+                    BigInteger token = javaToken1.tokenOfOwnerByIndex(ownerAddress, new BigInteger(index)).send();
 
 
                     return String.valueOf(token);
@@ -315,31 +254,18 @@ public class XDC721Client {
                 //Show Error
                 return "Connection has been failed";
             }
-        } catch (
-                Exception e) {
-            return e.getMessage();
-//Show Error
-
-        }
-
-
     }
-
 
 
     public String getOwnerof(String tokenAddress, String tokenid) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
                     XRC721 javaToken1 = XRC721.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
-                     String ownerOf =   javaToken1.ownerOf(BigInteger.valueOf(Long.parseLong(tokenid))).send();
+                    String ownerOf = javaToken1.ownerOf(BigInteger.valueOf(Long.parseLong(tokenid))).send();
 
 
                     return ownerOf;
@@ -356,23 +282,12 @@ public class XDC721Client {
                 //Show Error
                 return "Connection has been failed";
             }
-        } catch (
-                Exception e) {
-            return e.getMessage();
-//Show Error
-
-        }
-
-
     }
 
     public boolean getsupportInterface(String tokenAddress, String interfaceID) {
 
-        web3 = Web3j.build(new
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
@@ -396,67 +311,66 @@ public class XDC721Client {
                 //Show Error
                 return false;
             }
-        } catch (
-                Exception e) {
-            return false;
-//Show Error
-        }
-
     }
 
 
-    public String approve(String tokenAddress,String privatekey,String tokenid,String receiverAddress) throws Exception {
-        web3 = Web3j.build(new
-                HttpService(AppConstants.BASE_URL));
-        //spender privatekey
-        Credentials credentials = Credentials.create(privatekey);
-        // Get nonce, the number of transactions
-        BigInteger nonce;
-        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
-        if (ethGetTransactionCount == null) {
-            return null;
-        }
-        nonce = ethGetTransactionCount.getTransactionCount();
-        //gasPrice and gasLimit can be set manually
-        BigInteger gasPrice;
-        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-        if (ethGasPrice == null) {
-            return null;
-        }
-        gasPrice = ethGasPrice.getGasPrice();
-        BigInteger gasLimit = BigInteger.valueOf(60000L);
-        //receiver key - token id
-        final Function function = new Function(
-                "approve",
-                Arrays.<Type>asList(new Address(receiverAddress),
-                        new Uint256(BigInteger.valueOf(Long.parseLong(tokenid)))),
-                Collections.<TypeReference<?>>emptyList());
+    public String approve(String tokenAddress, String privatekey, String tokenid, String receiverAddress) throws Exception {
 
-        //Create RawTransaction transaction object
-        String encodedFunction = FunctionEncoder.encode(function);
-        //token address
-        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
-                tokenAddress, encodedFunction);
-        //Signature Transaction
-        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-        String hexValue = Numeric.toHexString(signMessage);
-        //Send the transaction
-        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
-        String hash = ethSendTransaction.getTransactionHash();
-        if (hash != null) {
-            return hash;
+        if(isWeb3jConnected()) {
+            //spender privatekey
+            Credentials credentials = Credentials.create(privatekey);
+            // Get nonce, the number of transactions
+            BigInteger nonce;
+            EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+            if (ethGetTransactionCount == null) {
+                return null;
+            }
+            nonce = ethGetTransactionCount.getTransactionCount();
+            //gasPrice and gasLimit can be set manually
+            BigInteger gasPrice;
+            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+            if (ethGasPrice == null) {
+                return null;
+            }
+            gasPrice = ethGasPrice.getGasPrice();
+            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            //receiver key - token id
+            final Function function = new Function(
+                    "approve",
+                    Arrays.<Type>asList(new Address(receiverAddress),
+                            new Uint256(BigInteger.valueOf(Long.parseLong(tokenid)))),
+                    Collections.<TypeReference<?>>emptyList());
+
+            //Create RawTransaction transaction object
+            String encodedFunction = FunctionEncoder.encode(function);
+            //token address
+            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                    tokenAddress, encodedFunction);
+            //Signature Transaction
+            byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+            String hexValue = Numeric.toHexString(signMessage);
+            //Send the transaction
+            EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+            String hash = ethSendTransaction.getTransactionHash();
+            if (hash != null) {
+                return hash;
+            }
+            else
+            {
+                return "Failed";
+            }
         }
-        return null;
+        else
+        {
+            return "Failed";
+        }
+
     }
 
     public String getApproved(String tokenAddress, String tokenId) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
@@ -473,29 +387,18 @@ public class XDC721Client {
                 //Show Error
                 return "Connection has been failed";
             }
-        } catch (
-                Exception e) {
-            return e.getMessage();
-
-        }
-
-
     }
 
 
-    public boolean isApprovedForAll(String tokenAddress,String ownerAddress,String OperatorAddress) {
+    public boolean isApprovedForAll(String tokenAddress, String ownerAddress, String OperatorAddress) {
 
-        web3 = Web3j.build(new
 
-                HttpService(AppConstants.BASE_URL));
-        try {
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
+            if (isWeb3jConnected()) {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
-                    XRC721  javaToken = XRC721.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
-                    Boolean isApproved = javaToken.isApprovedForAll(ownerAddress,OperatorAddress).send();
+                    XRC721 javaToken = XRC721.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
+                    Boolean isApproved = javaToken.isApprovedForAll(ownerAddress, OperatorAddress).send();
 
                     return isApproved;
 
@@ -509,157 +412,170 @@ public class XDC721Client {
                 //Show Error
                 return false;
             }
-        } catch (
-                Exception e) {
-            return false;
-//Show Error
+    }
 
+    public String setApprovalForAll(String tokenAddress, String privatekey, String OperatorAddress, String booleanvalue) throws Exception {
+
+
+        if(isWeb3jConnected()) {
+            //spender privatekey
+            Credentials credentials = Credentials.create(privatekey);
+            // Get nonce, the number of transactions
+            BigInteger nonce;
+            EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+            if (ethGetTransactionCount == null) {
+                return null;
+            }
+            nonce = ethGetTransactionCount.getTransactionCount();
+            //gasPrice and gasLimit can be set manually
+            BigInteger gasPrice;
+            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+            if (ethGasPrice == null) {
+                return null;
+            }
+            gasPrice = ethGasPrice.getGasPrice();
+            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            final org.web3j.abi.datatypes.Function function = new Function(
+                    "setApprovalForAll",
+                    Arrays.<Type>asList(new Address(OperatorAddress),
+                            new Bool(Boolean.parseBoolean(booleanvalue))),
+                    Collections.<TypeReference<?>>emptyList());
+
+
+            //Create RawTransaction transaction object
+            String encodedFunction = FunctionEncoder.encode(function);
+            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                    tokenAddress, encodedFunction);
+
+            //Signature Transaction
+            byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+            String hexValue = Numeric.toHexString(signMessage);
+            //Send the transaction
+            EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+            String hash = ethSendTransaction.getTransactionHash();
+            if (hash != null) {
+                return hash;
+            }
+            else
+            {
+                return "Failed";
+            }
+        }
+        else
+        {
+            return "Failed";
         }
 
     }
 
-    public String setApprovalForAll(String tokenAddress,String privatekey,String OperatorAddress,String booleanvalue) throws Exception {
 
-        web3 = Web3j.build(new
+    public String safeTransferFrom(String tokenAddress, String privatekey, String receiverAddress, String tokenid) throws Exception {
 
-                HttpService(AppConstants.BASE_URL));
-        //spender privatekey
-        Credentials credentials = Credentials.create(privatekey);
-        // Get nonce, the number of transactions
-        BigInteger nonce;
-        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
-        if (ethGetTransactionCount == null) {
-            return null;
+        if(isWeb3jConnected()) {
+            //Load the required documents for the transfer, with the private key
+            //spender privatekey
+            Credentials credentials = Credentials.create(privatekey);
+            // Get nonce, the number of transactions
+            BigInteger nonce;
+            EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+            if (ethGetTransactionCount == null) {
+                return null;
+            }
+            nonce = ethGetTransactionCount.getTransactionCount();
+            //gasPrice and gasLimit can be set manually
+            BigInteger gasPrice;
+            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+            if (ethGasPrice == null) {
+                return null;
+            }
+            gasPrice = BigInteger.valueOf(3000000L);
+            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+            BigInteger gasLimit = BigInteger.valueOf(3000000L);
+            final org.web3j.abi.datatypes.Function function = new Function(
+                    "safeTransferFrom",
+                    Arrays.<Type>asList(new Address(credentials.getAddress()),
+                            new Address(receiverAddress),
+                            new Uint256(Long.parseLong(tokenid))),
+                    Collections.<TypeReference<?>>emptyList());
+            //Create RawTransaction transaction object
+            String encodedFunction = FunctionEncoder.encode(function);
+            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                    tokenAddress, encodedFunction);
+
+            //Signature Transaction
+            byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+            String hexValue = Numeric.toHexString(signMessage);
+            //Send the transaction
+            EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+            String hash = ethSendTransaction.getTransactionHash();
+            if (hash != null) {
+                return hash;
+            }
+            else
+            {
+                return "Failed";
+            }
         }
-        nonce = ethGetTransactionCount.getTransactionCount();
-        //gasPrice and gasLimit can be set manually
-        BigInteger gasPrice;
-        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-        if (ethGasPrice == null) {
-            return null;
+        else
+        {
+            return "Failed";
         }
-        gasPrice = ethGasPrice.getGasPrice();
-        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-        BigInteger gasLimit = BigInteger.valueOf(60000L);
-        final org.web3j.abi.datatypes.Function function = new Function(
-                "setApprovalForAll",
-                Arrays.<Type>asList(new Address(OperatorAddress),
-                        new Bool(Boolean.parseBoolean(booleanvalue))),
-                Collections.<TypeReference<?>>emptyList());
-
-
-        //Create RawTransaction transaction object
-        String encodedFunction = FunctionEncoder.encode(function);
-        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
-                tokenAddress, encodedFunction);
-
-        //Signature Transaction
-        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-        String hexValue = Numeric.toHexString(signMessage);
-        //Send the transaction
-        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
-        String hash = ethSendTransaction.getTransactionHash();
-        if (hash != null) {
-            return hash;
-        }
-        return null;
     }
 
 
-    public String safeTransferFrom(String tokenAddress,String privatekey,String receiverAddress,String tokenid) throws Exception {
-
-        web3 = Web3j.build(new
-
-                HttpService(AppConstants.BASE_URL));
-        //Load the required documents for the transfer, with the private key
-        //spender privatekey
-        Credentials credentials = Credentials.create(privatekey);
-        // Get nonce, the number of transactions
-        BigInteger nonce;
-        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
-        if (ethGetTransactionCount == null) {
-            return null;
-        }
-        nonce = ethGetTransactionCount.getTransactionCount();
-        //gasPrice and gasLimit can be set manually
-        BigInteger gasPrice;
-        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-        if (ethGasPrice == null) {
-            return null;
-        }
-        gasPrice = BigInteger.valueOf(3000000L);
-        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-        BigInteger gasLimit = BigInteger.valueOf(3000000L);
-        final org.web3j.abi.datatypes.Function function = new Function(
-                "safeTransferFrom",
-                Arrays.<Type>asList(new Address(credentials.getAddress()),
-                        new Address(receiverAddress),
-                        new Uint256(Long.parseLong(tokenid))),
-                Collections.<TypeReference<?>>emptyList());
-        //Create RawTransaction transaction object
-        String encodedFunction = FunctionEncoder.encode(function);
-        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
-                tokenAddress, encodedFunction);
-
-        //Signature Transaction
-        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-        String hexValue = Numeric.toHexString(signMessage);
-        //Send the transaction
-        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
-        String hash = ethSendTransaction.getTransactionHash();
-        if (hash != null) {
-            return hash;
-        }
-        return null;
-    }
+    public String transferfrom(String tokenAddress, String privatekey, String receiverAddress, String tokenid) throws Exception {
+      if(isWeb3jConnected()) {
+          //spender privatekey
+          Credentials credentials = Credentials.create(privatekey);
+          // Get nonce, the number of transactions
+          BigInteger nonce;
+          EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+          if (ethGetTransactionCount == null) {
+              return null;
+          }
+          nonce = ethGetTransactionCount.getTransactionCount();
+          //gasPrice and gasLimit can be set manually
+          BigInteger gasPrice;
+          EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+          if (ethGasPrice == null) {
+              return null;
+          }
+          // gasPrice = ethGasPrice.getGasPrice();
+          gasPrice = BigInteger.valueOf(3000000L);
+          //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+          BigInteger gasLimit = BigInteger.valueOf(3000000L);
+          final Function function = new Function(
+                  "transferFrom",
+                  Arrays.<Type>asList(new Address(credentials.getAddress()),
+                          new Address(receiverAddress),
+                          new Uint256(Long.parseLong(tokenid))),
+                  Collections.<TypeReference<?>>emptyList());
 
 
-    public String transferfrom(String tokenAddress,String privatekey,String receiverAddress,String tokenid ) throws Exception {
-        web3 = Web3j.build(new
+          //Create RawTransaction transaction object
+          String encodedFunction = FunctionEncoder.encode(function);
+          RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                  tokenAddress, encodedFunction);
 
-                HttpService(AppConstants.BASE_URL));
-        //spender privatekey
-        Credentials credentials = Credentials.create(privatekey);
-        // Get nonce, the number of transactions
-        BigInteger nonce;
-        EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
-        if (ethGetTransactionCount == null) {
-            return null;
-        }
-        nonce = ethGetTransactionCount.getTransactionCount();
-        //gasPrice and gasLimit can be set manually
-        BigInteger gasPrice;
-        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-        if (ethGasPrice == null) {
-            return null;
-        }
-       // gasPrice = ethGasPrice.getGasPrice();
-        gasPrice = BigInteger.valueOf(3000000L);
-        //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-        BigInteger gasLimit = BigInteger.valueOf(3000000L);
-        final Function function = new Function(
-                "transferFrom",
-                Arrays.<Type>asList(new Address(credentials.getAddress()),
-                        new Address(receiverAddress),
-                        new Uint256(Long.parseLong(tokenid))),
-                Collections.<TypeReference<?>>emptyList());
-
-
-        //Create RawTransaction transaction object
-        String encodedFunction = FunctionEncoder.encode(function);
-        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
-                tokenAddress, encodedFunction);
-
-        //Signature Transaction
-        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-        String hexValue = Numeric.toHexString(signMessage);
-        //Send the transaction
-        EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
-        String hash = ethSendTransaction.getTransactionHash();
-        if (hash != null) {
-            return hash;
-        }
-        return null;
+          //Signature Transaction
+          byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+          String hexValue = Numeric.toHexString(signMessage);
+          //Send the transaction
+          EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+          String hash = ethSendTransaction.getTransactionHash();
+          if (hash != null) {
+              return hash;
+          }
+          else
+          {
+              return "Failed";
+          }
+      }
+      else
+      {
+          return "Failed";
+      }
     }
 
 }
