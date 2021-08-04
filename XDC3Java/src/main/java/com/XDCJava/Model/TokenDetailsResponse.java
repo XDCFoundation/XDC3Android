@@ -31,13 +31,7 @@ public class TokenDetailsResponse implements Serializable
         this.totalSupply = param;
     }
 
-    private BigInteger balance;
-    public BigInteger getBalance() {
-        return balance;
-    }
-    public void setBalance(BigInteger param) {
-        this.balance = param;
-    }
+
 
     private String symbol;
     public String getSymbol() {

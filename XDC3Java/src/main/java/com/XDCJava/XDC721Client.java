@@ -99,7 +99,10 @@ public class XDC721Client {
     public void getinfo(XRC721Metadata javaToken, String tokenAddress, Token721DetailCallback tokenDetailCallback) {
         try {
 
+            /// @notice An abbreviated name for NFTs in this contract
             symbol = javaToken.symbol().send();
+
+            /// @notice A descriptive name for a collection of NFTs in this contract
             name = javaToken.name().send();
 
             Token721DetailsResponse tokenResponse = new Token721DetailsResponse();
@@ -115,6 +118,13 @@ public class XDC721Client {
 
     }
 
+
+    /// @notice A distinct Uniform Resource Identifier (URI) for a given asset.
+    /// @dev Throws if `tokenid` is not a valid NFT. URIs are defined in RFC
+    ///  3986. The URI may point to a JSON file that conforms to the "XRC721
+    ///  Metadata JSON Schema"
+    /// @param tokenid The identifier for an NFT
+    /// @param tokenAddress NFT address
     public String getTokenUri(String tokenAddress, String tokenid) {
 
 
@@ -142,6 +152,12 @@ public class XDC721Client {
         }
     }
 
+    /// @notice Count all NFTs assigned to an owner
+    /// @dev NFTs assigned to the zero address are considered invalid, and this
+    ///  function throws for queries about the zero address.
+    /// @param ownerAddress An address for whom to query the balance
+    /// @param tokenAddress NFT address
+    /// @return The number of NFTs owned by `ownerAddress`, possibly zero
     public String getBalance(String tokenAddress, String ownerAddress) {
 
 
@@ -173,6 +189,10 @@ public class XDC721Client {
     }
 
 
+    /// @notice Count NFTs tracked by this contract
+    /// @param tokenAddress NFT address
+    /// @return A count of valid NFTs tracked by this contract, where each one of
+    ///  them has an assigned and queryable owner not equal to the zero address
     public String gettotalSupply(String tokenAddress) {
 
 
@@ -201,6 +221,12 @@ public class XDC721Client {
     }
 
 
+    /// @notice Enumerate valid NFTs
+    /// @dev Throws if `index` >= `totalSupply()`.
+    /// @param index A counter less than `totalSupply()`
+    /// @param tokenAddress NFT address
+    /// @return The token identifier for the `index`th NFT,
+    ///  (sort order not specified)
     public String gettokenByIndex(String tokenAddress, String index) {
 
 
@@ -229,6 +255,16 @@ public class XDC721Client {
     }
 
 
+
+
+    /// @notice Enumerate NFTs assigned to an owner
+    /// @dev Throws if `index` >= `balanceOf(ownerAddress)` or if
+    ///  `ownerAddress` is the zero address, representing invalid NFTs.
+    /// @param ownerAddress An address where we are interested in NFTs owned by them
+    /// @param tokenAddress NFT address
+    /// @param index A counter less than `balanceOf(_owner)`
+    /// @return The token identifier for the `index`th NFT assigned to `ownerAddress`,
+    ///   (sort order not specified)
     public String tokenOfOwnerByIndex(String tokenAddress, String ownerAddress, String index) {
 
 
@@ -257,6 +293,12 @@ public class XDC721Client {
     }
 
 
+    /// @notice Find the owner of an NFT
+    /// @dev NFTs assigned to zero address are considered invalid, and queries
+    ///  about them do throw.
+    /// @param tokenid The identifier for an NFT
+    /// @param tokenAddress NFT address
+    /// @return The address of the owner of the NFT
     public String getOwnerof(String tokenAddress, String tokenid) {
 
 
@@ -284,6 +326,12 @@ public class XDC721Client {
             }
     }
 
+    /// @notice Query if a contract implements an interface
+    /// @param interfaceID The interface identifier, as specified in XRC-165
+    /// @dev Interface identification is specified in XRC-165. This function
+    ///  uses less than 30,000 gas.
+    /// @return `true` if the contract implements `interfaceID` and
+    ///  `interfaceID` is not 0xffffffff, `false` otherwise
     public boolean getsupportInterface(String tokenAddress, String interfaceID) {
 
 
@@ -314,6 +362,14 @@ public class XDC721Client {
     }
 
 
+    /// @notice Change or reaffirm the approved address for an NFT
+    /// @dev The zero address indicates there is no approved address.
+    ///  Throws unless `msg.sender` is the current NFT owner, or an authorized
+    ///  operator of the current owner.
+    /// @param receiverAddress The new approved NFT controller
+    /// @param tokenid The NFT to approve
+    /// @param tokenAddress The NFT
+    /// @param privatekey NFT owner Privatekey
     public String approve(String tokenAddress, String privatekey, String tokenid, String receiverAddress) throws Exception {
 
         if(isWeb3jConnected()) {
@@ -367,6 +423,11 @@ public class XDC721Client {
 
     }
 
+    /// @notice Get the approved address for a single NFT
+    /// @dev Throws if `tokenId` is not a valid NFT.
+    /// @param tokenId The NFT to find the approved address for
+    /// @param tokenAddress Token address , of which getting owner
+    /// @return The approved address for this NFT, or the zero address if there is none
     public String getApproved(String tokenAddress, String tokenId) {
 
 
@@ -390,6 +451,11 @@ public class XDC721Client {
     }
 
 
+    /// @notice Query if an address is an authorized operator for another address
+    /// @param ownerAddress The address that owns the NFTs
+    /// @param OperatorAddress The address that acts on behalf of the owner
+    /// @param tokenAddress NFT address
+    /// @return True if `_operator` is an approved operator for `_owner`, false otherwise
     public boolean isApprovedForAll(String tokenAddress, String ownerAddress, String OperatorAddress) {
 
 
@@ -414,6 +480,15 @@ public class XDC721Client {
             }
     }
 
+
+    /// @notice Enable or disable approval for a third party ("operator") to manage
+    ///  all of `msg.sender`'s assets
+    /// @dev Emits the ApprovalForAll event. The contract MUST allow
+    ///  multiple operators per owner.
+    /// @param OperatorAddress Address to add to the set of authorized operators
+    /// @param booleanvalue True if the operator is approved, false to revoke approval
+    /// @param tokenAddress NFT address
+    /// @param privatekey Private key of owner
     public String setApprovalForAll(String tokenAddress, String privatekey, String OperatorAddress, String booleanvalue) throws Exception {
 
 
@@ -470,6 +545,13 @@ public class XDC721Client {
     }
 
 
+    /// @notice Transfers the ownership of an NFT from one address to another address
+    /// @dev This works identically to the other function with an extra data parameter,
+    ///  except this function just sets data to "".
+    /// @param tokenAddress NFT address
+    /// @param receiverAddress The new owner
+    /// @param tokenid The NFT to transfer
+    /// @param privatekey NFT owner Privatekey
     public String safeTransferFrom(String tokenAddress, String privatekey, String receiverAddress, String tokenid) throws Exception {
 
         if(isWeb3jConnected()) {
@@ -524,6 +606,17 @@ public class XDC721Client {
     }
 
 
+    /// @notice Transfer ownership of an NFT -- THE CALLER IS RESPONSIBLE
+    ///  TO CONFIRM THAT `_to` IS CAPABLE OF RECEIVING NFTS OR ELSE
+    ///  THEY MAY BE PERMANENTLY LOST
+    /// @dev Throws unless `msg.sender` is the current owner, an authorized
+    ///  operator, or the approved address for this NFT. Throws if `_from` is
+    ///  not the current owner. Throws if `_to` is the zero address. Throws if
+    ///  `_tokenId` is not a valid NFT.
+    /// @param tokenAddress NFT address
+    /// @param receiverAddress The new owner
+    /// @param tokenid The NFT to transfer
+    /// @param privatekey NFT owner Privatekey
     public String transferfrom(String tokenAddress, String privatekey, String receiverAddress, String tokenid) throws Exception {
       if(isWeb3jConnected()) {
           //spender privatekey

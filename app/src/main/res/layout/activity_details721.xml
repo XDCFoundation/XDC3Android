@@ -311,7 +311,7 @@
                         android:background="@drawable/edit_text_border"
                         android:hint="@string/spender_add"
                         android:padding="5dp"
-                        android:text="@string/final721_token"
+                        android:text="@string/final_tokenUri"
                         android:textColor="@color/header"
                         android:textColorHint="@color/hint"
                         android:textSize="16sp" />

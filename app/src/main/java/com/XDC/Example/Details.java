@@ -129,22 +129,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         } else
             symbol_value.setText("-");
 
-        if (balance_off_value != null) {
 
-            if (tokenResponse.getBalance() != null) {
-                BigInteger a
-                        = new BigInteger(tokenResponse.getBalance().toString());
-                BigInteger b
-                        = new BigInteger(hex_to_dec);
-
-                // Using divide() method
-                dec_bal = a.divide(b);
-                balance_off_value.setText(dec_bal.toString());
-            }
-
-
-        } else
-            balance_off_value.setText("-");
 
         if (decimals_value != null) {
             decimals_value.setText(tokenResponse.getDecimal().toString());
