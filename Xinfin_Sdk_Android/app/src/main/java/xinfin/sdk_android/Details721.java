@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.math.BigInteger;
 
-import xinfin.sdk.Model.Token721DetailsResponse;
-import xinfin.sdk.XDC20Client;
-import xinfin.sdk.XDC721Client;
+import xinfin.XDCAndroid.Model.Token721DetailsResponse;
+import xinfin.XDCAndroid.XDC20Client;
+import xinfin.XDCAndroid.XDC721Client;
 
 public class Details721 extends AppCompatActivity implements View.OnClickListener {
 

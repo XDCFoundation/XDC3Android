@@ -17,9 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import xinfin.sdk.Model.TokenDetailsResponse;
-import xinfin.sdk.XDC20Client;
-import xinfin.sdk.callback.TokenDetailCallback;
+import xinfin.XDCAndroid.Model.TokenDetailsResponse;
+import xinfin.XDCAndroid.XDC20Client;
+import xinfin.XDCAndroid.callback.TokenDetailCallback;
 
 public class MainActivity extends AppCompatActivity {
 

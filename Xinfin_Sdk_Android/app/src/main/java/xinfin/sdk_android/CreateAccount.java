@@ -11,10 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 
-import xinfin.sdk.Model.WalletData;
+import xinfin.XDCAndroid.Model.WalletData;
 
-import xinfin.sdk.XDC20Client;
-import xinfin.sdk.callback.CreateAccountCallback;
+import xinfin.XDCAndroid.XDC20Client;
+import xinfin.XDCAndroid.callback.CreateAccountCallback;
 
 public class CreateAccount extends AppCompatActivity {
     EditText edt_password;

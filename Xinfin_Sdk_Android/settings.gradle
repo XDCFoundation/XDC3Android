@@ -1,3 +1,3 @@
 rootProject.name = "Xinfin_Sdk_Android"
 include ':app'
-include ':xinfin_sdk'
+include ':XDC3Android'

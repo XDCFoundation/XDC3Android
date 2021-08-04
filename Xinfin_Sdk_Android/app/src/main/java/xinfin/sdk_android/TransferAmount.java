@@ -8,7 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.math.BigInteger;
-import xinfin.sdk.XDC20Client;
+
+import xinfin.XDCAndroid.XDC20Client;
 
 public class TransferAmount extends AppCompatActivity {
 

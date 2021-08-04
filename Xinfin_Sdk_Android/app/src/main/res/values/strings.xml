@@ -83,7 +83,7 @@
         <string name="final721_tokenId">27</string>
         <string name="final721_interfaceId">0x80ac58cd</string>
         <string name="xdc_721address">XDC 721 Token Address</string>
-    <string name="final_tokenUri">0x613fb5f43ae37a60d5f6683d921613c53d75d85d</string>
+    <string name="final_tokenUri">0xc246e82fb67bdfcf6fc9859c66c613730f8650c4</string>
 
     <!--token: 0xc246e82fb67bdfcf6fc9859c66c613730f8650c4
 +    previos owner : 0x79dbbbe40993253aa18e930a39d3636b15866725

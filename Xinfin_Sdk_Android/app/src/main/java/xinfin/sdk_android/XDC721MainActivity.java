@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.Serializable;
 
-import xinfin.sdk.Model.Token721DetailsResponse;
-import xinfin.sdk.XDC721Client;
-import xinfin.sdk.callback.Token721DetailCallback;
+import xinfin.XDCAndroid.Model.Token721DetailsResponse;
+import xinfin.XDCAndroid.XDC721Client;
+import xinfin.XDCAndroid.callback.Token721DetailCallback;
 
 
 public class XDC721MainActivity extends AppCompatActivity {
