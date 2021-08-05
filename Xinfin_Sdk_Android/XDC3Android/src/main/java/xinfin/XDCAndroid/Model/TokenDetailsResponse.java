@@ -22,21 +22,12 @@ public class TokenDetailsResponse implements Serializable
         this.decimal = param;
     }
 
-
     private BigInteger totalSupply;
     public BigInteger getTotalSupply() {
         return totalSupply;
     }
     public void setTotalSupply(BigInteger param) {
         this.totalSupply = param;
-    }
-
-    private BigInteger balance;
-    public BigInteger getBalance() {
-        return balance;
-    }
-    public void setBalance(BigInteger param) {
-        this.balance = param;
     }
 
     private String symbol;
