@@ -192,14 +192,15 @@ public class XDC20Client {
 
             ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                     owner_address);
-            javaToken = XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            XRC20 javaToken = XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
             try {
-                allowance = javaToken.balanceOf(owner_address).send();
-                return String.valueOf(allowance);
+                BigInteger balance = javaToken.balanceOf(owner_address).send();
+                return String.valueOf(balance);
             } catch (Exception e) {
                 e.printStackTrace();
                 return e.getMessage();
             }
+
         } else {
             return "check your connection";
         }
@@ -208,38 +209,26 @@ public class XDC20Client {
     public void getinfo(XRC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
         try {
 
-            balance = javaToken.balanceOf(token_address).send();
-
             /**
-             * @dev Returns the symbol of the token, usually a shorter version of the
-             * name.
+             * @return the symbol of the token.
              */
-            symbol = javaToken.symbol().send();
-
-
+            String  symbol = javaToken.symbol().send();
             /**
-             * @dev Total number of tokens in existence
+             * @return Total number of tokens in existence
              */
-
-            totalSupply = javaToken.totalSupply().send();
-
+            BigInteger  totalSupply = javaToken.totalSupply().send();
             /**
-             * @dev Returns the name of the token.
+             * @return the name of the token.
              */
-
-            name = javaToken.name().send();
-
+            String  name = javaToken.name().send();
             /**
-             * @dev Returns the number of decimals used to get its user representation.**/
-
-            decimal = javaToken.decimals().send();
+             * @return the number of decimals of the token.
+             */
+            BigInteger decimal = javaToken.decimals().send();
 
             String contract = javaToken.getContractAddress();
-
-
-            tokenResponse = new TokenDetailsResponse();
+            TokenDetailsResponse    tokenResponse = new TokenDetailsResponse();
             tokenResponse.setAllowance(BigInteger.valueOf(0));
-            tokenResponse.setBalance(balance);
             tokenResponse.setSymbol(symbol);
             tokenResponse.setTotalSupply(totalSupply);
             tokenResponse.setName(name);
