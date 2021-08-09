@@ -24,6 +24,7 @@ import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -330,6 +331,7 @@ public class XDC721Client {
             try {
                 XRC165 javaToken2 = XRC165.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
                 ByteBuffer b = ByteBuffer.allocate(4);
+
                 b.putInt(0x80ac58cd);
                 byte[] result = b.array();
 
