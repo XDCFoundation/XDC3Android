@@ -28,6 +28,8 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
+import org.web3j.tx.Contract;
+import org.web3j.tx.ManagedTransaction;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
@@ -49,6 +51,7 @@ public class XDC20Client {
 
         return instance;
     }
+
 
 
     public Boolean isWeb3jConnected() {
@@ -84,7 +87,7 @@ public class XDC20Client {
 
             ECKeyPair ecKeyPair = credentials.getEcKeyPair();
             String privateKey = ecKeyPair.getPrivateKey().toString(16);
-            String publickeyKey = ecKeyPair.getPrivateKey().toString(16);
+            String publickeyKey = ecKeyPair.getPublicKey().toString(16);
             System.out.println("privateKey: " + ecKeyPair.getPrivateKey());
             System.out.println("sPrivatekeyInHex: " + privateKey);
 
@@ -98,12 +101,29 @@ public class XDC20Client {
             walletData.setPublickeyKey(publickeyKey);
             walletData.setSeedPhrase(seedPhrase);
 
+
+
+
+
             createAccountCallback.success(walletData);
+
+
+
+
+
+            /*String seedPhrase = walletName.getMnemonic();
++
++            Credentials restoreCredentials = WalletUtils.loadBip39Credentials("1234567890",
++                    seedPhrase);
++            ECKeyPair restoredPrivateKey = restoreCredentials.getEcKeyPair();
++            String restoredAccountAddress = restoreCredentials.getAddress();*/
         } catch (IOException | CipherException e) {
 
             e.printStackTrace();
             createAccountCallback.failure(e.getMessage());
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

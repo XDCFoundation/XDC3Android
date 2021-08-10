@@ -4,11 +4,13 @@ import io.reactivex.Flowable;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.web3j.abi.EventEncoder;
+import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Event;
@@ -76,6 +78,22 @@ public class XRC20 extends Contract {
     protected XRC20(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
     }
+
+    public static RemoteCall<XRC20> deploy(Web3j web3, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialSupply)
+    {
+        return deployRemoteCall(XRC20.class, web3, credentials, gasPrice, gasLimit, BINARY, "",initialSupply);
+    }
+
+
+    public static RemoteCall<XRC20> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialSupply, String tokenName, String tokenSymbol, BigInteger tokendecimals) {
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(initialSupply),
+                new org.web3j.abi.datatypes.Utf8String(tokenName),
+                new org.web3j.abi.datatypes.Utf8String(tokenSymbol),
+                new org.web3j.abi.datatypes.generated.Uint8(tokendecimals)));
+        return deployRemoteCall(XRC20.class, web3j, credentials, gasPrice, gasLimit, BINARY, encodedConstructor);
+    }
+
+
 
     public RemoteCall<String> name() {
         final Function function = new Function(FUNC_NAME, 
@@ -241,6 +259,8 @@ public class XRC20 extends Contract {
     public static XRC20 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         return new XRC20(contractAddress, web3j, transactionManager, contractGasProvider);
     }
+
+
 
     public static class TransferEventResponse {
         public Log log;

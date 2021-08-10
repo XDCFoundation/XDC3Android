@@ -21,6 +21,20 @@ plugins {
 
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': 0.1,
+                'Main-Class': 'com.XDCJava.XDC20Client'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+
+
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,10 +53,13 @@ dependencies {
 
 }
 
+
+
 allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 
 }

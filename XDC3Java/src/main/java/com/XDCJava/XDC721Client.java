@@ -4,6 +4,7 @@ import com.XDCJava.Model.Token721DetailsResponse;
 import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.callback.Token721DetailCallback;
 import com.XDCJava.contracts.src.main.java.XRC165;
+import com.XDCJava.contracts.src.main.java.XRC20;
 import com.XDCJava.contracts.src.main.java.XRC721;
 import com.XDCJava.contracts.src.main.java.XRC721Enumerable;
 import com.XDCJava.contracts.src.main.java.XRC721Metadata;
@@ -19,14 +20,18 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
+import org.web3j.tx.Contract;
+import org.web3j.tx.ManagedTransaction;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
@@ -86,6 +91,112 @@ public class XDC721Client {
                 exception.printStackTrace();
                 tokenDetailCallback.failure(exception.getMessage());
             }
+
+        } else {
+
+            //Show Error
+            tokenDetailCallback.failure("Connection has been failed");
+        }
+
+    }
+
+
+    @SuppressWarnings("NewApi")
+    public void deploy_contract(String privatekey, Token721DetailCallback tokenDetailCallback)
+    {
+
+
+        if (isWeb3jConnected())
+        {
+            Credentials credentials = Credentials.create(privatekey);
+            XRC721 contract = null;
+            try {
+               /* contract = XRC721.deploy(web3,
+                        credentials,
+                        ManagedTransaction.GAS_PRICE,
+                        Contract.GAS_LIMIT,"").send();
+
+                String contractAddress = contract.getContractAddress();*/
+
+
+
+              ///  BigInteger initialSupply = BigInteger.valueOf(100000);
+
+             //   XRC20 javaToken = XRC20.deploy(web3, credentials,ManagedTransaction.GAS_PRICE,Contract.GAS_LIMIT, initialSupply).send();
+            //    XRC20 result = XRC20.deploy(web3,credentials,ManagedTransaction.GAS_PRICE,Contract.GAS_LIMIT,BigInteger.valueOf(1000),"Bhavisha","BHV",BigInteger.valueOf(18)).send();
+
+               // javaToken.getContractAddress();
+               // tokenDetailCallback.success(result.getContractAddress());
+
+
+                // Get nonce, the number of transactions
+                BigInteger nonce;
+                EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+                if (ethGetTransactionCount == null) {
+                    tokenDetailCallback.failure("failed");
+                }
+                nonce = ethGetTransactionCount.getTransactionCount();
+                EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+                if (ethGasPrice == null) {
+                    tokenDetailCallback.failure("failed");
+                }
+
+                final Function function = new Function(
+                        "deploy",
+                        Arrays.<Type>asList((new org.web3j.abi.datatypes.generated.Uint256(1)),
+                                new org.web3j.abi.datatypes.Utf8String("Bhavisha"),
+                                new org.web3j.abi.datatypes.Utf8String("BHV"),
+                                new org.web3j.abi.datatypes.generated.Uint8(1)),
+                        Collections.<TypeReference<?>>emptyList());
+                String encodedFunction = FunctionEncoder.encode(function);
+                RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, BigInteger.valueOf(4200000),BigInteger.valueOf(300000), BigInteger.valueOf(1),encodedFunction);
+
+                //Signature Transaction
+                byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+                String hexValue = Numeric.toHexString(signMessage);
+                //Send the transaction
+                EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+                String hash = ethSendTransaction.getTransactionHash();
+
+                if (hash != null)
+                {
+
+                    EthGetTransactionReceipt transactionReceipt =
+                        web3.ethGetTransactionReceipt(hash).send();
+                String contractAddress = null;
+                if (transactionReceipt.getTransactionReceipt().isPresent())
+                {
+                     contractAddress = transactionReceipt.getTransactionReceipt().get().getContractAddress();
+                    tokenDetailCallback.success(contractAddress);
+                } else {
+                    // try again
+                    tokenDetailCallback.failure("failed");
+                }
+
+
+                }
+                else
+                {
+                    tokenDetailCallback.failure("failed");
+                }
+
+
+
+
+
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                tokenDetailCallback.failure(e.getMessage());
+            }
+
+
+
+
+
+
+
 
         } else {
 
@@ -332,10 +443,12 @@ public class XDC721Client {
     ///  uses less than 30,000 gas.
     /// @return `true` if the contract implements `interfaceID` and
     ///  `interfaceID` is not 0xffffffff, `false` otherwise
-    public boolean getsupportInterface(String tokenAddress, String interfaceID) {
+    public boolean getsupportInterface(String tokenAddress, String interfaceID)
+    {
 
 
-            if (isWeb3jConnected()) {
+            if (isWeb3jConnected())
+            {
                 ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                         tokenAddress);
                 try {
@@ -607,12 +720,12 @@ public class XDC721Client {
 
 
     /// @notice Transfer ownership of an NFT -- THE CALLER IS RESPONSIBLE
-    ///  TO CONFIRM THAT `_to` IS CAPABLE OF RECEIVING NFTS OR ELSE
+    ///  TO CONFIRM THAT `receiverAddress` IS CAPABLE OF RECEIVING NFTS OR ELSE
     ///  THEY MAY BE PERMANENTLY LOST
     /// @dev Throws unless `msg.sender` is the current owner, an authorized
-    ///  operator, or the approved address for this NFT. Throws if `_from` is
-    ///  not the current owner. Throws if `_to` is the zero address. Throws if
-    ///  `_tokenId` is not a valid NFT.
+    ///  operator, or the approved address for this NFT. Throws if `owner address` is
+    ///  not the current owner. Throws if `receiverAddress` is the zero address. Throws if
+    ///  `tokenid` is not a valid NFT.
     /// @param tokenAddress NFT address
     /// @param receiverAddress The new owner
     /// @param tokenid The NFT to transfer
