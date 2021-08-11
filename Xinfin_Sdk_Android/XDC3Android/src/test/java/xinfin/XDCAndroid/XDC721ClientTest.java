@@ -4,10 +4,42 @@ import android.util.Log;
 
 import junit.framework.TestCase;
 
-import xinfin.XDCAndroid.contracts.src.main.java.XRC721;
+import xinfin.XDCAndroid.Model.Token721DetailsResponse;
+import xinfin.XDCAndroid.callback.Token721DetailCallback;
 
 public class XDC721ClientTest extends TestCase {
     String TAG = "XDC721ClientTest";
+    Token721DetailCallback token721DetailCallback;
+
+    public void testGetTokenoinfo() {
+
+        try {
+            XDC721Client.getInstance().getTokenoinfo("0x5f07d8ca1f176ec49b738cfe309db9a9cf369c88", new Token721DetailCallback() {
+
+                @Override
+                public void success(Token721DetailsResponse tokenApiModel) {
+                    assertEquals(tokenApiModel.getName(),"Demo721");
+                    assertEquals(tokenApiModel.getSymbol(),"DMO");
+                }
+
+                @Override
+                public void failure(Throwable t) {
+
+                }
+
+                @Override
+                public void failure(String message) {
+
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public void testGetTokenUri() {
 
@@ -36,7 +68,7 @@ public class XDC721ClientTest extends TestCase {
         try {
             String gettotalSupply = XDC721Client.getInstance().gettotalSupply("0x5f07d8ca1f176ec49b738cfe309db9a9cf369c88");
             Log.e(TAG, "testApprove: "+gettotalSupply);
-            assertNotNull(gettotalSupply);
+            assertEquals(gettotalSupply,"1");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,7 +79,7 @@ public class XDC721ClientTest extends TestCase {
        try {
            String gettokenByIndex = XDC721Client.getInstance().gettokenByIndex("0x5f07d8ca1f176ec49b738cfe309db9a9cf369c88","0");
            Log.e(TAG, "testApprove: "+gettokenByIndex);
-            assertNotNull(gettokenByIndex);
+            assertEquals(gettokenByIndex,"25");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,4 +171,6 @@ public class XDC721ClientTest extends TestCase {
             e.printStackTrace();
         }
     }
+
+
 }

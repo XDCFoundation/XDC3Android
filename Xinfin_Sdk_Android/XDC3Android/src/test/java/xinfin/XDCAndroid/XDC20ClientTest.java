@@ -6,19 +6,52 @@ import junit.framework.TestCase;
 
 import java.math.BigInteger;
 
+import xinfin.XDCAndroid.Model.TokenDetailsResponse;
+import xinfin.XDCAndroid.callback.TokenDetailCallback;
+
 public class XDC20ClientTest extends TestCase {
     String TAG = "XDC20ClientTest";
+    TokenDetailCallback tokenDetailCallback;
 
     public void testGetTokenoinfo() {
+        try {
+             XDC20Client.getInstance().getTokenoinfo("0xba9d6a36fbc194f5d1aa48a2892ae4bdf6939cb9", new TokenDetailCallback() {
+                 @Override
+                 public void success(TokenDetailsResponse tokenApiModel)
+                 {
+
+                     assertEquals(tokenApiModel.getName(),"SDK Testing");
+                     assertEquals(tokenApiModel.getDecimal(),BigInteger.valueOf(18));
+                     assertEquals(tokenApiModel.getSymbol(),"SDK");
+//                     assertEquals(tokenApiModel.getTotalSupply(),"10000000000000000000000000000000000000000000000000000000000000000000");
+
+                 }
+
+                 @Override
+                 public void failure(Throwable t) {
+
+                 }
+
+                 @Override
+                 public void failure(String message) {
+
+                 }
+             });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
+
 
     public void testGetAllowance() {
 
         try {
             String allowance = XDC20Client.getInstance().getAllowance("0xba9d6a36fbc194f5d1aa48a2892ae4bdf6939cb9","0x6ffe09f9302a857fcb122296e3ab3bb80c45cbcd","0xd7813e7cfdf83d6fa3469d7411b52a50ed2b867f");
             Log.e(TAG, "testApprove: "+allowance);
-            assertNotNull(allowance);
+            assertEquals(allowance,"1000000000000000000");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,4 +131,6 @@ public class XDC20ClientTest extends TestCase {
             e.printStackTrace();
         }
     }
+
+
 }
