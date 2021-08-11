@@ -85,9 +85,14 @@ public class XRC721 extends Contract {
         return deployRemoteCall(XRC721.class, web3j, credentials, gasPrice, gasLimit, BINARY, "");
     }
 
-    public static RemoteCall<XRC721> deploy(Web3j web3, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialSupply)
+    public static RemoteCall<XRC721> deploy(Web3j web3, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialSupply,
+                                            String tokenName,String tokenSymbol,BigInteger tokendecimals)
     {
-        return deployRemoteCall(XRC721.class, web3, credentials, gasPrice, gasLimit, BINARY, "",initialSupply);
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(
+                new org.web3j.abi.datatypes.Utf8String(tokenName),
+                new org.web3j.abi.datatypes.Utf8String(tokenSymbol),
+                new org.web3j.abi.datatypes.generated.Uint8(tokendecimals)));
+        return deployRemoteCall(XRC721.class, web3, credentials, gasPrice, gasLimit, BINARY, encodedConstructor,initialSupply);
     }
 
     public RemoteCall<String> getApproved(BigInteger _tokenId) {

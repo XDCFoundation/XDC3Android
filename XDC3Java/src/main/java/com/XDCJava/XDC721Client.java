@@ -4,7 +4,6 @@ import com.XDCJava.Model.Token721DetailsResponse;
 import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.callback.Token721DetailCallback;
 import com.XDCJava.contracts.src.main.java.XRC165;
-import com.XDCJava.contracts.src.main.java.XRC20;
 import com.XDCJava.contracts.src.main.java.XRC721;
 import com.XDCJava.contracts.src.main.java.XRC721Enumerable;
 import com.XDCJava.contracts.src.main.java.XRC721Metadata;
@@ -20,18 +19,15 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletFile;
-import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
-import org.web3j.tx.Contract;
-import org.web3j.tx.ManagedTransaction;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
@@ -42,7 +38,7 @@ import java.util.Collections;
 
 
 public class XDC721Client {
-    Web3j web3;
+    public static Web3j web3;
     public static XDC721Client instance;
     XRC721 javaToken;
     String symbol, name;
@@ -57,7 +53,8 @@ public class XDC721Client {
     }
 
 
-    public Boolean isWeb3jConnected() {
+
+    public static Boolean isWeb3jConnected() {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
@@ -141,22 +138,48 @@ public class XDC721Client {
                     tokenDetailCallback.failure("failed");
                 }
 
-                final Function function = new Function(
+
+
+
+                XRC721 xrc721 = XRC721.deploy(web3,credentials,ethGasPrice.getGasPrice(),BigInteger.valueOf(300000),BigInteger.valueOf(0),"bvtssdsd","dk",BigInteger.valueOf(18)).sendAsync().get();
+
+                xrc721.getContractAddress();
+
+                System.out.println(xrc721.getContractAddress());
+
+               /* String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(1),
+                        new org.web3j.abi.datatypes.Utf8String("Bhavisha"),
+                        new org.web3j.abi.datatypes.Utf8String("BHV"),
+                        new org.web3j.abi.datatypes.generated.Uint8(18)));
+
+
+               *//* final Function function = new Function(
                         "deploy",
                         Arrays.<Type>asList((new org.web3j.abi.datatypes.generated.Uint256(1)),
                                 new org.web3j.abi.datatypes.Utf8String("Bhavisha"),
                                 new org.web3j.abi.datatypes.Utf8String("BHV"),
-                                new org.web3j.abi.datatypes.generated.Uint8(1)),
+                                new org.web3j.abi.datatypes.generated.Uint8(18)),
                         Collections.<TypeReference<?>>emptyList());
-                String encodedFunction = FunctionEncoder.encode(function);
-                RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, BigInteger.valueOf(4200000),BigInteger.valueOf(300000), BigInteger.valueOf(1),encodedFunction);
+                String encodedFunction = FunctionEncoder.encode(function);*//*
+                RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, ethGasPrice.getGasPrice(),BigInteger.valueOf(300000), BigInteger.valueOf(0),encodedConstructor);
+
+             //   Transaction transaction = Transaction.createContractTransaction(credentials.getAddress(),nonce,ethGasPrice.getGasPrice(),BigInteger.valueOf(300000),BigInteger.valueOf(0),encodedFunction);
 
                 //Signature Transaction
                 byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
                 String hexValue = Numeric.toHexString(signMessage);
                 //Send the transaction
                 EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
-                String hash = ethSendTransaction.getTransactionHash();
+               // EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(transaction).sendAsync().get();
+
+
+                String hash = null;
+                try {
+                    hash  = ethSendTransaction.getTransactionHash();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
                 if (hash != null)
                 {
@@ -178,7 +201,7 @@ public class XDC721Client {
                 else
                 {
                     tokenDetailCallback.failure("failed");
-                }
+                }*/
 
 
 
@@ -338,7 +361,7 @@ public class XDC721Client {
     /// @param tokenAddress NFT address
     /// @return The token identifier for the `index`th NFT,
     ///  (sort order not specified)
-    public String gettokenByIndex(String tokenAddress, String index) {
+    public static String gettokenByIndex(String tokenAddress, String index) {
 
 
             if (isWeb3jConnected()) {
@@ -376,7 +399,7 @@ public class XDC721Client {
     /// @param index A counter less than `balanceOf(_owner)`
     /// @return The token identifier for the `index`th NFT assigned to `ownerAddress`,
     ///   (sort order not specified)
-    public String tokenOfOwnerByIndex(String tokenAddress, String ownerAddress, String index) {
+    public static String tokenOfOwnerByIndex(String tokenAddress, String ownerAddress, String index) {
 
 
             if (isWeb3jConnected()) {
@@ -483,7 +506,7 @@ public class XDC721Client {
     /// @param tokenid The NFT to approve
     /// @param tokenAddress The NFT
     /// @param privatekey NFT owner Privatekey
-    public String approve(String tokenAddress, String privatekey, String tokenid, String receiverAddress) throws Exception {
+    public static String approve(String tokenAddress, String privatekey, String tokenid, String receiverAddress) throws Exception {
 
         if(isWeb3jConnected()) {
             //spender privatekey
@@ -504,6 +527,10 @@ public class XDC721Client {
             gasPrice = ethGasPrice.getGasPrice();
             BigInteger gasLimit = BigInteger.valueOf(60000L);
             //receiver key - token id
+
+
+            XRC721 javaToken1 = XRC721.load(tokenAddress, web3, credentials, new DefaultGasProvider());
+
             final Function function = new Function(
                     "approve",
                     Arrays.<Type>asList(new Address(receiverAddress),

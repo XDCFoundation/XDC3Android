@@ -85,7 +85,8 @@ public class XDC721MainActivity extends AppCompatActivity {
                 try {
                     XDC721Client.getInstance().deploy_contract("0x3694005b865eb2deaae8e5efc73451a1c4d8f290dbce27a5614c51139144b18c", new Token721DetailCallback() {
                         @Override
-                        public void success(Token721DetailsResponse tokenApiModel) {
+                        public void success(Token721DetailsResponse tokenApiModel)
+                        {
 
                         }
 
