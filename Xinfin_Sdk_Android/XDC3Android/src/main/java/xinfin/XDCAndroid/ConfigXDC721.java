@@ -18,5 +18,13 @@ public class ConfigXDC721 {
 
     public static final String TOKEN_READ = "0xf6b4102b25756a33a90f8f192c74e53d22a9628e";
 
+    public static final String TOKEN_READ_PRIVATE_KEY = "0x7415687b87e1f1bcf55b26e0ddb086f9eb1d31cdc2059a296ce05de51b043258";
+
+    public static final String TOKEN_OWNER_READ = "0x517b6be05e5c50df6876906909c23ad130476cc7";
+
+    public static final String OPERATOR_ADDRESS = "0x79dbbbe40993253aa18e930a39d3636b15866725";
+
+    public static final String TOKEN_READ_ID = "19";
+
     public static final String TOKEN_INDEX = "0";
 }
