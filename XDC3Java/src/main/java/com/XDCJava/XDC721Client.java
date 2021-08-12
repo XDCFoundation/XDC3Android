@@ -23,6 +23,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
@@ -33,6 +34,8 @@ import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -141,26 +144,27 @@ public class XDC721Client {
 
 
 
-                XRC721 xrc721 = XRC721.deploy(web3,credentials,ethGasPrice.getGasPrice(),BigInteger.valueOf(300000),BigInteger.valueOf(0),"bvtssdsd","dk",BigInteger.valueOf(18)).sendAsync().get();
+               /* XRC721 xrc721 = XRC721.deploy(web3,credentials,ethGasPrice.getGasPrice(),BigInteger.valueOf(300000),BigInteger.valueOf(0),"bv","dk",BigInteger.valueOf(18)).sendAsync().get();
 
                 xrc721.getContractAddress();
 
-                System.out.println(xrc721.getContractAddress());
+                System.out.println(xrc721.getContractAddress());*/
 
-               /* String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(1),
-                        new org.web3j.abi.datatypes.Utf8String("Bhavisha"),
+                String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(1),
+                        new org.web3j.abi.datatypes.generated.Uint8(1),
+                        new org.web3j.abi.datatypes.Utf8String("Bhavisha123"),
                         new org.web3j.abi.datatypes.Utf8String("BHV"),
                         new org.web3j.abi.datatypes.generated.Uint8(18)));
 
 
-               *//* final Function function = new Function(
-                        "deploy",
+                /*final Function function = new Function(
+                        "",
                         Arrays.<Type>asList((new org.web3j.abi.datatypes.generated.Uint256(1)),
                                 new org.web3j.abi.datatypes.Utf8String("Bhavisha"),
                                 new org.web3j.abi.datatypes.Utf8String("BHV"),
                                 new org.web3j.abi.datatypes.generated.Uint8(18)),
                         Collections.<TypeReference<?>>emptyList());
-                String encodedFunction = FunctionEncoder.encode(function);*//*
+                String encodedFunction = FunctionEncoder.encode(function);*/
                 RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, ethGasPrice.getGasPrice(),BigInteger.valueOf(300000), BigInteger.valueOf(0),encodedConstructor);
 
              //   Transaction transaction = Transaction.createContractTransaction(credentials.getAddress(),nonce,ethGasPrice.getGasPrice(),BigInteger.valueOf(300000),BigInteger.valueOf(0),encodedFunction);
@@ -201,7 +205,7 @@ public class XDC721Client {
                 else
                 {
                     tokenDetailCallback.failure("failed");
-                }*/
+                }
 
 
 
@@ -466,6 +470,7 @@ public class XDC721Client {
     ///  uses less than 30,000 gas.
     /// @return `true` if the contract implements `interfaceID` and
     ///  `interfaceID` is not 0xffffffff, `false` otherwise
+    @SuppressWarnings("NewApi")
     public boolean getsupportInterface(String tokenAddress, String interfaceID)
     {
 
@@ -476,14 +481,41 @@ public class XDC721Client {
                         tokenAddress);
                 try {
                     XRC165 javaToken2 = XRC165.load(tokenAddress, web3, transactionManager, new DefaultGasProvider());
-                    ByteBuffer b = ByteBuffer.allocate(4);
-                    b.putInt(0x80ac58cd);
+
+
+                    //remove prefix
+                    interfaceID = interfaceID.replace("0x", "");
+                    System.out.println(interfaceID);
+
+
+
+
+
+                    ByteBuffer b = ByteBuffer.allocate(32);
+                   // b.wrap(interfaceID.getBytes(StandardCharsets.UTF_8 ));
+                    b.putLong(Long.parseLong(interfaceID));
                     byte[] result = b.array();
+
+                    byte[] bytes = interfaceID.getBytes( StandardCharsets.UTF_8 );
+
+
+
+
+                    ByteBuffer babb = Charset.forName("UTF-8").encode(interfaceID);
+                     babb.allocate(4);
+
+
+                   // byte[] myBytes = interfaceID.getBytes("UTF-8");
+
 
                    /* final char[] chars = Character.toChars(Integer.parseInt("80ac58cd"));
                     final String s = new String(chars);
                     @SuppressWarnings("NewApi") final byte[] asBytes = s.getBytes(StandardCharsets.UTF_8);*/
 
+
+                   /* ByteBuffer b = ByteBuffer.allocate(4);
+                    b.putInt(0x80ac58cd);
+                    byte[] result = b.array();*/
 
                     Boolean supportInterface = javaToken2.supportsInterface(result).send();
                     return supportInterface;

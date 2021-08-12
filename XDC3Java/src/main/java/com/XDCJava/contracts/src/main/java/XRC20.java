@@ -93,6 +93,11 @@ public class XRC20 extends Contract {
         return deployRemoteCall(XRC20.class, web3j, credentials, gasPrice, gasLimit, BINARY, encodedConstructor);
     }
 
+    public static RemoteCall<XRC20> deploy(Web3j web3, TransactionManager txManager, BigInteger gasPrice, BigInteger gasLimit)
+    {
+
+        return null;
+    }
 
 
     public RemoteCall<String> name() {
