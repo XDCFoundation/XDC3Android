@@ -21,7 +21,6 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
 
     TextView xdc_address_value, name_value, symbol_value, total_supply_value, balance_off_value, ownerof_value, is_Supoortinterface, approve_trasactonhash, getapproved_value,
             isapprovedForAll_value, setapprovedForAll_value, safeTransferFrom_trasactonhash, transferFrom_trasactonhash, token_Uri_value,tokenbyindex_value,tokenownerbyindex_value;
-    String hex_to_dec;
     BigInteger dec_bal, dec_supply;
     Token721DetailsResponse tokenResponse = new Token721DetailsResponse();
 
@@ -38,7 +37,6 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details721);
-        hex_to_dec = "1000000000000000000";
 
         xdc_address_value = findViewById(R.id.xdc_address_value);
         name_value = findViewById(R.id.name_value);

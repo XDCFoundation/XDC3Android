@@ -131,4 +131,10 @@ public class XDC20ClientTest extends TestCase {
         }
     }
 
+    public void testImportWallet()
+    {
+    }
+
+    public void testGetXdcBalance() {
+    }
 }

@@ -17,6 +17,7 @@ import com.XDCJava.XDC721Client;
 import com.XDCJava.callback.Token721DetailCallback;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 
 public class XDC721MainActivity extends AppCompatActivity {
@@ -76,6 +77,8 @@ public class XDC721MainActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
         deploy_contract.setOnClickListener(new View.OnClickListener() {

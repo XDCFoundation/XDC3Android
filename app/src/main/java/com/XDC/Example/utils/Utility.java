@@ -24,6 +24,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.XDCJava.Model.WalletData;
+import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -250,7 +253,15 @@ public class Utility
     }
 
 
+    public static WalletData getProfile(Context context) {
 
+        WalletData hospitalprofile;
+        Gson gson = new Gson();
+        String json = SharedPreferenceHelper.getSharedPreferenceString(context, "userprofile", "");
+        hospitalprofile = gson.fromJson(json, WalletData.class);
+
+        return  hospitalprofile;
+    }
 
 
 }

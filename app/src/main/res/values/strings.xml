@@ -21,9 +21,11 @@
     <string name="select_an_address">Select an address</string>
     <string name="select_from_list">Select from list</string>
     <string name="create">Create</string>
-    <string name="enter_xdc_password">Enter XDC Password</string>
+    <string name="enter_xdc_password">Enter Password</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="new_account">New Account</string>
+    <string name="create_wallet">Create Wallet</string>
     <string name="send">Send</string>
     <string name="enter_private_key_here">Enter Private Key here</string>
     <string name="receiver_address">Receiver Address:</string>
@@ -32,7 +34,9 @@
     <string name="value">Value:</string>
     <string name="error_empty">This field cannot be empty</string>
 
-
+    <string name="import_wallet">Import Wallet</string>
+    <string name="wallet">Wallet</string>
+    <string name="recovery_phrase">Recovery Phrase</string>
 
     <string name="test_add">0x046550ba1d12a302e78996ce7c5d54cf66be0e9c</string>
     <string name="gasprice">4000004</string>

@@ -3,6 +3,7 @@ package com.XDCJava;
 import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.Model.WalletData;
 import com.XDCJava.callback.CreateAccountCallback;
+import com.XDCJava.callback.EventCallback;
 import com.XDCJava.callback.TokenDetailCallback;
 import com.XDCJava.contracts.src.main.java.XRC20;
 
@@ -18,23 +19,17 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
-import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ClientTransactionManager;
-import org.web3j.tx.Contract;
-import org.web3j.tx.FastRawTransactionManager;
-import org.web3j.tx.ManagedTransaction;
-import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.tx.response.NoOpProcessor;
 import org.web3j.utils.Numeric;
 
 import java.io.File;
@@ -57,15 +52,13 @@ public class XDC20Client {
     }
 
 
-
     public Boolean isWeb3jConnected() {
         web3 = Web3j.build(new
 
                 HttpService(AppConstants.BASE_URL));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError())
-            {
+            if (!clientVersion.hasError()) {
                 //Connected
                 return true;
             } else {
@@ -107,9 +100,6 @@ public class XDC20Client {
             walletData.setSeedPhrase(seedPhrase);
 
 
-
-
-
             createAccountCallback.success(walletData);
 
 
@@ -133,8 +123,34 @@ public class XDC20Client {
     }
 
 
+    public void importWallet(String seedPhrase, String Password, CreateAccountCallback createAccountCallback) {
+
+        try {
+
+
+            Credentials restoreCredentials = WalletUtils.loadBip39Credentials(Password,
+                    seedPhrase);
+            ECKeyPair restoredPrivateKey = restoreCredentials.getEcKeyPair();
+            String restoredAccountAddress = restoreCredentials.getAddress();
+
+
+            WalletData walletData = new WalletData();
+            restoredAccountAddress = restoredAccountAddress.replace("0x", "xdc");
+            walletData.setAccountAddress(restoredAccountAddress);
+            walletData.setPrivateKey(restoredPrivateKey.getPrivateKey().toString(16));
+            walletData.setPublickeyKey(restoredPrivateKey.getPublicKey().toString(16));
+            walletData.setSeedPhrase(seedPhrase);
+
+            createAccountCallback.success(walletData);
+        } catch (Exception e) {
+            e.printStackTrace();
+            createAccountCallback.failure(e.getMessage());
+        }
+    }
+
+
     /**
-     * @param Privatekey   private key of account.
+     * @param Privatekey private key of account.
      * @return A Address of contract.
      * @dev Function to check private key is valid or not.
      */
@@ -198,7 +214,7 @@ public class XDC20Client {
 
             ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                     owner_address);
-            XRC20  javaToken = com.XDCJava.contracts.src.main.java.XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+            XRC20 javaToken = com.XDCJava.contracts.src.main.java.XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
             try {
                 BigInteger allowance = javaToken.allowance(owner_address, spender_address).send();
                 return String.valueOf(allowance);
@@ -228,6 +244,10 @@ public class XDC20Client {
             ClientTransactionManager transactionManager = new ClientTransactionManager(web3,
                     owner_address);
             XRC20 javaToken = com.XDCJava.contracts.src.main.java.XRC20.load(token_address, web3, transactionManager, new DefaultGasProvider());
+
+
+
+
             try {
                 BigInteger balance = javaToken.balanceOf(owner_address).send();
                 return String.valueOf(balance);
@@ -244,28 +264,55 @@ public class XDC20Client {
 
     }
 
+
+    /**
+     * @param owner_address The address to query the XDC balance
+     * @return An uint256 representing the amount owned by the passed address.
+     * @dev Gets the balance of the specified address.
+     */
+    public String getXdcBalance( String owner_address) {
+
+        if (isWeb3jConnected()) {
+
+            try {
+                EthGetBalance balance =   web3.ethGetBalance(owner_address,DefaultBlockParameterName.LATEST).send();
+
+                return String.valueOf(converHexToDecimal(balance.getBalance()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return String.valueOf(e.getMessage());
+            }
+
+
+        } else {
+            return "check your connection";
+        }
+
+
+    }
+
     public void getinfo(XRC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
         try {
 
             /**
              * @return the symbol of the token.
              */
-          String  symbol = javaToken.symbol().send();
+            String symbol = javaToken.symbol().send();
             /**
              * @return Total number of tokens in existence
              */
-         BigInteger  totalSupply = javaToken.totalSupply().send();
+            BigInteger totalSupply = converHexToDecimal(javaToken.totalSupply().send());
             /**
              * @return the name of the token.
              */
-          String  name = javaToken.name().send();
+            String name = javaToken.name().send();
             /**
              * @return the number of decimals of the token.
              */
-           BigInteger decimal = javaToken.decimals().send();
+            BigInteger decimal = javaToken.decimals().send();
 
             String contract = javaToken.getContractAddress();
-            TokenDetailsResponse    tokenResponse = new TokenDetailsResponse();
+            TokenDetailsResponse tokenResponse = new TokenDetailsResponse();
             tokenResponse.setAllowance(BigInteger.valueOf(0));
             tokenResponse.setSymbol(symbol);
             tokenResponse.setTotalSupply(totalSupply);
@@ -284,17 +331,16 @@ public class XDC20Client {
 
 
     /**
-     * @param TO_ADDRESS The address to transfer to.
-     * @param value      The amount to be transferred.
-     * @param FROM_ADDRESS      The address from XDC need to transfer.
-     * @param PRIVATE_KEY_TRANSACTION      spender's private key.
-     * @param gasprice      Gas price of contract.
-     * @param gaslimit      Gas Limit of Contract.
+     * @param PRIVATE_KEY_TRANSACTION spender's private key.
+     * @param FROM_ADDRESS            The address from XDC need to transfer.
+     * @param TO_ADDRESS              The address to transfer to.
+     * @param value                   The amount to be transferred.
+     * @param eventCallback
      * @dev Transfer XDC for a specified address
      * @para
      */
     @SuppressWarnings("NewApi")
-    public String TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, BigInteger value, Long gasprice, Long gaslimit) {
+    public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, String value, EventCallback eventCallback) {
 
         if (isWeb3jConnected()) {
 
@@ -306,18 +352,25 @@ public class XDC20Client {
             } catch (
                     ExecutionException e) {
                 e.printStackTrace();
-                return e.getMessage();
+                eventCallback.failure(e.getMessage());
             } catch (
                     InterruptedException e) {
                 e.printStackTrace();
-                return e.getMessage();
+                eventCallback.failure(e.getMessage());
             }
 
             BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-
-
+            BigInteger gasPrice = null;
+            try {
+                EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+                 gasPrice = ethGasPrice.getGasPrice();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
-                    nonce, BigInteger.valueOf(gasprice), BigInteger.valueOf(gaslimit), TO_ADDRESS, value);
+                    nonce,gasPrice, BigInteger.valueOf(50005), TO_ADDRESS, convertDecimalToHex(value));
 
             byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(PRIVATE_KEY_TRANSACTION));
             String hexValue = Numeric.toHexString(signedMessage);
@@ -329,21 +382,19 @@ public class XDC20Client {
             } catch (
                     ExecutionException e) {
                 e.printStackTrace();
-                return e.getMessage();
+                eventCallback.failure(e.getMessage());
 
             } catch (
                     InterruptedException e) {
                 e.printStackTrace();
-
-                return e.getMessage();
+                eventCallback.failure(e.getMessage());
             }
 
             String transactionHash = ethSendTransaction.getTransactionHash();
-            return transactionHash;
-
+            eventCallback.success(transactionHash);
 
         } else {
-            return "Failed";
+            eventCallback.failure("Failed");
         }
 
     }
@@ -442,17 +493,10 @@ public class XDC20Client {
             //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
             BigInteger gasLimit = BigInteger.valueOf(60000L);
             //XRC20 token contract method
-            BigInteger a
-                    = new BigInteger(value);
-            BigInteger b
-                    = new BigInteger("1000000000000000000");
-
-            // Using divide() method
-            BigInteger value_final = a.multiply(b);
 
             Function function = new Function(
                     "transfer",
-                    Arrays.asList(new Address(receiver_add), new Uint256(value_final)),
+                    Arrays.asList(new Address(receiver_add), new Uint256(convertDecimalToHex(value))),
                     Collections.singletonList(new TypeReference<Type>() {
                     }));
             //Create RawTransaction transaction object
@@ -665,6 +709,28 @@ public class XDC20Client {
         } else {
             return "Failed";
         }
+
+    }
+
+
+    public BigInteger convertDecimalToHex (String hexValue)
+    {
+        BigInteger value
+                = new BigInteger(hexValue);
+        BigInteger hexvalue
+                = new BigInteger(AppConstants.hex_to_dec);
+
+        return value.multiply(hexvalue);
+
+    }
+
+    public BigInteger converHexToDecimal (BigInteger hexValue)
+    {
+
+        BigInteger hexvalue
+                = new BigInteger(AppConstants.hex_to_dec);
+
+        return hexValue.divide(hexvalue);
 
     }
 

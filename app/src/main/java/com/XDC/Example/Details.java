@@ -22,7 +22,6 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
     TextView xdc_address_value, name_value, symbol_value, decimals_value, total_supply_value, balance_off_value,
             transfer_value, allowance_value, approve_value, transfer_from_value, increase_allowance_value, decrease_allowance_value;
-    String hex_to_dec;
     BigInteger dec_bal, dec_supply;
     TokenDetailsResponse tokenResponse = new TokenDetailsResponse();
 
@@ -37,7 +36,6 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        hex_to_dec = "1000000000000000000";
 
         xdc_address_value = findViewById(R.id.xdc_address_value);
         name_value = findViewById(R.id.name_value);
@@ -141,16 +139,12 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         } else
             allowance_value.setText("-");
 
-        if (total_supply_value != null) {
-            if (tokenResponse.getTotalSupply() != null) {
-                BigInteger a
-                        = new BigInteger(tokenResponse.getTotalSupply().toString());
-                BigInteger b
-                        = new BigInteger(hex_to_dec);
+        if (total_supply_value != null)
+        {
+            if (tokenResponse.getTotalSupply() != null)
+            {
 
-                // Using divide() method
-                dec_supply = a.divide(b);
-                total_supply_value.setText(dec_supply.toString());
+                total_supply_value.setText(tokenResponse.getTotalSupply().toString());
             }
 
         } else

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.XDC.Example.XDCmethods.TransferXDCActivity;
+import com.XDC.Example.wallet.CreateAccount;
 import com.XDC.R;
 import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.XDC20Client;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         transfer_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TransferAmount.class);
+                Intent intent = new Intent(MainActivity.this, TransferXDCActivity.class);
                 startActivity(intent);
             }
         });
