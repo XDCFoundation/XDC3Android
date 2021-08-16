@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,25 +58,25 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginRight="@dimen/margin_10"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/text_accountaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/text_accountaddress"
                         android:layout_toLeftOf="@+id/img_copy"
-                        android:text=""
                         android:singleLine="true"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_18" />
 
                     <ImageView
+                        android:id="@+id/img_copy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/img_copy"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="25dp"
@@ -87,33 +88,33 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_marginRight="@dimen/margin_10"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/text_XDC"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/text_XDC"
-                        android:layout_toLeftOf="@+id/xdc"
-                        android:text=""
-                        android:singleLine="true"
-                        android:textStyle="bold"
                         android:layout_marginRight="@dimen/padding_5"
+                        android:layout_toLeftOf="@+id/xdc"
+                        android:singleLine="true"
+                        android:text=""
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18" />
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/xdc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="XDC"
                         android:layout_alignParentRight="true"
-                        android:id="@+id/xdc"
+                        android:text="XDC"
 
-                        android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_18" />
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold" />
 
 
                 </RelativeLayout>
@@ -137,6 +138,99 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_10"
+                    android:text="@string/token"
+                    android:textColor="@color/background"
+                    android:textSize="@dimen/text_18"
+                    android:textStyle="bold"></TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/background">
+
+                </View>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lin_token_info"
+                        android:background="@drawable/edit_text_border1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_tokenbalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_10"
+
+
+                            android:hint="@string/tokenblc"
+                            android:padding="@dimen/padding_5"
+                            android:textColor="@color/background"
+                            android:textSize="@dimen/text_18"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/text_tokensymbol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_10"
+
+
+                            android:hint="@string/tokensym"
+                            android:padding="@dimen/padding_5"
+                            android:textColor="@color/background"
+                            android:textSize="@dimen/text_18"
+                            android:textStyle="bold"></TextView>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_marginRight="@dimen/margin_20"
+                       android:layout_marginBottom="@dimen/margin_100"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_addtoken"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_margin="@dimen/margin_10"
+                            android:background="@drawable/edit_text_border1"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_5"
+                            android:text="@string/addtoken"
+                            android:textColor="@color/background"
+                            android:textSize="@dimen/text_18"
+                            android:textStyle="bold"></TextView>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.Model.WalletData;
 import com.google.gson.Gson;
 
@@ -261,6 +262,17 @@ public class Utility
         hospitalprofile = gson.fromJson(json, WalletData.class);
 
         return  hospitalprofile;
+    }
+
+
+    public static TokenDetailsResponse gettokeninfo(Context context) {
+
+        TokenDetailsResponse tokendetail;
+        Gson gson = new Gson();
+        String json = SharedPreferenceHelper.getSharedPreferenceString(context, "tokeninfo", "");
+        tokendetail = gson.fromJson(json, TokenDetailsResponse.class);
+
+        return  tokendetail;
     }
 
 

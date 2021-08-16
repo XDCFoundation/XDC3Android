@@ -39,6 +39,59 @@
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
         </activity>
+        <activity
+            android:name=".Example.XDCmethods.AddToken"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".Example.XDCmethods.XDC20Details"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".Example.XDCmethods.ApproveXDC20Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".Example.XDCmethods.TransferfromXDC20Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".Example.XDCmethods.DecreaseAllowanceXDC20Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Example.XDCmethods.IncreaseAllowanceXDC20Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Example.XDCmethods.TransfertokenXDC20Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Example.XDCmethods.AllowanceXDC20Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Example.XDCmethods.BalanceXDC20Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
+
+
+
+
 
         <activity
             android:name="com.XDC.Example.SplashScreen"

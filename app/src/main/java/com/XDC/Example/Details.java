@@ -115,7 +115,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
     public void assignValues() {
 
 
-        xdc_address_value.setText(tokenResponse.getSpender_address());
+        xdc_address_value.setText(tokenResponse.getToken_address());
 
         if (name_value != null) {
             name_value.setText(tokenResponse.getName());
@@ -204,7 +204,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                             String approved_hash = null;
                             try {
-                                approved_hash = XDC20Client.getInstance().transferfrom(edt_tfrom_spender.getText().toString(), edt_tfrom_to.getText().toString(), edt_tfrom_spender_privatekey.getText().toString(), edt_tfrom_value.getText().toString(), tokenResponse.getSpender_address() );
+                                approved_hash = XDC20Client.getInstance().transferfrom(edt_tfrom_spender.getText().toString(), edt_tfrom_to.getText().toString(), edt_tfrom_spender_privatekey.getText().toString(), edt_tfrom_value.getText().toString(), tokenResponse.getToken_address() );
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             } catch (InterruptedException e) {
@@ -245,7 +245,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XDC20Client.getInstance().increaseAllownce(edt_increase_owner.getText().toString(), edt_increase_spender.getText().toString(), edt_privatekey.getText().toString(), edt_increase_allownce_value.getText().toString(), tokenResponse.getSpender_address());
+                            approved_hash = XDC20Client.getInstance().increaseAllownce(edt_increase_owner.getText().toString(), edt_increase_spender.getText().toString(), edt_privatekey.getText().toString(), edt_increase_allownce_value.getText().toString(), tokenResponse.getToken_address());
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -284,7 +284,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XDC20Client.getInstance().decreaseAllownce(edt_decrease_owner.getText().toString(), edt_decrease_spender.getText().toString(), edt_privatekey.getText().toString(), edt_decrease_allownce.getText().toString(), tokenResponse.getSpender_address());
+                            approved_hash = XDC20Client.getInstance().decreaseAllownce(edt_decrease_owner.getText().toString(), edt_decrease_spender.getText().toString(), edt_privatekey.getText().toString(), edt_decrease_allownce.getText().toString(), tokenResponse.getToken_address());
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -324,7 +324,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XDC20Client.getInstance().transferXRC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(),  edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
+                            approved_hash = XDC20Client.getInstance().transferXRC20Token(tokenResponse.getToken_address(), edt_privatekey.getText().toString(),  edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -358,7 +358,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                     String approved_hash = null;
                     try {
-                        approved_hash = XDC20Client.getInstance().approveXRC20Token(tokenResponse.getSpender_address(), edt_privatekey.getText().toString(), edt_allownce_spender.getText().toString(), edt_value_approve.getText().toString());
+                        approved_hash = XDC20Client.getInstance().approveXRC20Token(tokenResponse.getToken_address(), edt_privatekey.getText().toString(), edt_allownce_spender.getText().toString(), edt_value_approve.getText().toString());
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -387,7 +387,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
             if (edt_allownce_spender.getText().toString() != null && edt_allownce_spender.getText().toString().length() > 0) {
 
-                String allownce = XDC20Client.getInstance().getAllowance(tokenResponse.getSpender_address(), edt_allownce_owner.getText().toString(), edt_allownce_spender.getText().toString());
+                String allownce = XDC20Client.getInstance().getAllowance(tokenResponse.getToken_address(), edt_allownce_owner.getText().toString(), edt_allownce_spender.getText().toString());
                 allowance_value.setText(allownce);
 
             } else {
@@ -402,7 +402,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         if (edt_balance_spender.getText().toString() != null && edt_balance_spender.getText().toString().length() > 0) {
 
 
-                String allownce = XDC20Client.getInstance().getBalance(tokenResponse.getSpender_address(), edt_balance_spender.getText().toString());
+                String allownce = XDC20Client.getInstance().getBalance(tokenResponse.getToken_address(), edt_balance_spender.getText().toString());
             balance_off_value.setText(allownce);
 
 

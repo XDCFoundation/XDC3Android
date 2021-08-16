@@ -32,6 +32,13 @@ public class TokenDetailsResponse implements Serializable
     }
 
 
+    private String balance;
+    public String getBalance() {
+        return balance;
+    }
+    public void setBalance(String param) {
+        this.balance = param;
+    }
 
     private String symbol;
     public String getSymbol() {
@@ -49,12 +56,12 @@ public class TokenDetailsResponse implements Serializable
         this.name = param;
     }
 
-    private String spender_address;
-    public String getSpender_address() {
-        return spender_address;
+    private String token_address;
+    public String getToken_address() {
+        return token_address;
     }
-    public void setSpender_address(String param) {
-        this.spender_address = param;
+    public void setToken_address(String param) {
+        this.token_address = param;
     }
 
     private String contract;

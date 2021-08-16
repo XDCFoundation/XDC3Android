@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.XDC.Example.profile.UserprofileActivity;
 import com.XDC.Example.utils.Utility;
 import com.XDC.R;
 import com.XDCJava.Model.WalletData;
@@ -21,14 +21,16 @@ public class TransferXDCActivity extends AppCompatActivity {
     Button button_send;
     TextView text_transaction_hash;
     WalletData user_wallet;
+    ImageView back_txdc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transfer_amount);
+        setContentView(R.layout.activity_transfer_xdc);
 
         edt_receiver_address = (EditText) findViewById(R.id.receiver_address);
         edt_token_totransfer = (EditText) findViewById(R.id.value);
         button_send = (Button) findViewById(R.id.send);
+        back_txdc = findViewById(R.id.back_txdc);
         text_transaction_hash = (TextView) findViewById(R.id.text_transaction_hash);
         user_wallet = Utility.getProfile(TransferXDCActivity.this);
         button_send.setOnClickListener(new View.OnClickListener()
@@ -70,6 +72,13 @@ public class TransferXDCActivity extends AppCompatActivity {
             }
 
 
+        });
+
+        back_txdc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
         });
     }
 

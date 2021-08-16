@@ -93,7 +93,7 @@ public class XDC20Client {
 
 
             WalletData walletData = new WalletData();
-            accountAddress = accountAddress.replace("0x", "xdc");
+          ///  accountAddress = accountAddress.replace("0x", "xdc");
             walletData.setAccountAddress(accountAddress);
             walletData.setPrivateKey(privateKey);
             walletData.setPublickeyKey(publickeyKey);
@@ -250,6 +250,7 @@ public class XDC20Client {
 
             try {
                 BigInteger balance = javaToken.balanceOf(owner_address).send();
+                balance = converHexToDecimal(balance);
                 return String.valueOf(balance);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -317,7 +318,7 @@ public class XDC20Client {
             tokenResponse.setSymbol(symbol);
             tokenResponse.setTotalSupply(totalSupply);
             tokenResponse.setName(name);
-            tokenResponse.setSpender_address(token_address);
+            tokenResponse.setToken_address(token_address);
             tokenResponse.setDecimal(decimal);
             tokenResponse.setcontract(contract);
             tokenDetailCallback.success(tokenResponse);

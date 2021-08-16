@@ -3,7 +3,7 @@ package com.XDCJava.callback;
 import com.XDCJava.Model.TokenDetailsResponse;
 
 public interface TokenDetailCallback {
-    void success(TokenDetailsResponse tokenApiModel);
+    void success(TokenDetailsResponse tokendetail);
 
 
     void failure(Throwable t);
