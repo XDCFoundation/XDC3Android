@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Xinfin SDK</string>
+    <string name="app_name">XDC SDK</string>
     <string name="xdc3_android">XDC.Android</string>
     <string name="enter_xdc_address_here">Enter XDC Address Here</string>
     <string name="or">or</string>
