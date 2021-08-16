@@ -104,24 +104,7 @@ public class XDC721Client {
         if (isWeb3jConnected()) {
             Credentials credentials = Credentials.create(privatekey);
             try {
-               /* contract = XRC721.deploy(web3,
-                        credentials,
-                        ManagedTransaction.GAS_PRICE,
-                        Contract.GAS_LIMIT,"").send();
 
-                String contractAddress = contract.getContractAddress();*/
-
-
-                ///  BigInteger initialSupply = BigInteger.valueOf(100000);
-
-                //   XRC20 javaToken = XRC20.deploy(web3, credentials,ManagedTransaction.GAS_PRICE,Contract.GAS_LIMIT, initialSupply).send();
-                //    XRC20 result = XRC20.deploy(web3,credentials,ManagedTransaction.GAS_PRICE,Contract.GAS_LIMIT,BigInteger.valueOf(1000),"Bhavisha","BHV",BigInteger.valueOf(18)).send();
-
-                // javaToken.getContractAddress();
-                // tokenDetailCallback.success(result.getContractAddress());
-
-
-                // Get nonce, the number of transactions
                 BigInteger nonce;
                 EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
                 if (ethGetTransactionCount == null) {
@@ -132,34 +115,13 @@ public class XDC721Client {
                 if (ethGasPrice == null) {
                     tokenDetailCallback.failure("failed");
                 }
-
-
-
-
-               /* XRC721 xrc721 = XRC721.deploy(web3,credentials,ethGasPrice.getGasPrice(),BigInteger.valueOf(300000),BigInteger.valueOf(0),"bv","dk",BigInteger.valueOf(18)).sendAsync().get();
-
-                xrc721.getContractAddress();
-
-                System.out.println(xrc721.getContractAddress());*/
-
                 String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(1),
                         new org.web3j.abi.datatypes.generated.Uint8(1),
                         new org.web3j.abi.datatypes.Utf8String("Bhavisha123"),
                         new org.web3j.abi.datatypes.Utf8String("BHV"),
                         new org.web3j.abi.datatypes.generated.Uint8(18)));
 
-
-                /*final Function function = new Function(
-                        "",
-                        Arrays.<Type>asList((new org.web3j.abi.datatypes.generated.Uint256(1)),
-                                new org.web3j.abi.datatypes.Utf8String("Bhavisha"),
-                                new org.web3j.abi.datatypes.Utf8String("BHV"),
-                                new org.web3j.abi.datatypes.generated.Uint8(18)),
-                        Collections.<TypeReference<?>>emptyList());
-                String encodedFunction = FunctionEncoder.encode(function);*/
                 RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, ethGasPrice.getGasPrice(), BigInteger.valueOf(300000), BigInteger.valueOf(0), encodedConstructor);
-
-                //   Transaction transaction = Transaction.createContractTransaction(credentials.getAddress(),nonce,ethGasPrice.getGasPrice(),BigInteger.valueOf(300000),BigInteger.valueOf(0),encodedFunction);
 
                 //Signature Transaction
                 byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);

@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.XDCJava.Model.Token721DetailsResponse;
 import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.Model.WalletData;
 import com.google.gson.Gson;
@@ -171,32 +172,6 @@ public class Utility
         return false;
     }
 
-    public static Bitmap getVideoThumb(String Url) {
-        return ThumbnailUtils.createVideoThumbnail(Url, MediaStore.Video.Thumbnails.MINI_KIND);
-    }
-
-    public static boolean isValidUrl(String url) {
-        return URLUtil.isValidUrl(url);
-    }
-
-
-
-    public static Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-
-
-    public static String getDateForProfile(long timeStamp)
-    {
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(timeStamp);
-        String date = DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
-        return date;
-    }
 
 
     public static void setProgressDialog(Context context) {
@@ -274,6 +249,17 @@ public class Utility
 
         return  tokendetail;
     }
+
+    public static Token721DetailsResponse getnftinfo(Context context) {
+
+        Token721DetailsResponse tokendetail;
+        Gson gson = new Gson();
+        String json = SharedPreferenceHelper.getSharedPreferenceString(context, "nftinfo", "");
+        tokendetail = gson.fromJson(json, Token721DetailsResponse.class);
+
+        return  tokendetail;
+    }
+
 
 
 }

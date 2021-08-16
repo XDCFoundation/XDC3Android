@@ -37,8 +37,10 @@
     <string name="import_wallet">Import Wallet</string>
     <string name="wallet">Wallet</string>
     <string name="recovery_phrase">Recovery Phrase</string>
-    <string name="token">Token</string>
+    <string name="token">XDC20 Token</string>
+    <string name="nfttoken">NFT Token</string>
     <string name="addtoken">Add Token</string>
+    <string name="addntoken">Add NFT</string>
     <string name="tokenadd">Token Address</string>
     <string name="tokensym">Token Symbol</string>
     <string name="tokendec">Token Decimal</string>

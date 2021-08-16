@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.XDC.Example.XDCmethods.TransferXDCActivity;
+import com.XDC.Example.XDC20methods.TransferXDCActivity;
 import com.XDC.Example.wallet.CreateAccount;
 import com.XDC.R;
 import com.XDCJava.Model.TokenDetailsResponse;
