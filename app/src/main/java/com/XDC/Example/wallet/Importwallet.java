@@ -1,7 +1,9 @@
 package com.XDC.Example.wallet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.XDC.Example.SplashScreen;
+import com.XDC.Example.profile.UserprofileActivity;
 import com.XDC.Example.utils.SharedPreferenceHelper;
 import com.XDC.R;
 import com.XDCJava.Model.WalletData;
@@ -59,6 +63,22 @@ public class Importwallet extends AppCompatActivity {
                                             Gson gson = new Gson();
                                             String json = gson.toJson(walletData);
                                             SharedPreferenceHelper.setSharedPreferenceString(Importwallet.this, "userprofile", json);
+
+                                            new Handler().postDelayed(new Runnable()
+                                            {
+                                                @Override
+                                                public void run()
+                                                {
+
+
+
+                                                        startActivity(new Intent(Importwallet.this, UserprofileActivity.class));
+                                                        finish();
+
+
+
+                                                }
+                                            }, 500);
                                         }
 
                                         @Override

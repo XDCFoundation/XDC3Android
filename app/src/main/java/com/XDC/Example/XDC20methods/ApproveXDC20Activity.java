@@ -55,7 +55,7 @@ public class ApproveXDC20Activity extends AppCompatActivity {
                         try {
                             String approve_hash = XDC20Client.getInstance().approveXRC20Token(tokenDetail.getToken_address(), user_wallet.getPrivateKey(), edt_receiver_address.getText().toString(), edt_token_totransfer.getText().toString());
                             text_transaction_hash.setText(approve_hash);
-
+                            Utility.closeKeyboard(ApproveXDC20Activity.this);
                             SharedPreferenceHelper.setSharedPreferenceString(ApproveXDC20Activity.this, "transactionhash", approve_hash);
                         } catch (ExecutionException e) {
                             e.printStackTrace();

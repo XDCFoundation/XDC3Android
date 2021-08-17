@@ -13,6 +13,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/Theme.com.XDC.Example">
         <activity
             android:name="com.XDC.Example.wallet.CreateAccount"
@@ -89,14 +90,60 @@
 
         </activity>
         <activity
-        android:name=".Example.XDC721methods.AddNFT"
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-
-    </activity>
+            android:name=".Example.XDC721methods.AddNFT"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
 
+        </activity>
 
+        <activity
+            android:name=".Example.XDC721methods.ApproveXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Example.XDC721methods.SetApprovalforAllXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Example.XDC721methods.SafeTransferfromXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Example.XDC721methods.TransferfromXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
 
+        <activity
+            android:name=".Example.XDC721methods.TokenURIXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".Example.XDC721methods.TokenOfOwnerByIndexXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".Example.XDC721methods.TokenByIndexXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".Example.XDC721methods.BalanceOfXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".Example.XDC721methods.OwnerOfXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Example.XDC721methods.GetApprovedXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Example.XDC721methods.IsApprovedForAllXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Example.XDC721methods.SupportInterfaceXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Example.XDC721methods.TotalSupplyXDC721Activity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".Example.XDC721methods.XDC721Details"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
 
         <activity
             android:name="com.XDC.Example.SplashScreen"

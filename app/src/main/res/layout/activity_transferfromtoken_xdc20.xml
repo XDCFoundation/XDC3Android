@@ -67,6 +67,61 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="@dimen/margin_50"
+                android:text="Caller"
+                android:textStyle="bold"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/caller_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="15dp"
+                android:textColor="@color/black"
+
+                android:text="@string/final_spendar_address"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="Caller Private key"
+                android:textStyle="bold"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/caller_privatekey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="15dp"
+                android:textColor="@color/black"
+
+                android:text="@string/final_spendar_privatekey"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/margin_20"
                 android:text="Sender"
                 android:textStyle="bold"
                 android:textColor="@color/header"
@@ -93,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="@dimen/margin_50"
+                android:layout_marginTop="@dimen/margin_20"
                 android:text="Recepient"
                 android:textStyle="bold"
                 android:textColor="@color/header"

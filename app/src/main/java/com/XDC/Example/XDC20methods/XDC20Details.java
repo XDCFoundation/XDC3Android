@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.XDC.Example.profile.UserprofileActivity;
 import com.XDC.Example.utils.SharedPreferenceHelper;
 import com.XDC.Example.utils.Utility;
 import com.XDC.R;
@@ -25,7 +26,7 @@ public class XDC20Details extends AppCompatActivity implements View.OnClickListe
     LinearLayout lin_writemethod,lin_readmethods;
     TokenDetailsResponse tokenDetail;
     WalletData user_wallet;
-    ImageView img_threedot;
+    ImageView img_threedot,img_back20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,7 +43,7 @@ public class XDC20Details extends AppCompatActivity implements View.OnClickListe
         xdc_transaction = findViewById(R.id.xdc_transaction);
         img_threedot = findViewById(R.id.img_threedot);
         tokenDetail = Utility.gettokeninfo(XDC20Details.this);
-
+        img_back20 = findViewById(R.id.img_back20);
         text_tokensymbol.setText(tokenDetail.getSymbol());
 
         txt_decreaseallownce = findViewById(R.id.txt_decreaseallownce);
@@ -87,6 +88,13 @@ public class XDC20Details extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v)
             { bottomSheetwriteMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
                 bottomSheetreadMethods.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        img_back20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
@@ -149,6 +157,8 @@ public class XDC20Details extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         text_tokenbalance.setText(XDC20Client.getInstance().getBalance(tokenDetail.getToken_address(),user_wallet.getAccountAddress()));
+        SharedPreferenceHelper.setSharedPreferenceString(XDC20Details.this, "XDC20B", text_tokenbalance.getText().toString());
+
         String transactionhash = SharedPreferenceHelper.getSharedPreferenceString(XDC20Details.this, "transactionhash", "");
         xdc_transaction.setText(transactionhash);
     }

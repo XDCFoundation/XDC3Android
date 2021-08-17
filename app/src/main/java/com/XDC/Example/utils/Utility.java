@@ -252,12 +252,12 @@ public class Utility
 
     public static Token721DetailsResponse getnftinfo(Context context) {
 
-        Token721DetailsResponse tokendetail;
+        Token721DetailsResponse nftDetail;
         Gson gson = new Gson();
         String json = SharedPreferenceHelper.getSharedPreferenceString(context, "nftinfo", "");
-        tokendetail = gson.fromJson(json, Token721DetailsResponse.class);
+        nftDetail = gson.fromJson(json, Token721DetailsResponse.class);
 
-        return  tokendetail;
+        return  nftDetail;
     }
 
 

@@ -46,6 +46,7 @@ public class AllowanceXDC20Activity extends AppCompatActivity {
                     if (user_wallet != null && user_wallet.getAccountAddress() != null && user_wallet.getAccountAddress().length() > 0 && user_wallet.getPrivateKey() != null) {
                         String approve_hash = XDC20Client.getInstance().getAllowance(tokenDetail.getToken_address(),user_wallet.getAccountAddress(),edt_receiver_address.getText().toString());
                         text_transaction_hash.setText(approve_hash);
+                        Utility.closeKeyboard(AllowanceXDC20Activity.this);
 
                        // SharedPreferenceHelper.setSharedPreferenceString(AllowanceXDC20Activity.this, "transactionhash", approve_hash);
                     }

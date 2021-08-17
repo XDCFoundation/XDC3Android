@@ -46,6 +46,7 @@ public class BalanceXDC20Activity extends AppCompatActivity {
                         String approve_hash = XDC20Client.getInstance().getBalance(tokenDetail.getToken_address(),edt_receiver_address.getText().toString());
                         text_transaction_hash.setText(approve_hash);
 
+                    Utility.closeKeyboard(BalanceXDC20Activity.this);
                        // SharedPreferenceHelper.setSharedPreferenceString(AllowanceXDC20Activity.this, "transactionhash", approve_hash);
 
 

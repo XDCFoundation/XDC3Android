@@ -52,6 +52,7 @@ public class TransferXDCActivity extends AppCompatActivity {
                             public void success(String hash)
                             {
                                 text_transaction_hash.setText(hash);
+                                Utility.closeKeyboard(TransferXDCActivity.this);
                             }
 
                             @Override

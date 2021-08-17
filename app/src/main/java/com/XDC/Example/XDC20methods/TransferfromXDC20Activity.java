@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 public class TransferfromXDC20Activity extends AppCompatActivity {
 
-    EditText edt_receiver_address, edt_token_totransfer,sender_address;
+    EditText edt_receiver_address, edt_token_totransfer,sender_address,caller_address,caller_privatekey;
     Button send_approve;
     TextView text_transaction_hash;
     WalletData user_wallet;
@@ -37,20 +37,31 @@ public class TransferfromXDC20Activity extends AppCompatActivity {
         edt_token_totransfer = (EditText) findViewById(R.id.value);
         send_approve = (Button) findViewById(R.id.send_approve);
         sender_address = (EditText)findViewById(R.id.sender_address);
+        caller_address = findViewById(R.id.caller_address);
+        caller_privatekey = findViewById(R.id.caller_privatekey);
         back_txdc = findViewById(R.id.back_txdc);
         text_transaction_hash = (TextView) findViewById(R.id.text_transaction_hash);
         user_wallet = Utility.getProfile(TransferfromXDC20Activity.this);
         tokenDetail = Utility.gettokeninfo(TransferfromXDC20Activity.this);
+        sender_address.setText(user_wallet.getAccountAddress());
         send_approve.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (!hasText(edt_receiver_address)) {
-                    edt_receiver_address.setError(getResources().getString(R.string.error_empty));
+            public void onClick(View v)
+            {
+                if (!hasText(caller_address)) {
+                    caller_address.setError(getResources().getString(R.string.error_empty));
                 }
-                else if (!hasText(sender_address)) {
+                else if (!hasText(caller_privatekey)) {
+                    caller_privatekey.setError(getResources().getString(R.string.error_empty));
+                }
+                else  if (!hasText(sender_address)) {
                     sender_address.setError(getResources().getString(R.string.error_empty));
+                }
+                else if (!hasText(edt_receiver_address)) {
+                    edt_receiver_address.setError(getResources().getString(R.string.error_empty));
 
-                }else if (!hasText(edt_token_totransfer)) {
+                }else if (!hasText(edt_token_totransfer))
+                {
                     edt_token_totransfer.setError(getResources().getString(R.string.error_empty));
 
                 } else {
@@ -58,10 +69,10 @@ public class TransferfromXDC20Activity extends AppCompatActivity {
 
                     if (user_wallet != null && user_wallet.getAccountAddress() != null && user_wallet.getAccountAddress().length() > 0 && user_wallet.getPrivateKey() != null) {
                         try {
-                            String approve_hash = XDC20Client.getInstance().transferfrom(sender_address.getText().toString(), edt_receiver_address.getText().toString(),user_wallet.getPrivateKey(), edt_token_totransfer.getText().toString(),tokenDetail.getToken_address());
-                            text_transaction_hash.setText(approve_hash);
-
-                            SharedPreferenceHelper.setSharedPreferenceString(TransferfromXDC20Activity.this, "transactionhash", approve_hash);
+                            String hash = XDC20Client.getInstance().transferfrom(sender_address.getText().toString(), edt_receiver_address.getText().toString(),caller_privatekey.getText().toString(), edt_token_totransfer.getText().toString(),tokenDetail.getToken_address());
+                            text_transaction_hash.setText(hash);
+                            Utility.closeKeyboard(TransferfromXDC20Activity.this);
+                            SharedPreferenceHelper.setSharedPreferenceString(TransferfromXDC20Activity.this, "transactionhash", hash);
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {

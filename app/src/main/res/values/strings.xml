@@ -10,8 +10,8 @@
     <string name="name">Name:</string>
     <string name="symbol">Symbol:</string>
     <string name="decimals">Decimals:</string>
-    <string name="total_supply">Total Supply:</string>
-    <string name="balance_off">Balance off</string>
+    <string name="total_supply">Total Supply</string>
+    <string name="balance_off">Balance of</string>
     <string name="transfer">Transfer</string>
     <string name="allowance">Allowance</string>
     <string name="approve">Approve</string>
@@ -35,8 +35,10 @@
     <string name="error_empty">This field cannot be empty</string>
 
     <string name="import_wallet">Import Wallet</string>
+    <string name="safe_transferf">SafeTransferFrom</string>
     <string name="wallet">Wallet</string>
     <string name="recovery_phrase">Recovery Phrase</string>
+    <string name="seedphrase">spin uphold cover grow charge napkin sell misery cement lizard fish tube</string>
     <string name="token">XDC20 Token</string>
     <string name="nfttoken">NFT Token</string>
     <string name="addtoken">Add Token</string>
@@ -49,13 +51,47 @@
     <string name="trans_xdc">Transfer XDC</string>
 
     <string name="aprove_20">Sets <b>amount</b> as the <b>allowance</b> of spender over the caller’s tokens.</string>
-    <string name="increaseallownce_20">Automtically increases the <b>allowance</b> <br/>granted to <b>spender</b> by the <b>caller</b>.</string>
-    <string name="decreaseallownce_20">Automtically decreases the <b>allowance</b> <br/>granted to <b>spender</b> by the <b>caller</b>.</string>
+    <string name="increaseallownce_20">Automatically increases the <b>allowance</b> <br/>granted to <b>spender</b> by the <b>caller</b>.</string>
+    <string name="decreaseallownce_20">Automatically decreases the <b>allowance</b> <br/>granted to <b>spender</b> by the <b>caller</b>.</string>
     <string name="transfer_20">Emitted when value tokens are moved from one account <b>(from)</b> to another <b>(to)</b>.</string>
     <string name="transferfrom_20">Moves amount tokens from <b>sender</b> to <b>recipient</b> <br/>using the allowance mechanism.  <b>amount</b> is then deducted from the<br/> caller’s allowance.</string>
 
     <string name="allowance_20"> Returns the remaining number of tokens that <b>spender</b><br/> will be allowed to spend on behalf of <b>owner</b><br/> through transferFrom. This is zero by default.</string>
     <string name="balaceof_20">Returns the amount of tokens owned by account.</string>
+    <string name="tid">Token Id</string>
+    <string name="tindex">Token Index</string>
+    <string name="turi">TokenURI</string>
+    <string name="townerbyindex">Token Of Owner ByIndex</string>
+    <string name="tbyindex">Token By Index</string>
+    <string name="tbalanceof">balanceOf</string>
+    <string name="ownerof">OwnerOf</string>
+    <string name="getApproved">getApproved</string>
+    <string name="isapproved">Is Approved ForAll</string>
+    <string name="supportinterface">supportInterface</string>
+
+    <string name="approve_721">Change or reaffirm the <b>approved address</b> for an NFT</string>
+    <string name="setaproval_721">Enable or disable <b>approval</b> for a <br/>third party <b>("operator")</b> to manage</string>
+    <string name="transfer_721">Transfer <b>ownership</b> of an NFT</string>
+    <string name="safetransfer_721">Transfers the <b>ownership</b> of an NFT <br/>from one address to another address</string>
+    <string name="turi_721"> A distinct Uniform Resource Identifier <b>(URI)</b> for a given asset</string>
+    <string name="tokenOfOwnerByIndex_721">  Enumerate NFTs assigned to an <b>owner</b>,<br/>return The <b>token identifier</b> for the `index`th NFT</string>
+    <string name="tokenByIndex_721">Enumerate valid NFTs,return The <b>token identifier</b><br/>for the `index`th NFT</string>
+    <string name="balanceof_721">Count all NFTs assigned to an <b>owner</b></string>
+    <string name="ownerof_721">Find the <b>owner</b> of an NFT</string>
+    <string name="getapproved_721">Get the <b>approved</b> address for a <b>single NFT</b></string>
+    <string name="isApprovedForAll_721">Query if an address is an authorized <b>operator</b> for another address</string>
+    <string name="support_721">Query if a contract implements an interface</string>
+    <string name="total_721">Count NFTs tracked by this contract</string>
+
+
+
+    <string name="nft_test">0x08963aa61cf5502eabee41d45a6ba0e15d47ef2c</string>
+    <string name="nft_test_tokenid">18</string>
+    <string name="nft_2ndaddress">0xd23e72405951a6aff30f222aa23fdba83bb0a391</string>
+    <string name="nft_1staddress">0x255164ae304bfe30ca19029c24cac958767a70db</string>
+
+
+
 
     <string name="test_add">0x046550ba1d12a302e78996ce7c5d54cf66be0e9c</string>
     <string name="gasprice">4000004</string>

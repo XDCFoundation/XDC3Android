@@ -77,6 +77,7 @@ public class XDC20Client {
         try {
 
 
+
             Bip39Wallet walletName = WalletUtils.generateBip39Wallet(Password, walletDirectory);
             System.out.println("wallet location: " + walletDirectory + "/" + walletName);
             Credentials credentials = WalletUtils.loadBip39Credentials(Password, walletName.getMnemonic());
@@ -135,7 +136,7 @@ public class XDC20Client {
 
 
             WalletData walletData = new WalletData();
-            restoredAccountAddress = restoredAccountAddress.replace("0x", "xdc");
+         //   restoredAccountAddress = restoredAccountAddress.replace("0x", "xdc");
             walletData.setAccountAddress(restoredAccountAddress);
             walletData.setPrivateKey(restoredPrivateKey.getPrivateKey().toString(16));
             walletData.setPublickeyKey(restoredPrivateKey.getPublicKey().toString(16));

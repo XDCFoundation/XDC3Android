@@ -56,7 +56,7 @@ public class IncreaseAllowanceXDC20Activity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         text_transaction_hash.setText(approve_hash);
-
+                        Utility.closeKeyboard(IncreaseAllowanceXDC20Activity.this);
                         SharedPreferenceHelper.setSharedPreferenceString(IncreaseAllowanceXDC20Activity.this, "transactionhash", approve_hash);
                     }
 
