@@ -86,7 +86,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/final_spendar_address"
+                android:text="@string/nft_2ndaddress"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
             <TextView
@@ -113,7 +113,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/final_spendar_privatekey"
+                android:text="@string/nft_2ndprivatekey"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -142,7 +142,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/final_token_owner"
+                android:text="@string/nft_1staddress"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -170,7 +170,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text=""
+                android:text="18"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 

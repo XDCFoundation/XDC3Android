@@ -73,8 +73,8 @@ public class CreateAccount extends AppCompatActivity {
                                         String json = gson.toJson(walletData);
                                         SharedPreferenceHelper.setSharedPreferenceString(CreateAccount.this, "userprofile", json);
 
-                                        Intent intent = new Intent(CreateAccount.this, UserprofileActivity.class);
-                                        startActivity(intent);
+                                       /* Intent intent = new Intent(CreateAccount.this, UserprofileActivity.class);
+                                        startActivity(intent);*/
                                     }
 
                                     @Override

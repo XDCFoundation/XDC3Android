@@ -71,6 +71,7 @@
                         android:layout_margin="@dimen/margin_10"
                         android:hint="@string/tokensym"
                         android:padding="@dimen/padding_5"
+                        android:gravity="right"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_18"
                         android:textStyle="bold"></TextView>

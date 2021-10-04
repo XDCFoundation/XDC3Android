@@ -279,9 +279,19 @@ public class UserprofileActivity extends AppCompatActivity {
             public void run()
             {
                 //Log.e("nftDetail", nftDetail.getTokenAddress());
+
                 getXDCBalance();
-                getXDC20Balance();
-                getXDC721Balance();
+                if(tokenDetail!=null && tokenDetail.getToken_address()!=null&& tokenDetail.getToken_address().length()>0)
+                {
+                    getXDC20Balance();
+                }
+
+                if(nftDetail!=null && nftDetail.getTokenAddress()!=null&& nftDetail.getTokenAddress().length()>0)
+                {
+                    getXDC721Balance();
+                }
+
+
             }
         }, 2);
 

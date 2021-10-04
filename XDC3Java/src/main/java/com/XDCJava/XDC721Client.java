@@ -146,6 +146,7 @@ public class XDC721Client {
                     String contractAddress = null;
                     if (transactionReceipt.getTransactionReceipt().isPresent()) {
                         contractAddress = transactionReceipt.getTransactionReceipt().get().getContractAddress();
+
                         tokenDetailCallback.success(contractAddress);
                     } else {
                         // try again

@@ -160,14 +160,14 @@ public class XDC721Details extends AppCompatActivity implements View.OnClickList
 
 
             case R.id.txt_transferfrom:
-                intent = new Intent(XDC721Details.this, TransferfromXDC20Activity.class);
+                intent = new Intent(XDC721Details.this, TransferfromXDC721Activity.class);
                 startActivity(intent);
                 bottomSheetwriteMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
                 break;
             case R.id.txt_safetransferfrom:
                 intent = new Intent(XDC721Details.this, SafeTransferfromXDC721Activity.class);
                 startActivity(intent);
-                bottomSheetreadMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
+                bottomSheetwriteMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
                 break;
 
             //read methods
@@ -227,7 +227,7 @@ public class XDC721Details extends AppCompatActivity implements View.OnClickList
     protected void onResume() {
         super.onResume();
         text_tokenbalance.setText(XDC721Client.getInstance().getBalance(tokenDetail.getTokenAddress(), user_wallet.getAccountAddress()));
-        String transactionhash = SharedPreferenceHelper.getSharedPreferenceString(XDC721Details.this, "transactionhash", "");
+        String transactionhash = SharedPreferenceHelper.getSharedPreferenceString(XDC721Details.this, "nfthash", "");
         xdc_transaction.setText(transactionhash);
     }
 }

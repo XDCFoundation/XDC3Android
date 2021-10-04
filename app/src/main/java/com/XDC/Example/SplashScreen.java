@@ -33,8 +33,11 @@ public class SplashScreen extends Activity
 
                 if(user_wallet!=null && user_wallet.getAccountAddress()!=null &&user_wallet.getAccountAddress().length()>0 )
                 {
-                    startActivity(new Intent(SplashScreen.this, UserprofileActivity.class));
+                    //startActivity(new Intent(SplashScreen.this, UserprofileActivity.class));
+                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
                     finish();
+
+
                 }
                 else
                 {

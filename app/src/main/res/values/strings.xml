@@ -89,7 +89,8 @@
     <string name="nft_test_tokenid">18</string>
     <string name="nft_2ndaddress">0xd23e72405951a6aff30f222aa23fdba83bb0a391</string>
     <string name="nft_1staddress">0x255164ae304bfe30ca19029c24cac958767a70db</string>
-
+    <string name="nft_1stprivatekey">100ff21dae8e8cf5a3ed42ba0a0e33d33b0e76be884f1cb1be642a425264311e</string>
+    <string name="nft_2ndprivatekey">0xe515b0b2bd81de99cbe562108c661bf5125a2b447688594f757951c5c914d05d</string>
 
 
 
