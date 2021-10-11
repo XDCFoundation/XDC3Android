@@ -15,6 +15,7 @@ import org.web3j.abi.datatypes.Bool;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.contracts.token.ERC20Interface;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
@@ -101,6 +102,9 @@ public class XDC721Client {
     public void deploy_contract(String privatekey, Token721DetailCallback tokenDetailCallback) {
 
 
+
+
+
         if (isWeb3jConnected()) {
             Credentials credentials = Credentials.create(privatekey);
             try {
@@ -146,8 +150,44 @@ public class XDC721Client {
                     String contractAddress = null;
                     if (transactionReceipt.getTransactionReceipt().isPresent()) {
                         contractAddress = transactionReceipt.getTransactionReceipt().get().getContractAddress();
-
                         tokenDetailCallback.success(contractAddress);
+                        /*final Function function = new Function(
+                                "_mint",
+                                Arrays.<Type>asList(new Address(contractAddress),new Uint256(Long.parseLong("2"))),Collections.<TypeReference<?>>emptyList());
+
+                        XRC721 javaToken1 = XRC721.load(credentials.getAddress(), web3, credentials, new DefaultGasProvider());
+*/
+
+                    /*    final org.web3j.abi.datatypes.Function function_t = new Function(
+                                "_mint",
+                                Arrays.<Type>asList(new Address(credentials.getAddress()),
+                                        new Address(contractAddress),
+                                        new Uint256(Long.parseLong("10"))),
+                                Collections.<TypeReference<?>>emptyList());
+
+                        String encodedFunction = FunctionEncoder.encode(function_t);
+                        //token address
+                        RawTransaction rawTransaction2 = RawTransaction.createTransaction(nonce, ethGasPrice.getGasPrice(), BigInteger.valueOf(300000),
+                                contractAddress, encodedFunction);
+                        //Signature Transaction
+                        byte[] signMessage2 = TransactionEncoder.signMessage(rawTransaction2, credentials);
+                        String hexValue2 = Numeric.toHexString(signMessage2);
+                        //Send the transaction
+                        EthSendTransaction ethSendTransaction2 = web3.ethSendRawTransaction(hexValue2).sendAsync().get();
+                        String hash2 = ethSendTransaction2.getTransactionHash();
+                        if (hash2 != null)
+                        {
+                            EthGetTransactionReceipt transactionReceipt2 =
+                                    web3.ethGetTransactionReceipt(hash).send();
+                            String contractAddress2 = null;
+                            if (transactionReceipt.getTransactionReceipt().isPresent()) {
+                                contractAddress2 = transactionReceipt.getTransactionReceipt().get().getContractAddress();
+
+                            }
+
+                        }
+
+*/
                     } else {
                         // try again
                         tokenDetailCallback.failure("failed");
@@ -577,6 +617,9 @@ public class XDC721Client {
         }
 
     }
+
+
+
 
 
     /// @notice Transfers the ownership of an NFT from one address to another address

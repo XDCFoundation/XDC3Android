@@ -41,7 +41,9 @@ public class SplashScreen extends Activity
                 }
                 else
                 {
-                    startActivity(new Intent(SplashScreen.this, ImportorCreateActivity.class));
+                   // startActivity(new Intent(SplashScreen.this, ImportorCreateActivity.class));
+
+                    startActivity(new Intent(SplashScreen.this, XDC721MainActivity.class));
                     finish();
                 }
 

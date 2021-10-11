@@ -74,11 +74,13 @@ public class XRC721Enumerable extends Contract
         return new XRC721Enumerable(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    public static XRC721Enumerable load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return new XRC721Enumerable(contractAddress, web3j, credentials, contractGasProvider);
-    }
+     public static XRC721Enumerable load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+         return new XRC721Enumerable(contractAddress, web3j, credentials, contractGasProvider);
+     }
 
-    public static XRC721Enumerable load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return new XRC721Enumerable(contractAddress, web3j, transactionManager, contractGasProvider);
-    }
+     public static XRC721Enumerable load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+         return new XRC721Enumerable(contractAddress, web3j, transactionManager, contractGasProvider);
+     }
+
+
 }
