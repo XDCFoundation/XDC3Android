@@ -222,10 +222,16 @@ public class XDC20Client {
         try {
 
 
+         //   Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password, walletDirectory)
+
+
+
            /* Credentials restoreCredentials = WalletUtils.loadBip39Credentials(Password,
                     seedPhrase);
             ECKeyPair restoredPrivateKey = restoreCredentials.getEcKeyPair();
             String restoredAccountAddress = restoreCredentials.getAddress();
+
+
 
 
             WalletData walletData = new WalletData();

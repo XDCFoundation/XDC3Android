@@ -26,7 +26,8 @@ contract XRC721Metadata is XRC165, XRC721, IXRC721Metadata {
     /**
      * @dev Constructor function
      */
-    constructor (string memory name, string memory symbol) public {
+    constructor (string memory name, string memory symbol) public
+    {
         _name = name;
         _symbol = symbol;
 

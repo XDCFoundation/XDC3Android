@@ -29,7 +29,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 
-public class XRC721Full extends Contract
+public class XRC721Full extends XRC721
 {
    // private static final String BINARY = "";
     private static final String BINARY = "";

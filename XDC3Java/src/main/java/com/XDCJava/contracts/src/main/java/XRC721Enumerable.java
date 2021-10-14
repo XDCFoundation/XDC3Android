@@ -14,6 +14,7 @@ import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
 
 
+
 public class XRC721Enumerable extends Contract
  {
     private static final String BINARY = "Bin file was not provided";
