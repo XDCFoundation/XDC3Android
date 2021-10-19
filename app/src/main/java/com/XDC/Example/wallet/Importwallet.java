@@ -55,7 +55,7 @@ public class Importwallet extends AppCompatActivity {
                                             File.separator + "web3j");
                                     path.mkdir();
 
-                                    XDC20Client.getInstance().importWallet(edt_recovery.getText().toString(), edt_password.getText().toString(), new CreateAccountCallback() {
+                                    XDC20Client.getInstance().importWallet(edt_recovery.getText().toString(), edt_password.getText().toString(),path, new CreateAccountCallback() {
                                         @Override
                                         public void success(WalletData walletData) {
 

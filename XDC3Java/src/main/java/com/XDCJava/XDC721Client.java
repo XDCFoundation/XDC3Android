@@ -7,6 +7,7 @@ import com.XDCJava.contracts.src.main.java.Greeter;
 import com.XDCJava.contracts.src.main.java.XRC165;
 import com.XDCJava.contracts.src.main.java.XRC721;
 import com.XDCJava.contracts.src.main.java.XRC721Enumerable;
+import com.XDCJava.contracts.src.main.java.XRC721Full;
 import com.XDCJava.contracts.src.main.java.XRC721Metadata;
 
 import org.web3j.abi.FunctionEncoder;
@@ -17,7 +18,6 @@ import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
@@ -40,6 +40,7 @@ import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
 
 public class XDC721Client {
@@ -289,12 +290,12 @@ public class XDC721Client {
 
 
                 Greeter contract = Greeter.deploy(
-                                web3,
-                                credentials,
-                                    Contract.GAS_PRICE,
+                        web3,
+                        credentials,
+                        Contract.GAS_PRICE,
                         Contract.GAS_LIMIT,
-                                BigInteger.ZERO,
-                                new Utf8String("hello world")).send();
+                        BigInteger.ZERO,
+                        new Utf8String("hello world"), new Utf8String("123")).send();
 
 
                 TransactionReceipt txReceipt = contract
@@ -353,7 +354,7 @@ public class XDC721Client {
                         XRC721 javaToken1 = XRC721.load(credentials.getAddress(), web3, credentials, new DefaultGasProvider());
 *//*
 
-                    *//*    final org.web3j.abi.datatypes.Function function_t = new Function(
+                 *//*    final org.web3j.abi.datatypes.Function function_t = new Function(
                                 "_mint",
                                 Arrays.<Type>asList(new Address(credentials.getAddress()),
                                         new Address(contractAddress),
@@ -406,6 +407,59 @@ public class XDC721Client {
             tokenDetailCallback.failure("Connection has been failed");
         }
 
+    }
+
+
+    public String mintToken(String tokenAddress) throws ExecutionException, InterruptedException {
+        if (isWeb3jConnected()) {
+            //Load the required documents for the transfer, with the private key
+            //spender privatekey
+            Credentials credentials = Credentials.create("5724b3006f227d6a8efac9d9310beec7874cf0dcdc12e5d0c4890d2ba497b9c6");
+            // Get nonce, the number of transactions
+            BigInteger nonce;
+            EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+            if (ethGetTransactionCount == null) {
+                return null;
+            }
+            nonce = ethGetTransactionCount.getTransactionCount();
+            //gasPrice and gasLimit can be set manually
+            BigInteger gasPrice;
+            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+            if (ethGasPrice == null) {
+                return null;
+            }
+            gasPrice =ethGasPrice.getGasPrice();
+            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
+            BigInteger gasLimit = BigInteger.valueOf(3000000L);
+
+
+
+            final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                    "mint",
+                    Arrays.<Type>asList(new Address("0x79dbbbe40993253aa18e930a39d3636b15866725"),
+                            new Uint256(Long.parseLong("987")),
+                            new Utf8String("https://github.com/ethereum/solc-js")),
+                    Collections.<TypeReference<?>>emptyList());
+
+            //Create RawTransaction transaction object
+            String encodedFunction = FunctionEncoder.encode(function);
+            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+                    tokenAddress, encodedFunction);
+
+            //Signature Transaction
+            byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+            String hexValue = Numeric.toHexString(signMessage);
+            //Send the transaction
+            EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+            String hash = ethSendTransaction.getTransactionHash();
+            if (hash != null) {
+                return hash;
+            } else {
+                return "Failed";
+            }
+        } else {
+            return "Failed";
+        }
     }
 
 

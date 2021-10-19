@@ -2,7 +2,6 @@ package com.XDCJava.contracts.src.main.java;
 
 import io.reactivex.Flowable;
 import java.math.BigInteger;
-import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +14,7 @@ import org.web3j.abi.datatypes.Bool;
 import org.web3j.abi.datatypes.Event;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
@@ -26,7 +26,6 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
-import org.web3j.tx.gas.DefaultGasProvider;
 
 
 public class XRC721 extends Contract {
@@ -44,7 +43,7 @@ public class XRC721 extends Contract {
     public static final String FUNC_OWNEROF = "ownerOf";
 
     public static final String FUNC_BALANCEOF = "balanceOf";
-    public static final String MINT = "_mint";
+    public static final String MINT = "mint";
 
 
     public static final String FUNC_TOTALSUPPLY = "totalSupply";
@@ -66,21 +65,40 @@ public class XRC721 extends Contract {
     ;
 
     @Deprecated
-    protected XRC721(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
+    protected XRC721(String binary, String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        super(binary, contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
-    protected XRC721(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+    protected XRC721(String binary, String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, credentials, contractGasProvider);
     }
 
     @Deprecated
-    protected XRC721(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+    protected XRC721(String binary, String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    protected XRC721(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+    protected XRC721(String contractAddress, String address, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
+    }
+
+
+    @Deprecated
+    public static XRC721 load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new XRC721(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
+    }
+
+    @Deprecated
+    public static XRC721 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new XRC721(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    }
+
+    public static XRC721 load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return new XRC721(contractAddress, contractAddress, web3j, credentials, contractGasProvider);
+    }
+
+    public static XRC721 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return new XRC721(contractAddress, contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
 /*
@@ -153,10 +171,14 @@ public class XRC721 extends Contract {
 
 
 
-    public RemoteCall<TransactionReceipt> mint(String _from,BigInteger _tokenId,BigInteger weiValue)
+    public RemoteCall<TransactionReceipt> mint(String to,BigInteger _tokenId,String uri,BigInteger weiValue)
     {
-        final Function function = new Function(MINT,
-                Arrays.<Type>asList(new Address(_from),new Uint256(_tokenId)),Collections.<TypeReference<?>>emptyList());
+        final Function function = new Function(
+                MINT,
+                Arrays.<Type>asList(new Address(to),
+                        new Uint256(_tokenId),
+                        new Utf8String(uri))
+                ,Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function, weiValue);
     }
 
@@ -328,23 +350,7 @@ public class XRC721 extends Contract {
         return approvalForAllEventFlowable(filter);
     }
 
-    @Deprecated
-    public static XRC721 load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return new XRC721(contractAddress, web3j, credentials, gasPrice, gasLimit);
-    }
 
-    @Deprecated
-    public static XRC721 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return new XRC721(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
-    }
-
-    public static XRC721 load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return new XRC721(contractAddress, web3j, credentials, contractGasProvider);
-    }
-
-    public static XRC721 load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return new XRC721(contractAddress, web3j, transactionManager, contractGasProvider);
-    }
 
     public static class TransferEventResponse {
         public Log log;

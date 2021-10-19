@@ -220,9 +220,9 @@ contract XRC721 is XRC165, IXRC721 {
     function mint(
         address _to,
         uint256 _tokenId,
-        string calldata _uri
+        string memory _uri
     )
-    external
+    public
     {
         super._mint(_to, _tokenId);
         super._setTokenURI(_tokenId, _uri);

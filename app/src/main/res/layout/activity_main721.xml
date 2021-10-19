@@ -52,12 +52,12 @@
         android:background="@drawable/edit_text_border"
         android:hint="@string/enter_xdc_address_here"
         android:padding="15dp"
-        android:text="@string/final721_token"
+        android:text="0x0c0d7D6a5c174Da1CE0912836028f347bD4C2157"
         android:textColorHint="@color/hint"
         android:textSize="16sp" />
 
 
-
+<!--0xf6b4102b25756a33a90f8f192c74e53d22a9628e-->
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"

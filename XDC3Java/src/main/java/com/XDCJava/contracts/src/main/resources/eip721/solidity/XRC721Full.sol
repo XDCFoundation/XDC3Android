@@ -12,21 +12,16 @@ import "./XRC721Metadata.sol";
 
 
 contract XRC721Full is XRC721, XRC721Enumerable, XRC721Metadata {
-    constructor ()
-    public XRC721Metadata("1", "test") {
-        super._mint(msg.sender, 21);
+    constructor (string memory name, string memory symbol) public XRC721Metadata(name, symbol) {
     }
-}
-
-
-contract NftCreate
-{
-        XRC721Full[] public xrc;
-     address[] public proposalList;
-    
-    function deploy() public
+    function mint(
+        address _to,
+        uint256 _tokenId,
+        string calldata _uri
+    )
+    external
     {
-        XRC721Full prop = new XRC721Full();
-        xrc.push(prop);
+        super._mint(_to, _tokenId);
+        super._setTokenURI(_tokenId, _uri);
     }
 }

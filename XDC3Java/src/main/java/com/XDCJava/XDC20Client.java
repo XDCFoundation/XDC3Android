@@ -91,7 +91,7 @@ public class XDC20Client {
         try {
 
 
-        /*
+
             Bip39Wallet walletName = WalletUtils.generateBip39Wallet(Password, walletDirectory);
             System.out.println("wallet location: " + walletDirectory + "/" + walletName);
             Credentials credentials = WalletUtils.loadBip39Credentials(Password, walletName.getMnemonic());
@@ -115,7 +115,7 @@ public class XDC20Client {
             walletData.setSeedPhrase(seedPhrase);
 
 
-            createAccountCallback.success(walletData);*/
+            createAccountCallback.success(walletData);
 
 
 
@@ -217,14 +217,17 @@ public class XDC20Client {
     }
 
 
-    public void importWallet(String seedPhrase, String Password, CreateAccountCallback createAccountCallback) {
+    public void importWallet(String seedPhrase, String Password, File path, CreateAccountCallback createAccountCallback)
+    {
 
         try {
 
 
-         //   Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password, walletDirectory)
+            Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password,seedPhrase, path);
 
-
+            Credentials credentials = WalletUtils.loadBip39Credentials(Password, walletName.getMnemonic());
+            String accountAddress = credentials.getAddress();
+            System.out.println("Account address: " + accountAddress);
 
            /* Credentials restoreCredentials = WalletUtils.loadBip39Credentials(Password,
                     seedPhrase);
@@ -242,7 +245,7 @@ public class XDC20Client {
             walletData.setSeedPhrase(seedPhrase);
 */
 
-            Bip32ECKeyPair masterKeypair = Bip32ECKeyPair.generateKeyPair(MnemonicUtils.generateSeed(seedPhrase, Password));
+          /*  Bip32ECKeyPair masterKeypair = Bip32ECKeyPair.generateKeyPair(MnemonicUtils.generateSeed(seedPhrase, Password));
 
 // custom derivation path
             int[] derivationPath = {44 | Bip32ECKeyPair.HARDENED_BIT, 60 | Bip32ECKeyPair.HARDENED_BIT, 0 | Bip32ECKeyPair.HARDENED_BIT, 0, 0};
@@ -251,7 +254,7 @@ public class XDC20Client {
             Bip32ECKeyPair derivedKeyPair = Bip32ECKeyPair.deriveKeyPair(masterKeypair, derivationPath);
 
 // Load the wallet for the derived key
-            Credentials credentials = Credentials.create(derivedKeyPair);
+            Credentials credentials = Credentials.create(derivedKeyPair);*/
 
             WalletData walletData = new WalletData();
             //   restoredAccountAddress = restoredAccountAddress.replace("0x", "xdc");
