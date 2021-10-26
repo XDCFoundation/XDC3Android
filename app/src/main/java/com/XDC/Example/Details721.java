@@ -151,7 +151,9 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
             symbol_value.setText("-");
 
         xdc_address_value.setText(tokenResponse.getTokenAddress());
-
+        edt_token_address.setText(tokenResponse.getTokenAddress());
+        edt_total_supply_token.setText(tokenResponse.getTokenAddress());
+        tokenbyindex_address.setText(tokenResponse.getTokenAddress());
     }
 
     @Override

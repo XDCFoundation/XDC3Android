@@ -12,7 +12,9 @@ import "./XRC721Metadata.sol";
 
 
 contract XRC721Full is XRC721, XRC721Enumerable, XRC721Metadata {
-    constructor (string memory name, string memory symbol) public XRC721Metadata(name, symbol) {
+    constructor (string memory name, string memory symbol) public XRC721Metadata(name, symbol)
+    {
+
     }
     function mint(
         address _to,

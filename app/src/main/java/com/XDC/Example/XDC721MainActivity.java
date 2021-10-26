@@ -86,8 +86,8 @@ public class XDC721MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-               /* try {
-                    XDC721Client.getInstance().deploy_contract2("0x3694005b865eb2deaae8e5efc73451a1c4d8f290dbce27a5614c51139144b18c", new Token721DetailCallback() {
+                try {
+                    XDC721Client.getInstance().deploy_NFT("0x3694005b865eb2deaae8e5efc73451a1c4d8f290dbce27a5614c51139144b18c", new Token721DetailCallback() {
                         @Override
                         public void success(Token721DetailsResponse tokenApiModel)
                         {
@@ -98,7 +98,7 @@ public class XDC721MainActivity extends AppCompatActivity {
                         public void success(String message)
                         {
                             Log.e("message",message);
-
+                            enterXdcAddress.setText(message);
                         }
 
                         @Override
@@ -113,15 +113,13 @@ public class XDC721MainActivity extends AppCompatActivity {
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
-                }*/
-
-                try {
-                    XDC721Client.getInstance().mintToken("0x0c0d7D6a5c174Da1CE0912836028f347bD4C2157");
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+
+               /* try {
+                    //XDC721Client.getInstance().mintToken("0x0c0d7D6a5c174Da1CE0912836028f347bD4C2157");
+                }
+                */
+
 
 
             }

@@ -86,7 +86,7 @@
                 android:background="@drawable/edit_text_border"
                 android:hint="@string/enter_key"
                 android:padding="15dp"
-                android:text="@string/final721_owner_privatekey"
+                android:text="0x3694005b865eb2deaae8e5efc73451a1c4d8f290dbce27a5614c51139144b18c"
                 android:textColor="@color/background"
                 android:textColorHint="@color/hint"
                 android:textIsSelectable="true"

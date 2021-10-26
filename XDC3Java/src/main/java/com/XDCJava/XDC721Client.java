@@ -231,9 +231,68 @@ public class XDC721Client {
 
     }
 
+    public void deploy_NFT(String privatekey, Token721DetailCallback tokenDetailCallback)
+    {
+
+
+        if (isWeb3jConnected()) {
+            Credentials credentials = Credentials.create(privatekey);
+            try {
+
+                BigInteger nonce;
+                EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+                if (ethGetTransactionCount == null) {
+                    tokenDetailCallback.failure("failed");
+                }
+                nonce = ethGetTransactionCount.getTransactionCount();
+                EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+                if (ethGasPrice == null) {
+                    tokenDetailCallback.failure("failed");
+                }
+
+
+                XRC721Full contract = XRC721Full.deploy(
+                        web3,
+                        credentials,
+                        Contract.GAS_PRICE,
+                        Contract.GAS_LIMIT,
+                        "hello world", "123").send();
+
+
+                @SuppressWarnings("NewApi") TransactionReceipt txReceipt = contract
+                        .getTransactionReceipt()
+                        .get();
+
+                // get tx hash and tx fees
+                String deployHash = txReceipt.getTransactionHash();
+                BigInteger deployFees = txReceipt
+                        .getCumulativeGasUsed()
+                        .multiply(AppConstants.GAS_PRICE);
+
+                System.out.println("Deploy hash: " + deployHash);
+                String contractAddress = contract.getContractAddress();
+                System.out.println("Contract address: " + contractAddress);
+
+
+                mintToken(contractAddress,privatekey,tokenDetailCallback);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                tokenDetailCallback.failure(e.getMessage());
+            }
+
+
+        } else {
+
+            //Show Error
+            tokenDetailCallback.failure("Connection has been failed");
+        }
+
+    }
 
     @SuppressWarnings("NewApi")
-    public void deploy_contract2(String privatekey, Token721DetailCallback tokenDetailCallback) {
+    public void deploy_contract2(String privatekey, Token721DetailCallback tokenDetailCallback)
+    {
 
 
         if (isWeb3jConnected()) {
@@ -410,11 +469,11 @@ public class XDC721Client {
     }
 
 
-    public String mintToken(String tokenAddress) throws ExecutionException, InterruptedException {
+    public String mintToken(String tokenAddress,String privatekey,Token721DetailCallback tokenDetailCallback) throws ExecutionException, InterruptedException {
         if (isWeb3jConnected()) {
             //Load the required documents for the transfer, with the private key
             //spender privatekey
-            Credentials credentials = Credentials.create("5724b3006f227d6a8efac9d9310beec7874cf0dcdc12e5d0c4890d2ba497b9c6");
+            Credentials credentials = Credentials.create(privatekey);
             // Get nonce, the number of transactions
             BigInteger nonce;
             EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
@@ -436,7 +495,7 @@ public class XDC721Client {
 
             final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
                     "mint",
-                    Arrays.<Type>asList(new Address("0x79dbbbe40993253aa18e930a39d3636b15866725"),
+                    Arrays.<Type>asList(new Address(credentials.getAddress()),
                             new Uint256(Long.parseLong("987")),
                             new Utf8String("https://github.com/ethereum/solc-js")),
                     Collections.<TypeReference<?>>emptyList());
@@ -452,7 +511,9 @@ public class XDC721Client {
             //Send the transaction
             EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
             String hash = ethSendTransaction.getTransactionHash();
-            if (hash != null) {
+            if (hash != null)
+            {
+                tokenDetailCallback.success(tokenAddress);
                 return hash;
             } else {
                 return "Failed";
