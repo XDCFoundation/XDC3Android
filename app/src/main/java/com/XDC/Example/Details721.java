@@ -308,7 +308,11 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
                 if (edt_transferFrom_spender.getText().toString() != null && edt_transferFrom_spender.getText().toString().length() > 0) {
 
                     if (edt_trans_tokenid.getText().toString() != null && edt_trans_tokenid.getText().toString().length() > 0) {
+                      //  String setapproveforall = XDC721Client.getInstance().transferfrom(xdc_address_value.getText().toString(), edt_privatekey.getText().toString(), edt_transferFrom_spender.getText().toString(), edt_trans_tokenid.getText().toString());
+
                         String setapproveforall = XDC721Client.getInstance().transferfrom(xdc_address_value.getText().toString(), edt_privatekey.getText().toString(), edt_transferFrom_spender.getText().toString(), edt_trans_tokenid.getText().toString());
+
+
                         transferFrom_trasactonhash.setText(setapproveforall + "");
 
                     } else {

@@ -107,7 +107,15 @@
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
         <activity
             android:name=".Example.XDC721methods.TransferfromXDC721Activity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+          <!--  <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+-->
+        </activity>
 
         <activity
             android:name=".Example.XDC721methods.TokenURIXDC721Activity"
@@ -148,17 +156,17 @@
         <activity
             android:name="com.XDC.Example.SplashScreen"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
             android:name="com.XDC.Example.wallet.ImportorCreateActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.XDC.Example.XDC20methods.TransferXDCActivity"

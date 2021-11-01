@@ -67,7 +67,7 @@ public class TransferfromXDC721Activity extends AppCompatActivity {
 
                     if (user_wallet != null && user_wallet.getAccountAddress() != null && user_wallet.getAccountAddress().length() > 0 && user_wallet.getPrivateKey() != null) {
                         try {
-                            String hash = XDC721Client.getInstance().transferfrom(tokenDetail.getTokenAddress(),caller_privatekey.getText().toString(), edt_receiver_address.getText().toString(), edt_token_totransfer.getText().toString());
+                            String hash = XDC721Client.getInstance().transferfrom("0x71a7963e8bcd8586E851750D4f437864C79f6c80","0220a40a4d2803c823e5a2fe89633e7c5cc795a0ae998e46e2d49991f23ef13b", "0xf8e455D19b03593B8a753F92A733CbB23D101941", "610");
                             text_transaction_hash.setText(hash);
                             Utility.closeKeyboard(TransferfromXDC721Activity.this);
                             SharedPreferenceHelper.setSharedPreferenceString(TransferfromXDC721Activity.this, "nfthash", hash);

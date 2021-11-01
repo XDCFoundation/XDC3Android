@@ -86,8 +86,10 @@ public class XDC721MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+                //85ca400ea23a5a72f9848a21b7e9a84649fd405365fcb592f429dd41ad5432a9
+                //0x3694005b865eb2deaae8e5efc73451a1c4d8f290dbce27a5614c51139144b18c
                 try {
-                    XDC721Client.getInstance().deploy_NFT("0x3694005b865eb2deaae8e5efc73451a1c4d8f290dbce27a5614c51139144b18c", new Token721DetailCallback() {
+                    XDC721Client.getInstance().deploy_NFT("5724b3006f227d6a8efac9d9310beec7874cf0dcdc12e5d0c4890d2ba497b9c6", new Token721DetailCallback() {
                         @Override
                         public void success(Token721DetailsResponse tokenApiModel)
                         {

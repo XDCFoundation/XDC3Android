@@ -86,9 +86,12 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/nft_1staddress"
+                android:text="0xd23e72405951a6aff30f222aa23fdba83bb0a391"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
+
+
+            <!-- android:text="@string/nft_1staddress"-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,7 +116,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/nft_1stprivatekey"
+                android:text="0xe515b0b2bd81de99cbe562108c661bf5125a2b447688594f757951c5c914d05d"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -142,7 +145,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/nft_2ndaddress"
+                android:text="0xf8e455d19b03593b8a753f92a733cbb23d101941"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -170,7 +173,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="18"
+                android:text="23"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 

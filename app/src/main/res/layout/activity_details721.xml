@@ -86,7 +86,7 @@
                 android:background="@drawable/edit_text_border"
                 android:hint="@string/enter_key"
                 android:padding="15dp"
-                android:text="0x3694005b865eb2deaae8e5efc73451a1c4d8f290dbce27a5614c51139144b18c"
+                android:text="5724b3006f227d6a8efac9d9310beec7874cf0dcdc12e5d0c4890d2ba497b9c6"
                 android:textColor="@color/background"
                 android:textColorHint="@color/hint"
                 android:textIsSelectable="true"

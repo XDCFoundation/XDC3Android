@@ -308,7 +308,8 @@ public class XRC721Full extends Contract {
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
-    public RemoteFunctionCall<BigInteger> tokenByIndex(BigInteger index) {
+    public RemoteFunctionCall<BigInteger> tokenByIndex(BigInteger index)
+    {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TOKENBYINDEX, 
                 Arrays.<Type>asList(new Uint256(index)),
                 Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
@@ -337,7 +338,8 @@ public class XRC721Full extends Contract {
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
-    public RemoteFunctionCall<TransactionReceipt> transferFrom(String from, String to, BigInteger tokenId) {
+    public RemoteFunctionCall<TransactionReceipt> transferFrom(String from, String to, BigInteger tokenId)
+    {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
                 FUNC_TRANSFERFROM, 
                 Arrays.<Type>asList(new Address(160, from),

@@ -223,9 +223,9 @@ public class XDC20Client {
         try {
 
 
-            Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password,seedPhrase, path);
+           // Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password,seedPhrase, path);
 
-            Credentials credentials = WalletUtils.loadBip39Credentials(Password, walletName.getMnemonic());
+            Credentials credentials = WalletUtils.loadBip39Credentials(Password, seedPhrase);
             String accountAddress = credentials.getAddress();
             System.out.println("Account address: " + accountAddress);
 

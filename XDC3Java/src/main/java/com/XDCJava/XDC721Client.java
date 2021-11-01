@@ -256,7 +256,7 @@ public class XDC721Client {
                         credentials,
                         Contract.GAS_PRICE,
                         Contract.GAS_LIMIT,
-                        "hello world", "123").send();
+                        "finalNFT", "111").send();
 
 
                 @SuppressWarnings("NewApi") TransactionReceipt txReceipt = contract
@@ -496,7 +496,7 @@ public class XDC721Client {
             final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
                     "mint",
                     Arrays.<Type>asList(new Address(credentials.getAddress()),
-                            new Uint256(Long.parseLong("987")),
+                            new Uint256(Long.parseLong("22")),
                             new Utf8String("https://github.com/ethereum/solc-js")),
                     Collections.<TypeReference<?>>emptyList());
 
@@ -1018,17 +1018,25 @@ public class XDC721Client {
             gasPrice = BigInteger.valueOf(3000000L);
             //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
             BigInteger gasLimit = BigInteger.valueOf(3000000L);
-            final Function function = new Function(
+            /*final Function function = new Function(
                     "transferFrom",
                     Arrays.<Type>asList(new Address(credentials.getAddress()),
                             new Address(receiverAddress),
+                            new Uint256(Long.parseLong(tokenid))),
+                    Collections.<TypeReference<?>>emptyList());
+*/
+
+            final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
+                    "transferFrom",
+                    Arrays.<Type>asList(new Address(160, credentials.getAddress()),
+                            new Address(160, receiverAddress),
                             new Uint256(Long.parseLong(tokenid))),
                     Collections.<TypeReference<?>>emptyList());
 
 
             //Create RawTransaction transaction object
             String encodedFunction = FunctionEncoder.encode(function);
-            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit,
+            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, ethGasPrice.getGasPrice(), gasLimit,
                     tokenAddress, encodedFunction);
 
             //Signature Transaction
