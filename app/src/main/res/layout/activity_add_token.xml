@@ -131,7 +131,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="0x7204A7c2333124A6C5606e0830CCA58354322BB7"
+                android:text="0x19c2D1E5De6170BF70AEdF35b9D54A2f0842D36D"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -158,7 +158,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="TK"
+                android:text="MTK"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
             <TextView

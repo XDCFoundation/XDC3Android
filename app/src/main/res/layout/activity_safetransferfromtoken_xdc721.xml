@@ -170,7 +170,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="18"
+                android:text="131"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 

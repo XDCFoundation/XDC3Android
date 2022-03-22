@@ -131,7 +131,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="@string/nft_test"
+                android:text="0xDa2B731d88b556e1Dbad396a187D5949D9f4e472"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -158,7 +158,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="BHV"
+                android:text="MTK"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 

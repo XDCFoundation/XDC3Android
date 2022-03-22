@@ -86,7 +86,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="0xd23e72405951a6aff30f222aa23fdba83bb0a391"
+                android:text="0xbbcea945d74b659ec37afd49af746d9ccda1530b"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -116,7 +116,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="0xe515b0b2bd81de99cbe562108c661bf5125a2b447688594f757951c5c914d05d"
+                android:text="0xda45df6da879c7a746f62ee95cbc73a1001b47737d0075a662f326c6031ff77d"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -145,7 +145,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="0xf8e455d19b03593b8a753f92a733cbb23d101941"
+                android:text="0x5d2c3bc073d61351fcda075b5f943a9b1d8968ff"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -173,7 +173,7 @@
                 android:padding="15dp"
                 android:textColor="@color/black"
 
-                android:text="23"
+                android:text="131"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
