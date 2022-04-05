@@ -1,35 +1,24 @@
 package com.XDCJava;
 
-import static java.lang.String.join;
-
 import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.Model.WalletData;
 import com.XDCJava.callback.CreateAccountCallback;
 import com.XDCJava.callback.EventCallback;
 import com.XDCJava.callback.TokenDetailCallback;
 import com.XDCJava.contracts.src.main.java.XRC20;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.crypto.Bip32ECKeyPair;
 import org.web3j.crypto.Bip39Wallet;
-import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.Keys;
-import org.web3j.crypto.MnemonicUtils;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
-import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
-import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
@@ -45,12 +34,8 @@ import org.web3j.utils.Numeric;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.Provider;
-import java.security.SecureRandom;
-import java.security.Security;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -89,7 +74,6 @@ public class XDC20Client {
     public void generateWallet(File walletDirectory, String Password, CreateAccountCallback createAccountCallback) {
 
         try {
-
 
 
             Bip39Wallet walletName = WalletUtils.generateBip39Wallet(Password, walletDirectory);
@@ -205,25 +189,20 @@ public class XDC20Client {
             System.out.println("seed: " + credentials.getAddress());*/
 
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
-
-
     }
 
 
-    public void importWallet(String seedPhrase, String Password, File path, CreateAccountCallback createAccountCallback)
-    {
+    public void importWallet(String seedPhrase, String Password, File path, CreateAccountCallback createAccountCallback) {
 
         try {
 
 
-           // Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password,seedPhrase, path);
+            // Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password,seedPhrase, path);
 
             Credentials credentials = WalletUtils.loadBip39Credentials(Password, seedPhrase);
             String accountAddress = credentials.getAddress();
@@ -393,25 +372,32 @@ public class XDC20Client {
      * @return An uint256 representing the amount owned by the passed address.
      * @dev Gets the balance of the specified address.
      */
-    public String getXdcBalance(String owner_address) {
 
+    //Hardik - 04-04-2022 (for XS-945) - change the return type as string is not a proper return type for get balance api.
+    /*public String getXdcBalance(String owner_address) {
         if (isWeb3jConnected()) {
-
             try {
                 EthGetBalance balance = web3.ethGetBalance(owner_address, DefaultBlockParameterName.LATEST).send();
-
                 return String.valueOf(converHexToDecimal(balance.getBalance()));
             } catch (IOException e) {
                 e.printStackTrace();
                 return String.valueOf(e.getMessage());
             }
-
-
         } else {
             return "check your connection";
         }
-
-
+    }*/
+    public BigInteger getXdcBalance(String owner_address) throws IOException {
+        if (isWeb3jConnected()) {
+            try {
+                EthGetBalance balance = web3.ethGetBalance(owner_address, DefaultBlockParameterName.LATEST).send();
+                return converHexToDecimal(balance.getBalance());
+            } catch (IOException e) {
+                throw e;
+            }
+        } else {
+            throw new IOException("check your connection", new Throwable());
+        }
     }
 
     public void getinfo(XRC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
@@ -466,56 +452,63 @@ public class XDC20Client {
     public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, String value, EventCallback eventCallback) {
 
         if (isWeb3jConnected()) {
-
-
-            EthGetTransactionCount ethGetTransactionCount = null;
             try {
-                ethGetTransactionCount = web3.ethGetTransactionCount(
-                        FROM_ADDRESS, DefaultBlockParameterName.LATEST).sendAsync().get();
-            } catch (
-                    ExecutionException e) {
-                e.printStackTrace();
-                eventCallback.failure(e.getMessage());
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-                eventCallback.failure(e.getMessage());
+                //check for wallet balance
+                if (getXdcBalance(FROM_ADDRESS).doubleValue()
+                        > Double.parseDouble(value)) {
+                    EthGetTransactionCount ethGetTransactionCount = null;
+                    try {
+                        ethGetTransactionCount = web3.ethGetTransactionCount(
+                                FROM_ADDRESS, DefaultBlockParameterName.LATEST).sendAsync().get();
+                    } catch (
+                            ExecutionException e) {
+                        e.printStackTrace();
+                        eventCallback.failure(e.getMessage());
+                    } catch (
+                            InterruptedException e) {
+                        e.printStackTrace();
+                        eventCallback.failure(e.getMessage());
+                    }
+
+                    BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+                    BigInteger gasPrice = null;
+                    try {
+                        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
+                        gasPrice = ethGasPrice.getGasPrice();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
+                            nonce, gasPrice, BigInteger.valueOf(50005), TO_ADDRESS, convertDecimalToHex(value));
+
+                    byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(PRIVATE_KEY_TRANSACTION));
+                    String hexValue = Numeric.toHexString(signedMessage);
+
+
+                    EthSendTransaction ethSendTransaction = null;
+                    try {
+                        ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
+                    } catch (
+                            ExecutionException e) {
+                        e.printStackTrace();
+                        eventCallback.failure(e.getMessage());
+
+                    } catch (
+                            InterruptedException e) {
+                        e.printStackTrace();
+                        eventCallback.failure(e.getMessage());
+                    }
+
+                    String transactionHash = ethSendTransaction.getTransactionHash();
+                    eventCallback.success(transactionHash);
+                } else {
+                    eventCallback.failure("Not enough balance in wallet.");
+                }
+            } catch (IOException ioe){
+                eventCallback.failure(ioe.getLocalizedMessage());
             }
-
-            BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-            BigInteger gasPrice = null;
-            try {
-                EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-                gasPrice = ethGasPrice.getGasPrice();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
-                    nonce, gasPrice, BigInteger.valueOf(50005), TO_ADDRESS, convertDecimalToHex(value));
-
-            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(PRIVATE_KEY_TRANSACTION));
-            String hexValue = Numeric.toHexString(signedMessage);
-
-
-            EthSendTransaction ethSendTransaction = null;
-            try {
-                ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
-            } catch (
-                    ExecutionException e) {
-                e.printStackTrace();
-                eventCallback.failure(e.getMessage());
-
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-                eventCallback.failure(e.getMessage());
-            }
-
-            String transactionHash = ethSendTransaction.getTransactionHash();
-            eventCallback.success(transactionHash);
-
         } else {
             eventCallback.failure("Failed");
         }

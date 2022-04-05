@@ -20,17 +20,17 @@ import java.util.concurrent.ExecutionException;
 
 public class Details extends AppCompatActivity implements View.OnClickListener {
 
-    TextView xdc_address_value, name_value, symbol_value, decimals_value, total_supply_value, balance_off_value,
+    private TextView xdc_address_value, name_value, symbol_value, decimals_value, total_supply_value, balance_off_value,
             transfer_value, allowance_value, approve_value, transfer_from_value, increase_allowance_value, decrease_allowance_value;
-    BigInteger dec_bal, dec_supply;
-    TokenDetailsResponse tokenResponse = new TokenDetailsResponse();
+    private BigInteger dec_bal, dec_supply;
+    private TokenDetailsResponse tokenResponse = new TokenDetailsResponse();
 
-    EditText edt_privatekey, edt_allownce_owner, edt_allownce_spender, edt_approve_spender,
+    private EditText edt_privatekey, edt_allownce_owner, edt_allownce_spender, edt_approve_spender,
             edt_value_approve, edt_transfer_to, edt_value_transfer, text_contract_address, edt_increase_owner, edt_increase_spender,
-            edt_increase_allownce_value, edt_decrease_owner, edt_decrease_spender, edt_decrease_allownce, edt_tfrom_spender, edt_tfrom_to, edt_tfrom_value,edt_tfrom_spender_privatekey,
+            edt_increase_allownce_value, edt_decrease_owner, edt_decrease_spender, edt_decrease_allownce, edt_tfrom_spender, edt_tfrom_to, edt_tfrom_value, edt_tfrom_spender_privatekey,
             edt_balance_spender;
-    Button check_address, submit_allownce, submit_approve, submit_transfer, submit_increase_Allownce, submit_decrease_Allownce, submit_tfrom,submit_balanceof;
-    TextView approve_trasactonhash, transfer_trasactonhash, text_increase_allow_trasactonhash, text_decrease_allow_trasactonhash, text_transferfrom_trasactonhash;
+    private Button check_address, submit_allownce, submit_approve, submit_transfer, submit_increase_Allownce, submit_decrease_Allownce, submit_tfrom, submit_balanceof;
+    private TextView approve_trasactonhash, transfer_trasactonhash, text_increase_allow_trasactonhash, text_decrease_allow_trasactonhash, text_transferfrom_trasactonhash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         edt_tfrom_value = findViewById(R.id.edt_tfrom_value);
         submit_tfrom = findViewById(R.id.submit_tfrom);
         submit_tfrom.setOnClickListener(this::onClick);
-        edt_tfrom_spender_privatekey  = findViewById(R.id.edt_tfrom_spender_privatekey);
+        edt_tfrom_spender_privatekey = findViewById(R.id.edt_tfrom_spender_privatekey);
 
         if (getIntent().hasExtra("tokendetail")) {
             tokenResponse = (TokenDetailsResponse) getIntent().getSerializableExtra("tokendetail");
@@ -128,7 +128,6 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
             symbol_value.setText("-");
 
 
-
         if (decimals_value != null) {
             decimals_value.setText(tokenResponse.getDecimal().toString());
         } else
@@ -139,10 +138,8 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         } else
             allowance_value.setText("-");
 
-        if (total_supply_value != null)
-        {
-            if (tokenResponse.getTotalSupply() != null)
-            {
+        if (total_supply_value != null) {
+            if (tokenResponse.getTotalSupply() != null) {
 
                 total_supply_value.setText(tokenResponse.getTotalSupply().toString());
             }
@@ -194,29 +191,27 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
 
     private void transferFrom() {
-        if (edt_tfrom_spender.getText().toString() != null && edt_tfrom_spender.getText().toString().length() > 0) {
-
-            if (edt_tfrom_to.getText().toString() != null && edt_tfrom_to.getText().toString().length() > 0) {
-                if (edt_tfrom_spender_privatekey.getText().toString() != null && edt_tfrom_spender_privatekey.getText().toString().length() > 0) {
-                    if (edt_tfrom_value.getText().toString() != null && edt_tfrom_value.getText().toString().length() > 0)
-                    {
-
-
-                            String approved_hash = null;
-                            try {
-                                approved_hash = XDC20Client.getInstance().transferfrom(edt_tfrom_spender.getText().toString(), edt_tfrom_to.getText().toString(), edt_tfrom_spender_privatekey.getText().toString(), edt_tfrom_value.getText().toString(), tokenResponse.getToken_address() );
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            text_transferfrom_trasactonhash.setText(approved_hash);
-
-
+        if (edt_tfrom_spender.getText().toString() != null
+                && edt_tfrom_spender.getText().toString().length() > 0) {
+            if (edt_tfrom_to.getText().toString() != null
+                    && edt_tfrom_to.getText().toString().length() > 0) {
+                if (edt_tfrom_spender_privatekey.getText().toString() != null
+                        && edt_tfrom_spender_privatekey.getText().toString().length() > 0) {
+                    if (edt_tfrom_value.getText().toString() != null
+                            && edt_tfrom_value.getText().toString().length() > 0) {
+                        String approved_hash = null;
+                        try {
+                            approved_hash = XDC20Client.getInstance().transferfrom(edt_tfrom_spender.getText().toString(), edt_tfrom_to.getText().toString(), edt_tfrom_spender_privatekey.getText().toString(), edt_tfrom_value.getText().toString(), tokenResponse.getToken_address());
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        text_transferfrom_trasactonhash.setText(approved_hash);
                     } else {
                         Toast.makeText(Details.this, "Please Enter Value to transfer from", Toast.LENGTH_LONG).show();
                     }
@@ -225,12 +220,8 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
                 }
             } else {
                 Toast.makeText(Details.this, "Please Enter To address for transfer Token", Toast.LENGTH_LONG).show();
-
             }
-
-
         } else {
-
             Toast.makeText(Details.this, "Please Enter token Spender Address", Toast.LENGTH_LONG).show();
         }
     }
@@ -319,31 +310,28 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         if (edt_transfer_to.getText().toString() != null && edt_transfer_to.getText().toString().length() > 0) {
 
 
-                if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
-                    if (edt_value_transfer.getText().toString() != null && edt_value_transfer.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
+                if (edt_value_transfer.getText().toString() != null && edt_value_transfer.getText().toString().length() > 0) {
 
-                        String approved_hash = null;
-                        try {
-                            approved_hash = XDC20Client.getInstance().transferXRC20Token(tokenResponse.getToken_address(), edt_privatekey.getText().toString(),  edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        transfer_trasactonhash.setText(approved_hash);
-
-                    } else {
-                        Toast.makeText(Details.this, "Please Enter Value to Transfer", Toast.LENGTH_LONG).show();
+                    String approved_hash = null;
+                    try {
+                        approved_hash = XDC20Client.getInstance().transferXRC20Token(tokenResponse.getToken_address(), edt_privatekey.getText().toString(), edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    transfer_trasactonhash.setText(approved_hash);
+
                 } else {
-                    Toast.makeText(Details.this, "Please Enter Private key", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Details.this, "Please Enter Value to Transfer", Toast.LENGTH_LONG).show();
                 }
+            } else {
+                Toast.makeText(Details.this, "Please Enter Private key", Toast.LENGTH_LONG).show();
             }
-
-
-         else {
+        } else {
             Toast.makeText(Details.this, "Please Enter address to transfer Token", Toast.LENGTH_LONG).show();
         }
 
@@ -374,10 +362,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
             } else {
                 Toast.makeText(Details.this, "Please Enter Private key", Toast.LENGTH_LONG).show();
             }
-        }
-
-
-         else {
+        } else {
             Toast.makeText(Details.this, "Please Enter Spendar Address", Toast.LENGTH_LONG).show();
         }
     }
@@ -402,7 +387,7 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         if (edt_balance_spender.getText().toString() != null && edt_balance_spender.getText().toString().length() > 0) {
 
 
-                String allownce = XDC20Client.getInstance().getBalance(tokenResponse.getToken_address(), edt_balance_spender.getText().toString());
+            String allownce = XDC20Client.getInstance().getBalance(tokenResponse.getToken_address(), edt_balance_spender.getText().toString());
             balance_off_value.setText(allownce);
 
 

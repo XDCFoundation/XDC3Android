@@ -50,6 +50,8 @@ public class XDC721Client {
     String symbol, name;
     TokenDetailsResponse tokenResponse;
     private WalletFile wallet;
+    private BigInteger DEFAULT_GAS_PRICE = BigInteger.valueOf(3000000);
+    private BigInteger DEFAULT_GAS_LIMIT = BigInteger.valueOf(3000000);
 
     public static XDC721Client getInstance() {
         if (instance == null)
@@ -231,8 +233,7 @@ public class XDC721Client {
 
     }
 
-    public void deploy_NFT(String privatekey, Token721DetailCallback tokenDetailCallback)
-    {
+    public void deploy_NFT(String privatekey, Token721DetailCallback tokenDetailCallback) {
 
 
         if (isWeb3jConnected()) {
@@ -274,7 +275,7 @@ public class XDC721Client {
                 System.out.println("Contract address: " + contractAddress);
 
 
-                mintToken(contractAddress,privatekey,tokenDetailCallback);
+                mintToken(contractAddress, privatekey, tokenDetailCallback);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -291,8 +292,7 @@ public class XDC721Client {
     }
 
     @SuppressWarnings("NewApi")
-    public void deploy_contract2(String privatekey, Token721DetailCallback tokenDetailCallback)
-    {
+    public void deploy_contract2(String privatekey, Token721DetailCallback tokenDetailCallback) {
 
 
         if (isWeb3jConnected()) {
@@ -469,7 +469,7 @@ public class XDC721Client {
     }
 
 
-    public String mintToken(String tokenAddress,String privatekey,Token721DetailCallback tokenDetailCallback) throws ExecutionException, InterruptedException {
+    public String mintToken(String tokenAddress, String privatekey, Token721DetailCallback tokenDetailCallback) throws ExecutionException, InterruptedException {
         if (isWeb3jConnected()) {
             //Load the required documents for the transfer, with the private key
             //spender privatekey
@@ -487,10 +487,9 @@ public class XDC721Client {
             if (ethGasPrice == null) {
                 return null;
             }
-            gasPrice =ethGasPrice.getGasPrice();
+            gasPrice = ethGasPrice.getGasPrice();
             //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
             BigInteger gasLimit = BigInteger.valueOf(3000000L);
-
 
 
             final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
@@ -511,8 +510,7 @@ public class XDC721Client {
             //Send the transaction
             EthSendTransaction ethSendTransaction = web3.ethSendRawTransaction(hexValue).sendAsync().get();
             String hash = ethSendTransaction.getTransactionHash();
-            if (hash != null)
-            {
+            if (hash != null) {
                 tokenDetailCallback.success(tokenAddress);
                 return hash;
             } else {
@@ -936,7 +934,21 @@ public class XDC721Client {
     /// @param receiverAddress The new owner
     /// @param tokenid The NFT to transfer
     /// @param privatekey NFT owner Privatekey
-    public String safeTransferFrom(String tokenAddress, String privatekey, String receiverAddress, String tokenid) throws Exception {
+
+    /**
+     * @param tokenAddress    - NFT address
+     * @param privatekey      - NFT owner Private key
+     * @param receiverAddress - The new owner
+     * @param tokenid         - The NFT to transfer
+     * @return
+     * @throws Exception
+     */
+    public String safeTransferFrom(String tokenAddress,
+                                   String privatekey,
+                                   String receiverAddress,
+                                   String tokenid,
+                                   BigInteger gasPrice,
+                                   BigInteger gasLimit) throws Exception {
 
         if (isWeb3jConnected()) {
             //Load the required documents for the transfer, with the private key
@@ -950,14 +962,18 @@ public class XDC721Client {
             }
             nonce = ethGetTransactionCount.getTransactionCount();
             //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
+            //BigInteger gasPrice;
             EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
             if (ethGasPrice == null) {
                 return null;
             }
-            gasPrice = BigInteger.valueOf(3000000L);
+            if (gasPrice.signum() <= 0) {
+                gasPrice = DEFAULT_GAS_PRICE;
+            }
             //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-            BigInteger gasLimit = BigInteger.valueOf(3000000L);
+            if (gasLimit.signum() <= 0) {
+                gasLimit = DEFAULT_GAS_LIMIT;
+            }
             final org.web3j.abi.datatypes.Function function = new Function(
                     "safeTransferFrom",
                     Arrays.<Type>asList(new Address(credentials.getAddress()),

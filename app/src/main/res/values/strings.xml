@@ -176,6 +176,8 @@
     <string name="final721_owner_privatekey_read">0x7415687b87e1f1bcf55b26e0ddb086f9eb1d31cdc2059a296ce05de51b043258</string>
     <string name="final721_tokenId_read">19</string>
     <string name="final721_token_Index">0</string>
+    <string name="gas_price_optional">Gas Price(Optional)</string>
+    <string name="gas_limit_optional">Gas Limit(Optional)</string>
 
 
 </resources>

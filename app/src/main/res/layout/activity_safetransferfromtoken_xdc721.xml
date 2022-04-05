@@ -169,13 +169,69 @@
                 android:background="@drawable/edit_text_border"
                 android:padding="15dp"
                 android:textColor="@color/black"
-
                 android:text="131"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
+                <TextView
+                    android:id="@+id/safetr_gas_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="gas_price_optional"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
 
+                <EditText
+                    android:id="@+id/edt_safetrans_gas_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/gas_price_optional"
+                    android:padding="5dp"
+                    android:inputType="number"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
 
+                <TextView
+                    android:id="@+id/safetr_token_gas_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/gas_limit_optional"
+                    android:textColor="@color/header"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edt_safetrans_gas_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_supply_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@+id/balance_off"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="@string/gas_limit_optional"
+                    android:padding="5dp"
+                    android:inputType="number"
+                    android:textColor="@color/header"
+                    android:textColorHint="@color/hint"
+                    android:textSize="16sp" />
 
             <Button
                 android:id="@+id/send_approve"
