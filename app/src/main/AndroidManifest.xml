@@ -28,7 +28,11 @@
         <activity
             android:name="com.XDC.Example.MainActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.XDC.Example.Details721"
@@ -162,11 +166,7 @@
         <activity
             android:name="com.XDC.Example.wallet.ImportorCreateActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.XDC.Example.XDC20methods.TransferXDCActivity"

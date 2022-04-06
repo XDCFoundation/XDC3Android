@@ -180,7 +180,7 @@
                     android:layout_below="@+id/total_supply_divider"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="gas_price_optional"
+                    android:text="@string/gas_price_optional"
                     android:textColor="@color/header"
                     android:textSize="16sp" />
 

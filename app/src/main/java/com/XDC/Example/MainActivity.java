@@ -24,10 +24,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
-    private Button submit_button,btn_createaccount,btn_test721;
+    private Button submit_button, btn_createaccount, btn_test721;
     String token_address, xdcAddress;
     Button transfer_amount;
     AutoCompleteTextView tokenAutoTV;
@@ -39,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         enterXdcAddress = findViewById(R.id.enter_xdc_address);
-        btn_createaccount = (Button)findViewById(R.id.btn_createaccount);
+        btn_createaccount = (Button) findViewById(R.id.btn_createaccount);
         token_address = enterXdcAddress.getText().toString();
         transfer_amount = findViewById(R.id.transfer_amount);
-        btn_test721 = (Button)findViewById(R.id.btn_test721);
+        btn_test721 = (Button) findViewById(R.id.btn_test721);
         transfer_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-
-
 
 
         initUI();
@@ -74,33 +70,26 @@ public class MainActivity extends AppCompatActivity {
 
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                 XDC20Client.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
+                XDC20Client.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
                     @Override
-                    public void success(TokenDetailsResponse tokenDetailsResponse)
-                    {
+                    public void success(TokenDetailsResponse tokenDetailsResponse) {
                         Intent intent = new Intent(MainActivity.this, Details.class);
-                        intent.putExtra("tokendetail",(Serializable) tokenDetailsResponse);
+                        intent.putExtra("tokendetail", (Serializable) tokenDetailsResponse);
                         startActivity(intent);
                     }
 
                     @Override
-                    public void failure(Throwable t)
-                    {
-                        Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                    public void failure(Throwable t) {
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
-                    public void failure(String message)
-                    {
-                        Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
+                    public void failure(String message) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                     }
                 });
-
-
-
 
 
             }
@@ -136,12 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id)
-            {
-
-
+                                    int position, long id) {
                 token_address = adapter.getItem(position).toString();
-
             }
         });
 

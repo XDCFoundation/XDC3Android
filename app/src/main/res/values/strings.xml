@@ -180,4 +180,9 @@
     <string name="gas_limit_optional">Gas Limit(Optional)</string>
 
 
+    <string name="err_gas_price_limit_edit">Editing this value may change the transaction time of the transaction and it may also be the cause to transection faileur.</string>
+    <string name="gas_limit">Gas Limit</string>
+    <string name="gas_price">Gas Price</string>
+
+
 </resources>

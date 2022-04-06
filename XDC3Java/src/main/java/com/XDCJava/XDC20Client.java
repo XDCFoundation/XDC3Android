@@ -449,7 +449,8 @@ public class XDC20Client {
      * @para
      */
     @SuppressWarnings("NewApi")
-    public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS, String value, EventCallback eventCallback) {
+    public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS,
+                            String value, EventCallback eventCallback) {
 
         if (isWeb3jConnected()) {
             try {
