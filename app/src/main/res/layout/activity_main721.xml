@@ -58,7 +58,7 @@
         android:textColorHint="@color/hint"
         android:textSize="16sp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/total_supply_divider"
@@ -68,7 +68,7 @@
         android:textColor="@color/header"
         android:textSize="16sp" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etGasPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
         android:textColorHint="@color/hint"
         android:textSize="16sp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/total_supply_divider"
@@ -97,7 +97,7 @@
         android:textColor="@color/header"
         android:textSize="16sp" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etGasLimit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

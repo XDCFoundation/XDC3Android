@@ -7,30 +7,50 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.XDC.Example.utils.Utility;
 import com.XDC.R;
 import com.XDCJava.Model.WalletData;
 import com.XDCJava.XDC20Client;
+import com.XDCJava.XDC721Client;
 import com.XDCJava.callback.EventCallback;
 import com.google.android.material.snackbar.Snackbar;
 
-public class TransferXDCActivity extends AppCompatActivity {
+import java.math.BigInteger;
+
+public class TransferXDCActivity extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private EditText edt_receiver_address, edt_token_totransfer;
     private Button button_send;
     private TextView text_transaction_hash;
     private WalletData user_wallet;
     private ImageView back_txdc;
+    private AppCompatEditText etGasPrice, etGasLimit;
+    private BigInteger gasPrice, gasLimit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_xdc);
 
+        gasPrice = XDC20Client.getInstance().getGasPrice();
+        gasLimit = XDC20Client.getInstance().getGasLimit();
+
         edt_receiver_address = (EditText) findViewById(R.id.receiver_address);
         edt_token_totransfer = (EditText) findViewById(R.id.value);
+        etGasPrice = findViewById(R.id.etGasPrice);
+        etGasLimit = findViewById(R.id.etGasLimit);
+        if (gasPrice != null) {
+            etGasPrice.setText(gasPrice + "");
+        }
+        if (gasLimit != null) {
+            etGasLimit.setText(gasLimit + "");
+        }
+        etGasPrice.setOnFocusChangeListener(this);
+        etGasLimit.setOnFocusChangeListener(this);
         button_send = (Button) findViewById(R.id.send);
         back_txdc = findViewById(R.id.back_txdc);
         text_transaction_hash = (TextView) findViewById(R.id.text_transaction_hash);
@@ -67,7 +87,8 @@ public class TransferXDCActivity extends AppCompatActivity {
                                                 .make(button_send, message, Snackbar.LENGTH_LONG);
                                         snackbar.show();
                                     }
-                                });
+                                }, new BigInteger(etGasPrice.getText().toString()),
+                                new BigInteger(etGasLimit.getText().toString()));
                     }
                 }
             }
@@ -87,5 +108,18 @@ public class TransferXDCActivity extends AppCompatActivity {
             return false;
         else
             return true;
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (hasFocus) {
+            new AlertDialog.Builder(TransferXDCActivity.this)
+                    .setMessage(getString(R.string.err_gas_price_limit_edit))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
 }

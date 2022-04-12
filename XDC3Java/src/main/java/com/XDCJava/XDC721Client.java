@@ -130,7 +130,8 @@ public class XDC721Client {
 
 
     @SuppressWarnings("NewApi")
-    public void deploy_contract(String privatekey, Token721DetailCallback tokenDetailCallback) {
+    public void deploy_contract(String privatekey, Token721DetailCallback tokenDetailCallback,
+                                BigInteger gasPrice, BigInteger gasLimit) {
 
 
         if (isWeb3jConnected()) {
@@ -143,11 +144,6 @@ public class XDC721Client {
                     tokenDetailCallback.failure("failed");
                 }
                 nonce = ethGetTransactionCount.getTransactionCount();
-                EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-                if (ethGasPrice == null) {
-                    tokenDetailCallback.failure("failed");
-                }
-
 
                 String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(1),
                         new org.web3j.abi.datatypes.generated.Uint8(1),
@@ -169,7 +165,15 @@ public class XDC721Client {
 
                 response.getValue();
 */
-                RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, ethGasPrice.getGasPrice(), BigInteger.valueOf(300000), BigInteger.valueOf(0), encodedConstructor);
+
+                if (gasPrice.signum() <= 0) {
+                    gasPrice = getGasPrice();
+                }
+                if (gasLimit.signum() <= 0) {
+                    gasLimit = getGasLimit();
+                }
+
+                RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, gasPrice, gasLimit, BigInteger.valueOf(0), encodedConstructor);
 
                 //Signature Transaction
                 byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
@@ -263,19 +267,6 @@ public class XDC721Client {
         if (isWeb3jConnected()) {
             Credentials credentials = Credentials.create(privatekey);
             try {
-
-                BigInteger nonce;
-                EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
-                if (ethGetTransactionCount == null) {
-                    tokenDetailCallback.failure("failed");
-                }
-                nonce = ethGetTransactionCount.getTransactionCount();
-                EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-                if (ethGasPrice == null) {
-                    tokenDetailCallback.failure("failed");
-                }
-
-
                 XRC721Full contract = XRC721Full.deploy(
                         web3,
                         credentials,
@@ -298,6 +289,13 @@ public class XDC721Client {
                 String contractAddress = contract.getContractAddress();
                 System.out.println("Contract address: " + contractAddress);
 
+                if (gasPrice.signum() <= 0) {
+                    gasPrice = getGasPrice();
+                }
+                if (gasLimit.signum() <= 0) {
+                    gasLimit = getGasLimit();
+                }
+
                 mintToken(contractAddress, privatekey, tokenDetailCallback, gasPrice, gasLimit);
 
             } catch (Exception e) {
@@ -315,7 +313,8 @@ public class XDC721Client {
     }
 
     @SuppressWarnings("NewApi")
-    public void deploy_contract2(String privatekey, Token721DetailCallback tokenDetailCallback) {
+    public void deploy_contract2(String privatekey, Token721DetailCallback tokenDetailCallback,
+                                 BigInteger gasPrice, BigInteger gasLimit) {
 
 
         if (isWeb3jConnected()) {
@@ -328,16 +327,6 @@ public class XDC721Client {
                     tokenDetailCallback.failure("failed");
                 }
                 nonce = ethGetTransactionCount.getTransactionCount();
-                EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-                if (ethGasPrice == null) {
-                    tokenDetailCallback.failure("failed");
-                }
-
-
-
-
-
-
 
        /*         String encodedConstructor =
                         FunctionEncoder.encodeConstructor(
@@ -401,9 +390,15 @@ public class XDC721Client {
 
                 System.out.println("Message returned by Contract.greet(): " + message.toString());
 
+                if (gasPrice.signum() <= 0) {
+                    gasPrice = getGasPrice();
+                }
+                if (gasLimit.signum() <= 0) {
+                    gasLimit = getGasLimit();
+                }
 
                 RawTransaction rawTransaction = RawTransaction.createContractTransaction(
-                        nonce, ethGasPrice.getGasPrice(), BigInteger.valueOf(300000), BigInteger.valueOf(0), encodedConstructor);
+                        nonce, gasPrice, gasLimit, BigInteger.valueOf(0), encodedConstructor);
 
                 //Signature Transaction
                 byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
@@ -543,7 +538,8 @@ public class XDC721Client {
     }
 
 
-    public void getinfo(XRC721Metadata javaToken, String tokenAddress, Token721DetailCallback tokenDetailCallback) {
+    public void getinfo(XRC721Metadata javaToken, String tokenAddress,
+                        Token721DetailCallback tokenDetailCallback) {
         try {
 
             /// @notice An abbreviated name for NFTs in this contract
@@ -777,7 +773,9 @@ public class XDC721Client {
     /// @param tokenid The NFT to approve
     /// @param tokenAddress The NFT
     /// @param privatekey NFT owner Privatekey
-    public static String approve(String tokenAddress, String privatekey, String tokenid, String receiverAddress) throws Exception {
+    public static String approve(String tokenAddress, String privatekey, String tokenid,
+                                 String receiverAddress, BigInteger gasPrice,
+                                 BigInteger gasLimit) throws Exception {
 
         if (isWeb3jConnected()) {
             //spender privatekey
@@ -789,15 +787,6 @@ public class XDC721Client {
                 return null;
             }
             nonce = ethGetTransactionCount.getTransactionCount();
-            //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
-            }
-            gasPrice = ethGasPrice.getGasPrice();
-            BigInteger gasLimit = BigInteger.valueOf(60000L);
-            //receiver key - token id
 
 
             XRC721 javaToken1 = XRC721.load(tokenAddress, web3, credentials, new DefaultGasProvider());
@@ -896,7 +885,9 @@ public class XDC721Client {
     /// @param booleanvalue True if the operator is approved, false to revoke approval
     /// @param tokenAddress NFT address
     /// @param privatekey Private key of owner
-    public String setApprovalForAll(String tokenAddress, String privatekey, String OperatorAddress, String booleanvalue) throws Exception {
+    public String setApprovalForAll(String tokenAddress, String privatekey,
+                                    String OperatorAddress, String booleanvalue,
+                                    BigInteger gasPrice, BigInteger gasLimit) throws Exception {
 
 
         if (isWeb3jConnected()) {
@@ -909,15 +900,14 @@ public class XDC721Client {
                 return null;
             }
             nonce = ethGetTransactionCount.getTransactionCount();
-            //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
+
+            if(gasPrice.signum() <= 0){
+                gasPrice = getGasPrice();
             }
-            gasPrice = ethGasPrice.getGasPrice();
-            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            if(gasLimit.signum() <= 0){
+                gasLimit = getGasLimit();
+            }
+
             final org.web3j.abi.datatypes.Function function = new Function(
                     "setApprovalForAll",
                     Arrays.<Type>asList(new Address(OperatorAddress),
@@ -984,10 +974,7 @@ public class XDC721Client {
             nonce = ethGetTransactionCount.getTransactionCount();
             //gasPrice and gasLimit can be set manually
             //BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
-            }
+
             if (gasPrice.signum() <= 0) {
                 gasPrice = getGasPrice();
             }

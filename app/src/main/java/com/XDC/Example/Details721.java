@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.XDC.R;
@@ -17,7 +18,7 @@ import com.XDCJava.XDC721Client;
 
 import java.math.BigInteger;
 
-public class Details721 extends AppCompatActivity implements View.OnClickListener {
+public class Details721 extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
     private TextView xdc_address_value, name_value, symbol_value, total_supply_value,
             balance_off_value, ownerof_value, is_Supoortinterface, approve_trasactonhash,
@@ -29,12 +30,14 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
 
     private EditText edt_tokenid, edt_balance_spender,
             edt_privatekey, edt_contract_address, edt_interfaceID, edt_approve_tokenid,
-            edt_approve_spender, edt_getapprove_tokenid, edt_isapproveforall_spender,
+            edt_approve_spender, etApproveGasPrice, etApproveGasLimit, edt_getapprove_tokenid, edt_isapproveforall_spender,
             edt_setapproveforall_spender, edt_safeTransferFrom_spender, edt_safetrans_tokenid,
             etSafeTransferFromGasPrice, etSafeTransferFromGasLimit, edt_transferFrom_spender,
-            edt_trans_tokenid, etTransferFromGasPrice, etTransferFromGasLimit, edt_setapprobe_booean, edt_token_address, edt_token_uri_tokenid,
-            tokenbyindex_address, edt_tokenby_index_value, edt_tokenbyownerindex_address,
-            edt_owner_index_address, edt_tokenownerby_index_value, edt_total_supply_token;
+            edt_trans_tokenid, etTransferFromGasPrice, etTransferFromGasLimit,
+            edt_setapprobe_booean, etSetApproveForAllGasPrice, etSetApproveForAllGasLimit,
+            edt_token_address, edt_token_uri_tokenid, tokenbyindex_address,
+            edt_tokenby_index_value, edt_tokenbyownerindex_address, edt_owner_index_address,
+            edt_tokenownerby_index_value, edt_total_supply_token;
     private Button submit_ownerof, check_address, submit_balanceof, submit_interface,
             submit_approve, submit_getapproved, submit_isapprovedforall, submit_setapprovedforall,
             submit_safetrans, submit_trans, submit_tokenuri, submit_tokenby_index,
@@ -75,6 +78,9 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
 
         edt_approve_tokenid = findViewById(R.id.edt_approve_tokenid);
         edt_approve_spender = findViewById(R.id.edt_approve_spender);
+        etApproveGasPrice = findViewById(R.id.etApproveGasPrice);
+        etApproveGasLimit = findViewById(R.id.etApproveGasLimit);
+
         submit_approve = findViewById(R.id.submit_approve);
         submit_approve.setOnClickListener(this::onClick);
         approve_trasactonhash = findViewById(R.id.approve_trasactonhash);
@@ -91,6 +97,9 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
 
         setapprovedForAll_value = findViewById(R.id.setapprovedForAll_value);
         edt_setapprobe_booean = findViewById(R.id.edt_setapprobe_booean);
+        etSetApproveForAllGasPrice = findViewById(R.id.etSetApproveForAllGasPrice);
+        etSetApproveForAllGasLimit = findViewById(R.id.etSetApproveForAllGasLimit);
+
         edt_setapproveforall_spender = findViewById(R.id.edt_setapproveforall_spender);
         submit_setapprovedforall = findViewById(R.id.submit_setapprovedforall);
         submit_setapprovedforall.setOnClickListener(this::onClick);
@@ -101,12 +110,7 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         edt_safetrans_tokenid = findViewById(R.id.edt_safetrans_tokenid);
         etSafeTransferFromGasPrice = findViewById(R.id.etSafeTransferFromGasPrice);
         etSafeTransferFromGasLimit = findViewById(R.id.etSafeTransferFromGasLimit);
-        if (gasPrice != null) {
-            etSafeTransferFromGasPrice.setText(gasPrice + "");
-        }
-        if (gasLimit != null) {
-            etSafeTransferFromGasLimit.setText(gasLimit + "");
-        }
+
         submit_safetrans = findViewById(R.id.submit_safetrans);
         submit_safetrans.setOnClickListener(this::onClick);
 
@@ -116,11 +120,27 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         etTransferFromGasPrice = findViewById(R.id.etTransferFromGasPrice);
         etTransferFromGasLimit = findViewById(R.id.etTransferFromGasLimit);
         if (gasPrice != null) {
+            etApproveGasPrice.setText(gasPrice + "");
+            etSetApproveForAllGasPrice.setText(gasPrice + "");
+            etSafeTransferFromGasPrice.setText(gasPrice + "");
             etTransferFromGasPrice.setText(gasPrice + "");
         }
         if (gasLimit != null) {
+            etApproveGasLimit.setText(gasLimit + "");
+            etSetApproveForAllGasLimit.setText(gasLimit + "");
+            etSafeTransferFromGasLimit.setText(gasLimit + "");
             etTransferFromGasLimit.setText(gasLimit + "");
         }
+
+        etApproveGasPrice.setOnFocusChangeListener(this);
+        etSetApproveForAllGasPrice.setOnFocusChangeListener(this);
+        etSafeTransferFromGasPrice.setOnFocusChangeListener(this);
+        etTransferFromGasPrice.setOnFocusChangeListener(this);
+        etApproveGasLimit.setOnFocusChangeListener(this);
+        etSetApproveForAllGasLimit.setOnFocusChangeListener(this);
+        etSafeTransferFromGasLimit.setOnFocusChangeListener(this);
+        etTransferFromGasLimit.setOnFocusChangeListener(this);
+
         submit_trans = findViewById(R.id.submit_trans);
         submit_trans.setOnClickListener(this::onClick);
 
@@ -395,15 +415,21 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void submit_setapprovedforall() throws Exception {
-        if (xdc_address_value.getText().toString() != null && xdc_address_value.getText().toString().length() > 0) {
-
-            if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
-
-
-                if (edt_setapproveforall_spender.getText().toString() != null && edt_setapproveforall_spender.getText().toString().length() > 0) {
-
-                    if (edt_setapprobe_booean.getText().toString() != null && edt_setapprobe_booean.getText().toString().length() > 0) {
-                        String setapproveforall = XDC721Client.getInstance().setApprovalForAll(xdc_address_value.getText().toString(), edt_privatekey.getText().toString(), edt_setapproveforall_spender.getText().toString(), edt_setapprobe_booean.getText().toString());
+        if (xdc_address_value.getText().toString() != null
+                && xdc_address_value.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString() != null
+                    && edt_privatekey.getText().toString().length() > 0) {
+                if (edt_setapproveforall_spender.getText().toString() != null
+                        && edt_setapproveforall_spender.getText().toString().length() > 0) {
+                    if (edt_setapprobe_booean.getText().toString() != null
+                            && edt_setapprobe_booean.getText().toString().length() > 0) {
+                        String setapproveforall = XDC721Client.getInstance()
+                                .setApprovalForAll(xdc_address_value.getText().toString(),
+                                        edt_privatekey.getText().toString(),
+                                        edt_setapproveforall_spender.getText().toString(),
+                                        edt_setapprobe_booean.getText().toString(),
+                                        new BigInteger(etSetApproveForAllGasPrice.getText().toString()),
+                                        new BigInteger(etSetApproveForAllGasLimit.getText().toString()));
                         setapprovedForAll_value.setText(setapproveforall + "");
                     } else {
                         Toast.makeText(Details721.this, "Please Enter Boolean Value", Toast.LENGTH_LONG).show();
@@ -464,15 +490,21 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void approve() throws Exception {
-        if (xdc_address_value.getText().toString() != null && xdc_address_value.getText().toString().length() > 0) {
-
-            if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
-
-                if (edt_approve_tokenid.getText().toString() != null && edt_approve_tokenid.getText().toString().length() > 0) {
-
-                    if (edt_approve_spender.getText().toString() != null && edt_approve_spender.getText().toString().length() > 0) {
-
-                        String approve = XDC721Client.getInstance().approve(xdc_address_value.getText().toString(), edt_privatekey.getText().toString(), edt_approve_tokenid.getText().toString(), edt_approve_spender.getText().toString());
+        if (xdc_address_value.getText().toString() != null
+                && xdc_address_value.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString() != null
+                    && edt_privatekey.getText().toString().length() > 0) {
+                if (edt_approve_tokenid.getText().toString() != null
+                        && edt_approve_tokenid.getText().toString().length() > 0) {
+                    if (edt_approve_spender.getText().toString() != null
+                            && edt_approve_spender.getText().toString().length() > 0) {
+                        String approve = XDC721Client.getInstance().approve(
+                                xdc_address_value.getText().toString(),
+                                edt_privatekey.getText().toString(),
+                                edt_approve_tokenid.getText().toString(),
+                                edt_approve_spender.getText().toString(),
+                                new BigInteger(etApproveGasPrice.getText().toString()),
+                                new BigInteger(etApproveGasLimit.getText().toString()));
                         approve_trasactonhash.setText(approve + "");
 
 
@@ -538,6 +570,19 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
             edt_contract_address.setText(contract_address);
         } else {
             Toast.makeText(Details721.this, "Please Enter Private key", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (hasFocus) {
+            new AlertDialog.Builder(Details721.this)
+                    .setMessage(getString(R.string.err_gas_price_limit_edit))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
     }
 }

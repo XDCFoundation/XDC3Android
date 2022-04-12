@@ -21,7 +21,6 @@ import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -50,6 +49,32 @@ public class XDC20Client {
         return instance;
     }
 
+    public BigInteger getGasPrice() {
+        if (isWeb3jConnected()) {
+            try {
+                return web3.ethGasPrice().sendAsync().get().getGasPrice();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public BigInteger getGasLimit() {
+        if (isWeb3jConnected()) {
+            try {
+                return web3.ethGetBlockByNumber(DefaultBlockParameterName.LATEST,
+                        false).sendAsync().get().getBlock().getGasLimit();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
     public Boolean isWeb3jConnected() {
         web3 = Web3j.build(new
@@ -450,7 +475,8 @@ public class XDC20Client {
      */
     @SuppressWarnings("NewApi")
     public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS,
-                            String value, EventCallback eventCallback) {
+                            String value, EventCallback eventCallback, BigInteger gasPrice,
+                            BigInteger gasLimit) {
 
         if (isWeb3jConnected()) {
             try {
@@ -472,17 +498,15 @@ public class XDC20Client {
                     }
 
                     BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-                    BigInteger gasPrice = null;
-                    try {
-                        EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-                        gasPrice = ethGasPrice.getGasPrice();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
+                    if (gasPrice.signum() <= 0) {
+                        gasPrice = getGasPrice();
                     }
+                    if (gasLimit.signum() <= 0) {
+                        gasLimit = getGasLimit();
+                    }
+
                     RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
-                            nonce, gasPrice, BigInteger.valueOf(50005), TO_ADDRESS, convertDecimalToHex(value));
+                            nonce, gasPrice, gasLimit, TO_ADDRESS, convertDecimalToHex(value));
 
                     byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Credentials.create(PRIVATE_KEY_TRANSACTION));
                     String hexValue = Numeric.toHexString(signedMessage);
@@ -507,7 +531,7 @@ public class XDC20Client {
                 } else {
                     eventCallback.failure("Not enough balance in wallet.");
                 }
-            } catch (IOException ioe){
+            } catch (IOException ioe) {
                 eventCallback.failure(ioe.getLocalizedMessage());
             }
         } else {
@@ -527,7 +551,10 @@ public class XDC20Client {
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
      * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      */
-    public String approveXRC20Token(String token_address, String private_key, String spender_address, String value) throws ExecutionException, InterruptedException, IOException {
+    public String approveXRC20Token(String token_address, String private_key,
+                                    String spender_address, String value,
+                                    BigInteger gasPrice, BigInteger gasLimit)
+            throws ExecutionException, InterruptedException, IOException {
 
         //Load the required data for the approve, with the private key
         if (isWeb3jConnected()) {
@@ -540,15 +567,12 @@ public class XDC20Client {
                 return null;
             }
             nonce = ethGetTransactionCount.getTransactionCount();
-            //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
+            if (gasPrice.signum() <= 0) {
+                gasPrice = getGasPrice();
             }
-            gasPrice = ethGasPrice.getGasPrice();
-            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            if (gasLimit.signum() <= 0) {
+                gasLimit = getGasLimit();
+            }
             //XRC20 token contract method
             org.web3j.abi.datatypes.Function function = new Function(
                     "approve",
@@ -589,7 +613,9 @@ public class XDC20Client {
      * @param private_key   Owner private key to do Transaction.
      * @dev Transfer token for a specified address
      */
-    public String transferXRC20Token(String token_address, String private_key, String receiver_add, String value) throws ExecutionException, InterruptedException, IOException {
+    public String transferXRC20Token(String token_address, String private_key, String receiver_add,
+                                     String value, BigInteger gasPrice, BigInteger gasLimit)
+            throws ExecutionException, InterruptedException, IOException {
         if (isWeb3jConnected()) {
             //Load the required documents for the transfer, with the private key
             Credentials credentials = Credentials.create(private_key);
@@ -600,15 +626,12 @@ public class XDC20Client {
                 return null;
             }
             nonce = ethGetTransactionCount.getTransactionCount();
-            //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
+            if (gasPrice.signum() <= 0) {
+                gasPrice = getGasPrice();
             }
-            gasPrice = ethGasPrice.getGasPrice();
-            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            if (gasLimit.signum() <= 0) {
+                gasLimit = getGasLimit();
+            }
             //XRC20 token contract method
 
             Function function = new Function(
@@ -651,7 +674,10 @@ public class XDC20Client {
      * allowed value is better to use this function to avoid 2 calls (and wait until
      * the first transaction is mined)
      */
-    public String increaseAllownce(String owner_Address, String spender_address, String private_key, String value, String token_address) throws Exception {
+    public String increaseAllownce(String owner_Address, String spender_address,
+                                   String private_key, String value,
+                                   String token_address, BigInteger gasPrice,
+                                   BigInteger gasLimit) throws Exception {
         if (isWeb3jConnected()) {
             //Load the required documents for the transfer, with the private key
             Credentials credentials = Credentials.create(private_key);
@@ -662,15 +688,12 @@ public class XDC20Client {
                 return null;
             }
             nonce = ethGetTransactionCount.getTransactionCount();
-            //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
+            if (gasPrice.signum() <= 0) {
+                gasPrice = getGasPrice();
             }
-            gasPrice = ethGasPrice.getGasPrice();
-            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            if (gasLimit.signum() <= 0) {
+                gasLimit = getGasLimit();
+            }
             //XRC20 token contract method
             com.XDCJava.contracts.src.main.java.XRC20 javaToken = com.XDCJava.contracts.src.main.java.XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
             BigInteger allowance = javaToken.allowance(owner_Address, spender_address).send();
@@ -716,7 +739,10 @@ public class XDC20Client {
      * the first transaction is mined)
      * From MonolithDAO Token.sol
      */
-    public String decreaseAllownce(String owner_Address, String spender_address, String private_key, String value, String token_address) throws Exception {
+    public String decreaseAllownce(String owner_Address, String spender_address,
+                                   String private_key, String value,
+                                   String token_address, BigInteger gasPrice,
+                                   BigInteger gasLimit) throws Exception {
         if (isWeb3jConnected()) {
             //Load the required documents for the transfer, with the private key
             Credentials credentials = Credentials.create(private_key);
@@ -727,15 +753,12 @@ public class XDC20Client {
                 return null;
             }
             nonce = ethGetTransactionCount.getTransactionCount();
-            //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
+            if (gasPrice.signum() <= 0) {
+                gasPrice = getGasPrice();
             }
-            gasPrice = ethGasPrice.getGasPrice();
-            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            if (gasLimit.signum() <= 0) {
+                gasLimit = getGasLimit();
+            }
             //XRC20 token contract method
 
             com.XDCJava.contracts.src.main.java.XRC20 javaToken = XRC20.load(token_address, web3, credentials, new DefaultGasProvider());
@@ -777,7 +800,9 @@ public class XDC20Client {
      * @param token_Address   Token Address
      * @dev Transfer tokens from one address to another
      */
-    public String transferfrom(String spender_address, String to_address, String private_key, String value, String token_Address) throws Exception {
+    public String transferfrom(String spender_address, String to_address, String private_key,
+                               String value, String token_Address, BigInteger gasPrice,
+                               BigInteger gasLimit) throws Exception {
         if (isWeb3jConnected()) {
             //Load the required documents for the transfer, with the private key
             //spender privatekey
@@ -789,15 +814,12 @@ public class XDC20Client {
                 return null;
             }
             nonce = ethGetTransactionCount.getTransactionCount();
-            //gasPrice and gasLimit can be set manually
-            BigInteger gasPrice;
-            EthGasPrice ethGasPrice = web3.ethGasPrice().sendAsync().get();
-            if (ethGasPrice == null) {
-                return null;
+            if (gasPrice.signum() <= 0) {
+                gasPrice = getGasPrice();
             }
-            gasPrice = ethGasPrice.getGasPrice();
-            //BigInteger.valueOf(4300000L) If the transaction fails, it is probably a problem with the setting of the fee.
-            BigInteger gasLimit = BigInteger.valueOf(60000L);
+            if (gasLimit.signum() <= 0) {
+                gasLimit = getGasLimit();
+            }
             //XRC20 token contract method
             final Function function = new Function(
                     "transferFrom",

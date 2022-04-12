@@ -24,9 +24,9 @@
                 android:fitsSystemWindows="true">
 
                 <ImageView
+                    android:id="@+id/back_txdc"
                     android:layout_width="@dimen/image_45"
                     android:layout_height="match_parent"
-                    android:id="@+id/back_txdc"
                     android:padding="@dimen/padding_17"
                     android:src="@drawable/ic_back" />
 
@@ -43,14 +43,12 @@
             </androidx.appcompat.widget.Toolbar>
 
 
-
-
-
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_height="wrap_content">
+                android:visibility="gone">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,14 +65,14 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="25dp"
-                    android:textColor="@color/black"
-
                     android:layout_marginEnd="20dp"
+
                     android:layout_marginRight="20dp"
                     android:background="@drawable/edit_text_border"
                     android:hint="@string/enter_private_key_here"
                     android:padding="15dp"
                     android:text="@string/final_private_key"
+                    android:textColor="@color/black"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
 
@@ -99,13 +97,12 @@
                     android:layout_marginRight="20dp"
                     android:background="@drawable/edit_text_border"
                     android:padding="15dp"
-                    android:textColor="@color/black"
-
                     android:text="@string/final_token_owner"
+
+                    android:textColor="@color/black"
                     android:textColorHint="@color/hint"
                     android:textSize="16sp" />
             </LinearLayout>
-
 
 
             <TextView
@@ -129,9 +126,9 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/edit_text_border"
                 android:padding="15dp"
-                android:textColor="@color/black"
-
                 android:text="@string/final_spendar_address"
+
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
@@ -156,14 +153,68 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/edit_text_border"
                 android:padding="15dp"
-                android:textColor="@color/black"
-
                 android:text=""
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_supply_divider"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/gas_price"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
 
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etGasPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_supply_divider"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/balance_off"
+                android:background="@drawable/edit_text_border"
+                android:hint="@string/gas_price"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@color/header"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_supply_divider"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/gas_limit"
+                android:textColor="@color/header"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etGasLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_supply_divider"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/balance_off"
+                android:background="@drawable/edit_text_border"
+                android:hint="@string/gas_limit"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@color/header"
+                android:textColorHint="@color/hint"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/send"
@@ -182,16 +233,16 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/text_transaction_hash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
-                android:textIsSelectable="true"
 
-                android:id="@+id/text_transaction_hash"
                 android:textColor="@color/background"
+                android:textIsSelectable="true"
                 android:textSize="16sp" />
 
         </LinearLayout>

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.XDC.R;
@@ -18,24 +19,40 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
-public class Details extends AppCompatActivity implements View.OnClickListener {
+public class Details extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
-    private TextView xdc_address_value, name_value, symbol_value, decimals_value, total_supply_value, balance_off_value,
-            transfer_value, allowance_value, approve_value, transfer_from_value, increase_allowance_value, decrease_allowance_value;
+    private TextView xdc_address_value, name_value, symbol_value, decimals_value,
+            total_supply_value, balance_off_value,
+            transfer_value, allowance_value, approve_value, transfer_from_value,
+            increase_allowance_value, decrease_allowance_value;
     private BigInteger dec_bal, dec_supply;
     private TokenDetailsResponse tokenResponse = new TokenDetailsResponse();
 
-    private EditText edt_privatekey, edt_allownce_owner, edt_allownce_spender, edt_approve_spender,
-            edt_value_approve, edt_transfer_to, edt_value_transfer, text_contract_address, edt_increase_owner, edt_increase_spender,
-            edt_increase_allownce_value, edt_decrease_owner, edt_decrease_spender, edt_decrease_allownce, edt_tfrom_spender, edt_tfrom_to, edt_tfrom_value, edt_tfrom_spender_privatekey,
+    private EditText edt_privatekey, edt_allownce_owner, edt_allownce_spender,
+            edt_approve_spender, edt_value_approve, etApproveGasPrice, etApproveGasLimit,
+            edt_transfer_to, edt_value_transfer, etTransferGasPrice, etTransferGasLimit,
+            text_contract_address, edt_increase_owner, edt_increase_spender,
+            edt_increase_allownce_value, etIncreaseAllowanceGasPrice,
+            etIncreaseAllowanceGasLimit, edt_decrease_owner, edt_decrease_spender,
+            edt_decrease_allownce, edt_tfrom_spender, edt_tfrom_to, edt_tfrom_value,
+            edt_tfrom_spender_privatekey, etTransferFromGasPrice, etTransferFromGasLimit,
             edt_balance_spender;
-    private Button check_address, submit_allownce, submit_approve, submit_transfer, submit_increase_Allownce, submit_decrease_Allownce, submit_tfrom, submit_balanceof;
-    private TextView approve_trasactonhash, transfer_trasactonhash, text_increase_allow_trasactonhash, text_decrease_allow_trasactonhash, text_transferfrom_trasactonhash;
+    private Button check_address, submit_allownce, submit_approve, submit_transfer,
+            submit_increase_Allownce, submit_decrease_Allownce, submit_tfrom,
+            submit_balanceof;
+    private TextView approve_trasactonhash, transfer_trasactonhash,
+            text_increase_allow_trasactonhash, text_decrease_allow_trasactonhash,
+            text_transferfrom_trasactonhash;
+
+    private BigInteger gasPrice, gasLimit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        gasPrice = XDC20Client.getInstance().getGasPrice();
+        gasLimit = XDC20Client.getInstance().getGasLimit();
 
         xdc_address_value = findViewById(R.id.xdc_address_value);
         name_value = findViewById(R.id.name_value);
@@ -44,6 +61,8 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         total_supply_value = findViewById(R.id.total_supply_value);
         balance_off_value = findViewById(R.id.balance_off_value);
         transfer_value = findViewById(R.id.edt_value_transfer);
+        etTransferGasPrice = findViewById(R.id.etTransferGasPrice);
+        etTransferGasLimit = findViewById(R.id.etTransferGasLimit);
         allowance_value = findViewById(R.id.allowance_value);
 
         edt_privatekey = findViewById(R.id.edt_privatekey);
@@ -63,6 +82,8 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         approve_trasactonhash = findViewById(R.id.approve_trasactonhash);
         edt_approve_spender = findViewById(R.id.edt_approve_spender);
         edt_value_approve = findViewById(R.id.edt_value_approve);
+        etApproveGasPrice = findViewById(R.id.etApproveGasPrice);
+        etApproveGasLimit = findViewById(R.id.etApproveGasLimit);
         submit_approve = findViewById(R.id.submit_approve);
         submit_approve.setOnClickListener(this::onClick);
 
@@ -78,6 +99,9 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         edt_increase_owner = findViewById(R.id.edt_increase_owner);
         edt_increase_spender = findViewById(R.id.edt_increase_spender);
         edt_increase_allownce_value = findViewById(R.id.edt_increase_allownce);
+        etIncreaseAllowanceGasPrice = findViewById(R.id.etIncreaseAllowanceGasPrice);
+        etIncreaseAllowanceGasLimit = findViewById(R.id.etIncreaseAllowanceGasLimit);
+
         submit_increase_Allownce = findViewById(R.id.submit_increase_Allownce);
         submit_increase_Allownce.setOnClickListener(this::onClick);
 
@@ -97,6 +121,30 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
         submit_tfrom = findViewById(R.id.submit_tfrom);
         submit_tfrom.setOnClickListener(this::onClick);
         edt_tfrom_spender_privatekey = findViewById(R.id.edt_tfrom_spender_privatekey);
+        etTransferFromGasPrice = findViewById(R.id.etTransferFromGasPrice);
+        etTransferFromGasLimit = findViewById(R.id.etTransferFromGasLimit);
+
+        if (gasPrice != null) {
+            etTransferFromGasPrice.setText(gasPrice + "");
+            etIncreaseAllowanceGasPrice.setText(gasPrice + "");
+            etTransferGasPrice.setText(gasPrice + "");
+            etApproveGasPrice.setText(gasPrice + "");
+        }
+        if (gasLimit != null) {
+            etTransferFromGasLimit.setText(gasLimit + "");
+            etIncreaseAllowanceGasLimit.setText(gasLimit + "");
+            etTransferGasLimit.setText(gasLimit + "");
+            etApproveGasLimit.setText(gasLimit + "");
+        }
+
+        etTransferFromGasPrice.setOnFocusChangeListener(this);
+        etIncreaseAllowanceGasPrice.setOnFocusChangeListener(this);
+        etTransferGasPrice.setOnFocusChangeListener(this);
+        etApproveGasPrice.setOnFocusChangeListener(this);
+        etTransferFromGasLimit.setOnFocusChangeListener(this);
+        etIncreaseAllowanceGasLimit.setOnFocusChangeListener(this);
+        etTransferGasLimit.setOnFocusChangeListener(this);
+        etApproveGasLimit.setOnFocusChangeListener(this);
 
         if (getIntent().hasExtra("tokendetail")) {
             tokenResponse = (TokenDetailsResponse) getIntent().getSerializableExtra("tokendetail");
@@ -183,8 +231,6 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
             case R.id.submit_balanceof:
                 getbalance();
                 break;
-
-
         }
 
     }
@@ -201,7 +247,14 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
                             && edt_tfrom_value.getText().toString().length() > 0) {
                         String approved_hash = null;
                         try {
-                            approved_hash = XDC20Client.getInstance().transferfrom(edt_tfrom_spender.getText().toString(), edt_tfrom_to.getText().toString(), edt_tfrom_spender_privatekey.getText().toString(), edt_tfrom_value.getText().toString(), tokenResponse.getToken_address());
+                            approved_hash = XDC20Client.getInstance().transferfrom(
+                                    edt_tfrom_spender.getText().toString(),
+                                    edt_tfrom_to.getText().toString(),
+                                    edt_tfrom_spender_privatekey.getText().toString(),
+                                    edt_tfrom_value.getText().toString(),
+                                    tokenResponse.getToken_address(),
+                                    new BigInteger(etTransferFromGasPrice.getText().toString()),
+                                    new BigInteger(etTransferFromGasLimit.getText().toString()));
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -236,7 +289,14 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
                         String approved_hash = null;
                         try {
-                            approved_hash = XDC20Client.getInstance().increaseAllownce(edt_increase_owner.getText().toString(), edt_increase_spender.getText().toString(), edt_privatekey.getText().toString(), edt_increase_allownce_value.getText().toString(), tokenResponse.getToken_address());
+                            approved_hash = XDC20Client.getInstance()
+                                    .increaseAllownce(edt_increase_owner.getText().toString(),
+                                            edt_increase_spender.getText().toString(),
+                                            edt_privatekey.getText().toString(),
+                                            edt_increase_allownce_value.getText().toString(),
+                                            tokenResponse.getToken_address(),
+                                            new BigInteger(etIncreaseAllowanceGasPrice.getText().toString()),
+                                            new BigInteger(etIncreaseAllowanceGasLimit.getText().toString()));
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -267,15 +327,24 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void decreaseAllownce() {
-        if (edt_decrease_owner.getText().toString() != null && edt_decrease_owner.getText().toString().length() > 0) {
-
-            if (edt_decrease_spender.getText().toString() != null && edt_decrease_spender.getText().toString().length() > 0) {
-                if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
-                    if (edt_decrease_allownce.getText().toString() != null && edt_decrease_allownce.getText().toString().length() > 0) {
-
+        if (edt_decrease_owner.getText().toString() != null
+                && edt_decrease_owner.getText().toString().length() > 0) {
+            if (edt_decrease_spender.getText().toString() != null
+                    && edt_decrease_spender.getText().toString().length() > 0) {
+                if (edt_privatekey.getText().toString() != null
+                        && edt_privatekey.getText().toString().length() > 0) {
+                    if (edt_decrease_allownce.getText().toString() != null
+                            && edt_decrease_allownce.getText().toString().length() > 0) {
                         String approved_hash = null;
                         try {
-                            approved_hash = XDC20Client.getInstance().decreaseAllownce(edt_decrease_owner.getText().toString(), edt_decrease_spender.getText().toString(), edt_privatekey.getText().toString(), edt_decrease_allownce.getText().toString(), tokenResponse.getToken_address());
+                            approved_hash = XDC20Client.getInstance().decreaseAllownce(
+                                    edt_decrease_owner.getText().toString(),
+                                    edt_decrease_spender.getText().toString(),
+                                    edt_privatekey.getText().toString(),
+                                    edt_decrease_allownce.getText().toString(),
+                                    tokenResponse.getToken_address(),
+                                    new BigInteger(etIncreaseAllowanceGasPrice.getText().toString()),
+                                    new BigInteger(etIncreaseAllowanceGasLimit.getText().toString()));
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -307,15 +376,21 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
 
     private void transfertoken() {
 
-        if (edt_transfer_to.getText().toString() != null && edt_transfer_to.getText().toString().length() > 0) {
-
-
-            if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
-                if (edt_value_transfer.getText().toString() != null && edt_value_transfer.getText().toString().length() > 0) {
-
+        if (edt_transfer_to.getText().toString() != null
+                && edt_transfer_to.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString() != null
+                    && edt_privatekey.getText().toString().length() > 0) {
+                if (edt_value_transfer.getText().toString() != null
+                        && edt_value_transfer.getText().toString().length() > 0) {
                     String approved_hash = null;
                     try {
-                        approved_hash = XDC20Client.getInstance().transferXRC20Token(tokenResponse.getToken_address(), edt_privatekey.getText().toString(), edt_transfer_to.getText().toString(), edt_value_transfer.getText().toString());
+                        approved_hash = XDC20Client.getInstance().transferXRC20Token(
+                                tokenResponse.getToken_address(),
+                                edt_privatekey.getText().toString(),
+                                edt_transfer_to.getText().toString(),
+                                edt_value_transfer.getText().toString(),
+                                new BigInteger(etTransferGasPrice.getText().toString()),
+                                new BigInteger(etTransferGasLimit.getText().toString()));
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -338,15 +413,22 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void getapprove() {
-        if (edt_approve_spender.getText().toString() != null && edt_approve_spender.getText().toString().length() > 0) {
-
-
-            if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
-                if (edt_value_approve.getText().toString() != null && edt_value_approve.getText().toString().length() > 0) {
+        if (edt_approve_spender.getText().toString() != null
+                && edt_approve_spender.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString() != null
+                    && edt_privatekey.getText().toString().length() > 0) {
+                if (edt_value_approve.getText().toString() != null
+                        && edt_value_approve.getText().toString().length() > 0) {
 
                     String approved_hash = null;
                     try {
-                        approved_hash = XDC20Client.getInstance().approveXRC20Token(tokenResponse.getToken_address(), edt_privatekey.getText().toString(), edt_allownce_spender.getText().toString(), edt_value_approve.getText().toString());
+                        approved_hash = XDC20Client.getInstance().approveXRC20Token(
+                                tokenResponse.getToken_address(),
+                                edt_privatekey.getText().toString(),
+                                edt_allownce_spender.getText().toString(),
+                                edt_value_approve.getText().toString(),
+                                new BigInteger(etApproveGasPrice.getText().toString()),
+                                new BigInteger(etApproveGasLimit.getText().toString()));
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -402,6 +484,19 @@ public class Details extends AppCompatActivity implements View.OnClickListener {
             text_contract_address.setText(contract_address);
         } else {
             Toast.makeText(Details.this, "Please Enter Private key", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (hasFocus) {
+            new AlertDialog.Builder(Details.this)
+                    .setMessage(getString(R.string.err_gas_price_limit_edit))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
     }
 }

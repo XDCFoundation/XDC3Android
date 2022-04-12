@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.XDC.R;
 import com.XDCJava.Model.Token721DetailsResponse;
@@ -26,7 +27,7 @@ public class XDC721MainActivity extends AppCompatActivity implements View.OnFocu
 
     private Button submit_button, deploy_contract;
     private TextView enterXdcAddress;
-    private EditText etGasPrice, etGasLimit;
+    private AppCompatEditText etGasPrice, etGasLimit;
     private BigInteger gasPrice, gasLimit;
 
     @Override
