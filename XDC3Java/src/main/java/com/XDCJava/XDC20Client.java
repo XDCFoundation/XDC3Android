@@ -21,6 +21,7 @@ import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -65,8 +66,9 @@ public class XDC20Client {
     public BigInteger getGasLimit() {
         if (isWeb3jConnected()) {
             try {
-                return web3.ethGetBlockByNumber(DefaultBlockParameterName.LATEST,
-                        false).sendAsync().get().getBlock().getGasLimit();
+                EthBlock.Block block = web3.ethGetBlockByNumber(DefaultBlockParameterName.LATEST,
+                        false).sendAsync().get().getBlock();
+                return (block.getGasLimit());
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 return null;

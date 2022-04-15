@@ -66,7 +66,6 @@ public class CreateAccount extends AppCompatActivity {
                                     @Override
                                     public void success(WalletData walletData)
                                     {
-
                                         txt_info.setText("Account address: " + walletData.getAccountAddress() + "\n" + "privateKey: " + walletData.getPrivateKey() +
                                                 "\n" + "Seed Phrase: " + walletData.getSeedPhrase());
                                         Gson gson = new Gson();

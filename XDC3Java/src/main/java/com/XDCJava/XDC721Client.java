@@ -81,7 +81,7 @@ public class XDC721Client {
     public BigInteger getGasPrice() {
         if (isWeb3jConnected()) {
             try {
-                return web3.ethGasPrice().sendAsync().get().getGasPrice();
+                return (web3.ethGasPrice().sendAsync().get().getGasPrice());
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 return null;
