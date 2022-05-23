@@ -20,27 +20,25 @@ import com.XDCJava.XDC20Client;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class ApproveXDC20Activity extends AppCompatActivity implements View.OnFocusChangeListener {
 
-    EditText edt_receiver_address, edt_token_totransfer;
-    Button send_approve;
-    TextView text_transaction_hash;
-    WalletData user_wallet;
-    ImageView back_txdc;
-    TokenDetailsResponse tokenDetail;
+    private EditText edt_receiver_address, edt_token_totransfer;
+    private TextView text_transaction_hash;
+    private WalletData user_wallet;
+    private TokenDetailsResponse tokenDetail;
 
     private AppCompatEditText etGasPrice, etGasLimit;
-    private BigInteger gasPrice, gasLimit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_xdc20);
 
-        gasPrice = XDC20Client.getInstance().getGasPrice();
-        gasLimit = XDC20Client.getInstance().getGasLimit();
+        BigInteger gasPrice = XDC20Client.getInstance().getGasPrice();
+        BigInteger gasLimit = XDC20Client.getInstance().getGasLimit();
 
         edt_receiver_address = (EditText) findViewById(R.id.receiver_address);
         edt_token_totransfer = (EditText) findViewById(R.id.value);
@@ -57,64 +55,51 @@ public class ApproveXDC20Activity extends AppCompatActivity implements View.OnFo
         etGasPrice.setOnFocusChangeListener(this);
         etGasLimit.setOnFocusChangeListener(this);
 
-        send_approve = (Button) findViewById(R.id.send_approve);
-        back_txdc = findViewById(R.id.back_txdc);
+        Button send_approve = (Button) findViewById(R.id.send_approve);
+        ImageView back_txdc = findViewById(R.id.back_txdc);
         text_transaction_hash = (TextView) findViewById(R.id.text_transaction_hash);
         user_wallet = Utility.getProfile(ApproveXDC20Activity.this);
         tokenDetail = Utility.gettokeninfo(ApproveXDC20Activity.this);
-        send_approve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasText(edt_receiver_address)) {
-                    edt_receiver_address.setError(getResources().getString(R.string.error_empty));
-                } else if (!hasText(edt_token_totransfer)) {
-                    edt_token_totransfer.setError(getResources().getString(R.string.error_empty));
+        send_approve.setOnClickListener(v -> {
+            if (!hasText(edt_receiver_address)) {
+                edt_receiver_address.setError(getResources().getString(R.string.error_empty));
+            } else if (!hasText(edt_token_totransfer)) {
+                edt_token_totransfer.setError(getResources().getString(R.string.error_empty));
 
-                } else {
+            } else {
 
 
-                    if (user_wallet != null && user_wallet.getAccountAddress() != null && user_wallet.getAccountAddress().length() > 0 && user_wallet.getPrivateKey() != null) {
-                        try {
-                            String approve_hash = XDC20Client.getInstance().approveXRC20Token(
-                                    tokenDetail.getToken_address(),
-                                    user_wallet.getPrivateKey(),
-                                    edt_receiver_address.getText().toString(),
-                                    edt_token_totransfer.getText().toString(),
-                                    new BigInteger(etGasPrice.getText().toString()),
-                                    new BigInteger(etGasLimit.getText().toString()));
-                            text_transaction_hash.setText(approve_hash);
-                            Utility.closeKeyboard(ApproveXDC20Activity.this);
-                            SharedPreferenceHelper.setSharedPreferenceString(ApproveXDC20Activity.this, "transactionhash", approve_hash);
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                if (user_wallet != null && user_wallet.getAccountAddress() != null && user_wallet.getAccountAddress().length() > 0 && user_wallet.getPrivateKey() != null) {
+                    try {
+                        String approve_hash = XDC20Client.getInstance().approveXRC20Token(
+                                tokenDetail.getToken_address(),
+                                user_wallet.getPrivateKey(),
+                                edt_receiver_address.getText().toString(),
+                                edt_token_totransfer.getText().toString(),
+                                new BigInteger(Objects.requireNonNull(etGasPrice.getText()).toString()),
+                                new BigInteger(Objects.requireNonNull(etGasLimit.getText()).toString()));
+                        text_transaction_hash.setText(approve_hash);
+                        Utility.closeKeyboard(ApproveXDC20Activity.this);
+                        SharedPreferenceHelper.setSharedPreferenceString(ApproveXDC20Activity.this, "transactionhash", approve_hash);
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-
                 }
-            }
 
 
-        });
-
-        back_txdc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
             }
         });
+
+        back_txdc.setOnClickListener(v -> onBackPressed());
     }
 
 
     public static boolean hasText(EditText s) {
-        if (s.getText().toString().trim().equalsIgnoreCase(""))
-            return false;
-        else
-            return true;
+        return !s.getText().toString().trim().equalsIgnoreCase("");
     }
 
     @Override
@@ -122,9 +107,7 @@ public class ApproveXDC20Activity extends AppCompatActivity implements View.OnFo
         if (hasFocus) {
             new AlertDialog.Builder(ApproveXDC20Activity.this)
                     .setMessage(getString(R.string.err_gas_price_limit_edit))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        dialog.dismiss();
-                    })
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }

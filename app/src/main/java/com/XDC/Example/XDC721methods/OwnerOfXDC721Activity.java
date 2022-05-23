@@ -1,7 +1,6 @@
 package com.XDC.Example.XDC721methods;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,21 +8,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.XDC.Example.utils.SharedPreferenceHelper;
 import com.XDC.Example.utils.Utility;
 import com.XDC.R;
-import com.XDCJava.Model.Token721DetailsResponse;
-import com.XDCJava.Model.WalletData;
 import com.XDCJava.XDC721Client;
 
 public class OwnerOfXDC721Activity extends AppCompatActivity {
 
-    EditText token_address,token_index;
-    Button send_approve;
-    TextView text_transaction_hash;
-    WalletData user_wallet;
-    ImageView back_txdc;
-    Token721DetailsResponse tokenDetail;
+    private EditText token_address, token_index;
+    private TextView text_transaction_hash;
+
+    public static boolean hasText(EditText s) {
+        return !s.getText().toString().trim().equalsIgnoreCase("");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,59 +28,31 @@ public class OwnerOfXDC721Activity extends AppCompatActivity {
 
         token_address = (EditText) findViewById(R.id.token_address);
         token_index = (EditText) findViewById(R.id.value);
-        send_approve = (Button) findViewById(R.id.send_approve);
-        back_txdc = findViewById(R.id.back_txdc);
+        Button send_approve = (Button) findViewById(R.id.send_approve);
+        ImageView back_txdc = findViewById(R.id.back_txdc);
         text_transaction_hash = (TextView) findViewById(R.id.text_transaction_hash);
-        user_wallet = Utility.getProfile(OwnerOfXDC721Activity.this);
-        tokenDetail = Utility.getnftinfo(OwnerOfXDC721Activity.this);
 
-        send_approve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasText(token_address)) {
-                    token_address.setError(getResources().getString(R.string.error_empty));
-                }
-                else if (!hasText(token_index)) {
-                    token_index.setError(getResources().getString(R.string.error_empty));
-
-                }else {
-
-
-                        try {
-                            String hash = null;
-                            try {
-                                hash = XDC721Client.getInstance().getOwnerof(token_address.getText().toString(),token_index.getText().toString() );
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            text_transaction_hash.setText(hash);
-                            Utility.closeKeyboard(OwnerOfXDC721Activity.this);
-                           // SharedPreferenceHelper.setSharedPreferenceString(OwnerOfXDC721Activity.this, "nfthash", hash);                        } catch (Exception e) {
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
+        send_approve.setOnClickListener(v -> {
+            if (!hasText(token_address)) {
+                token_address.setError(getResources().getString(R.string.error_empty));
+            } else if (!hasText(token_index)) {
+                token_index.setError(getResources().getString(R.string.error_empty));
+            } else {
+                try {
+                    String hash = null;
+                    try {
+                        hash = XDC721Client.getInstance().getOwnerof(token_address.getText().toString(), token_index.getText().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    text_transaction_hash.setText(hash);
+                    Utility.closeKeyboard(OwnerOfXDC721Activity.this);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-
-
         });
 
-        back_txdc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-    }
-
-
-    public static boolean hasText(EditText s) {
-        if (s.getText().toString().trim().equalsIgnoreCase(""))
-            return false;
-        else
-            return true;
+        back_txdc.setOnClickListener(v -> onBackPressed());
     }
 }

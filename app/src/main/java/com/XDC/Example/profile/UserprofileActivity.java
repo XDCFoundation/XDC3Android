@@ -41,13 +41,12 @@ import java.io.IOException;
 
 public class UserprofileActivity extends AppCompatActivity {
 
-    TextView text_accountaddress, text_XDC, transfer_XDC, text_addtoken, text_tokenbalance, text_tokensymbol,
-            text_nftbalance, text_nftsymbol, text_addnfttoken;
-    WalletData user_wallet;
-    TokenDetailsResponse tokenDetail;
-    Token721DetailsResponse nftDetail;
-    ImageView img_copy, img_logout;
-    LinearLayout lin_token_info, lin_nfttoken_info;
+    private TextView text_accountaddress, text_XDC, text_tokenbalance, text_tokensymbol,
+            text_nftbalance, text_nftsymbol;
+    private WalletData user_wallet;
+    private TokenDetailsResponse tokenDetail;
+    private Token721DetailsResponse nftDetail;
+    private LinearLayout lin_token_info, lin_nfttoken_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +55,18 @@ public class UserprofileActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         text_accountaddress = findViewById(R.id.text_accountaddress);
-        img_copy = findViewById(R.id.img_copy);
+        ImageView img_copy = findViewById(R.id.img_copy);
         text_XDC = findViewById(R.id.text_XDC);
-        text_addtoken = findViewById(R.id.text_addtoken);
-        transfer_XDC = findViewById(R.id.transfer_XDC);
+        TextView text_addtoken = findViewById(R.id.text_addtoken);
+        TextView transfer_XDC = findViewById(R.id.transfer_XDC);
         lin_token_info = findViewById(R.id.lin_token_info);
         lin_nfttoken_info = findViewById(R.id.lin_nfttoken_info);
         text_tokenbalance = findViewById(R.id.text_tokenbalance);
         text_tokensymbol = findViewById(R.id.text_tokensymbol);
-        img_logout = findViewById(R.id.img_logout);
+        ImageView img_logout = findViewById(R.id.img_logout);
         text_nftbalance = findViewById(R.id.text_nftbalance);
         text_nftsymbol = findViewById(R.id.text_nftsymbol);
-        text_addnfttoken = findViewById(R.id.text_addnfttoken);
+        TextView text_addnfttoken = findViewById(R.id.text_addnfttoken);
 
 
         String xdc = SharedPreferenceHelper.getSharedPreferenceString(UserprofileActivity.this, "xdc", "");

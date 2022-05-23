@@ -459,7 +459,6 @@
 
 
             <View
-                android:id="@+id/allowance_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/allowance"
@@ -509,7 +508,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/balance_spenfer_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -593,7 +591,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/approve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/transfer_divider"
@@ -815,7 +812,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/transfer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/transfer_divider"

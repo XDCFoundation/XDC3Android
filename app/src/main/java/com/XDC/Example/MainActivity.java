@@ -3,8 +3,6 @@ package com.XDC.Example;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -26,28 +24,21 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button submit_button, btn_createaccount, btn_test721;
-    String token_address, xdcAddress;
-    Button transfer_amount;
-    AutoCompleteTextView tokenAutoTV;
-    TextView enterXdcAddress;
+    private String token_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        enterXdcAddress = findViewById(R.id.enter_xdc_address);
-        btn_createaccount = (Button) findViewById(R.id.btn_createaccount);
+        TextView enterXdcAddress = findViewById(R.id.enter_xdc_address);
+        Button btn_createaccount = (Button) findViewById(R.id.btn_createaccount);
         token_address = enterXdcAddress.getText().toString();
-        transfer_amount = findViewById(R.id.transfer_amount);
-        btn_test721 = (Button) findViewById(R.id.btn_test721);
-        transfer_amount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TransferXDCActivity.class);
-                startActivity(intent);
-            }
+        Button transfer_amount = findViewById(R.id.transfer_amount);
+        Button btn_test721 = (Button) findViewById(R.id.btn_test721);
+        transfer_amount.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TransferXDCActivity.class);
+            startActivity(intent);
         });
 
 
@@ -57,51 +48,37 @@ public class MainActivity extends AppCompatActivity {
 
         initUI();
 
-        btn_test721.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, XDC721MainActivity.class);
+        btn_test721.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, XDC721MainActivity.class);
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
 
-        submit_button = findViewById(R.id.submit);
+        Button submit_button = findViewById(R.id.submit);
 
-        submit_button.setOnClickListener(new View.OnClickListener() {
+        submit_button.setOnClickListener(v -> XDC20Client.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
             @Override
-            public void onClick(View v) {
-
-                XDC20Client.getInstance().getTokenoinfo(token_address, new TokenDetailCallback() {
-                    @Override
-                    public void success(TokenDetailsResponse tokenDetailsResponse) {
-                        Intent intent = new Intent(MainActivity.this, Details.class);
-                        intent.putExtra("tokendetail", (Serializable) tokenDetailsResponse);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void failure(Throwable t) {
-                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void failure(String message) {
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                    }
-                });
-
-
-            }
-        });
-
-
-        btn_createaccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+            public void success(TokenDetailsResponse tokenDetailsResponse) {
+                Intent intent = new Intent(MainActivity.this, Details.class);
+                intent.putExtra("tokendetail", (Serializable) tokenDetailsResponse);
                 startActivity(intent);
             }
+
+            @Override
+            public void failure(Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void failure(String message) {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        }));
+
+
+        btn_createaccount.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+            startActivity(intent);
         });
 
 
@@ -110,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initUI() {
         //UI reference of textView
-        tokenAutoTV = findViewById(R.id.customerTextView);
+        AutoCompleteTextView tokenAutoTV = findViewById(R.id.customerTextView);
 
         // create list of customer
         ArrayList<String> customerList = getCustomerList();
@@ -121,14 +98,7 @@ public class MainActivity extends AppCompatActivity {
         //Set adapter
         tokenAutoTV.setAdapter(adapter);
 
-        tokenAutoTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                token_address = adapter.getItem(position).toString();
-            }
-        });
+        tokenAutoTV.setOnItemClickListener((parent, view, position, id) -> token_address = adapter.getItem(position));
 
 
     }

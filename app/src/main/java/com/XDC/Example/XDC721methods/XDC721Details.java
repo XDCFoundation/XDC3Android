@@ -1,5 +1,6 @@
 package com.XDC.Example.XDC721methods;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,32 +11,20 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.XDC.Example.XDC20methods.AllowanceXDC20Activity;
-import com.XDC.Example.XDC20methods.ApproveXDC20Activity;
-import com.XDC.Example.XDC20methods.BalanceXDC20Activity;
-import com.XDC.Example.XDC20methods.TransferfromXDC20Activity;
-import com.XDC.Example.XDC20methods.TransfertokenXDC20Activity;
 import com.XDC.Example.utils.SharedPreferenceHelper;
 import com.XDC.Example.utils.Utility;
 import com.XDC.R;
 import com.XDCJava.Model.Token721DetailsResponse;
-import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.Model.WalletData;
-import com.XDCJava.XDC20Client;
 import com.XDCJava.XDC721Client;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class XDC721Details extends AppCompatActivity implements View.OnClickListener {
 
-    TextView text_tokenbalance, text_tokensymbol, token_event, xdc_transaction,
-            txt_approve, txt_setapprovalforall, txt_transferfrom, txt_safetransferfrom,
-            txt_tokenuri, txt_balanceof, txt_ownerbyindex,txt_tokenbyindex,
-            txt_ownerof,txt_getapproved,txt_isapprovedforall,txt_supportinterface,txt_totalsupply;
-    BottomSheetBehavior bottomSheetwriteMethods, bottomSheetreadMethods;
-    LinearLayout lin_writemethod, lin_readmethods;
-    Token721DetailsResponse tokenDetail;
-    WalletData user_wallet;
-    ImageView img_threedot,img_back20;
+    private TextView text_tokenbalance, xdc_transaction;
+    private BottomSheetBehavior bottomSheetwriteMethods, bottomSheetreadMethods;
+    private Token721DetailsResponse tokenDetail;
+    private WalletData user_wallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,65 +35,65 @@ public class XDC721Details extends AppCompatActivity implements View.OnClickList
         StrictMode.setThreadPolicy(policy);
         user_wallet = Utility.getProfile(XDC721Details.this);
         text_tokenbalance = findViewById(R.id.text_tokenbalance);
-        text_tokensymbol = findViewById(R.id.text_tokensymbol);
+        TextView text_tokensymbol = findViewById(R.id.text_tokensymbol);
 
-        lin_writemethod = findViewById(R.id.lin_writemethod);
-        lin_readmethods = findViewById(R.id.lin_readmethods);
-        img_back20 = findViewById(R.id.img_back20);
-        token_event = findViewById(R.id.token_event);
+        LinearLayout lin_writemethod = findViewById(R.id.lin_writemethod);
+        LinearLayout lin_readmethods = findViewById(R.id.lin_readmethods);
+        ImageView img_back20 = findViewById(R.id.img_back20);
+        TextView token_event = findViewById(R.id.token_event);
         xdc_transaction = findViewById(R.id.xdc_transaction);
-        img_threedot = findViewById(R.id.img_threedot);
+        ImageView img_threedot = findViewById(R.id.img_threedot);
         tokenDetail = Utility.getnftinfo(XDC721Details.this);
 
         text_tokensymbol.setText(tokenDetail.getSymbol());
 
 
-        txt_approve = findViewById(R.id.txt_approve);
-        txt_approve.setOnClickListener(this::onClick);
+        TextView txt_approve = findViewById(R.id.txt_approve);
+        txt_approve.setOnClickListener(this);
 
-        txt_setapprovalforall = findViewById(R.id.txt_setapprovalforall);
-        txt_setapprovalforall.setOnClickListener(this::onClick);
+        TextView txt_setapprovalforall = findViewById(R.id.txt_setapprovalforall);
+        txt_setapprovalforall.setOnClickListener(this);
 
-        txt_transferfrom = findViewById(R.id.txt_transferfrom);
-        txt_transferfrom.setOnClickListener(this::onClick);
+        TextView txt_transferfrom = findViewById(R.id.txt_transferfrom);
+        txt_transferfrom.setOnClickListener(this);
 
-        txt_safetransferfrom = findViewById(R.id.txt_safetransferfrom);
-        txt_safetransferfrom.setOnClickListener(this::onClick);
+        TextView txt_safetransferfrom = findViewById(R.id.txt_safetransferfrom);
+        txt_safetransferfrom.setOnClickListener(this);
 
 
 //read methods
-        txt_tokenuri = findViewById(R.id.txt_tokenuri);
-        txt_tokenuri.setOnClickListener(this::onClick);
+        TextView txt_tokenuri = findViewById(R.id.txt_tokenuri);
+        txt_tokenuri.setOnClickListener(this);
 
-        txt_balanceof = findViewById(R.id.txt_balanceof);
-        txt_balanceof.setOnClickListener(this::onClick);
-
-
-        txt_ownerbyindex = findViewById(R.id.txt_ownerbyindex);
-        txt_ownerbyindex.setOnClickListener(this::onClick);
+        TextView txt_balanceof = findViewById(R.id.txt_balanceof);
+        txt_balanceof.setOnClickListener(this);
 
 
-        txt_tokenbyindex = findViewById(R.id.txt_tokenbyindex);
-        txt_tokenbyindex.setOnClickListener(this::onClick);
+        TextView txt_ownerbyindex = findViewById(R.id.txt_ownerbyindex);
+        txt_ownerbyindex.setOnClickListener(this);
 
 
-        txt_ownerof = findViewById(R.id.txt_ownerof);
-        txt_ownerof.setOnClickListener(this::onClick);
+        TextView txt_tokenbyindex = findViewById(R.id.txt_tokenbyindex);
+        txt_tokenbyindex.setOnClickListener(this);
 
 
-        txt_getapproved = findViewById(R.id.txt_getapproved);
-        txt_getapproved.setOnClickListener(this::onClick);
+        TextView txt_ownerof = findViewById(R.id.txt_ownerof);
+        txt_ownerof.setOnClickListener(this);
 
 
-        txt_isapprovedforall = findViewById(R.id.txt_isapprovedforall);
-        txt_isapprovedforall.setOnClickListener(this::onClick);
+        TextView txt_getapproved = findViewById(R.id.txt_getapproved);
+        txt_getapproved.setOnClickListener(this);
 
 
-        txt_supportinterface = findViewById(R.id.txt_supportinterface);
-        txt_supportinterface.setOnClickListener(this::onClick);
+        TextView txt_isapprovedforall = findViewById(R.id.txt_isapprovedforall);
+        txt_isapprovedforall.setOnClickListener(this);
 
-        txt_totalsupply = findViewById(R.id.txt_totalsupply);
-        txt_totalsupply.setOnClickListener(this::onClick);
+
+        TextView txt_supportinterface = findViewById(R.id.txt_supportinterface);
+        txt_supportinterface.setOnClickListener(this);
+
+        TextView txt_totalsupply = findViewById(R.id.txt_totalsupply);
+        txt_totalsupply.setOnClickListener(this);
 
 
         bottomSheetwriteMethods = BottomSheetBehavior.from(lin_writemethod);
@@ -112,37 +101,27 @@ public class XDC721Details extends AppCompatActivity implements View.OnClickList
         bottomSheetreadMethods = BottomSheetBehavior.from(lin_readmethods);
         bottomSheetreadMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-        token_event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        token_event.setOnClickListener(v -> {
 
 
-                bottomSheetwriteMethods.setState(BottomSheetBehavior.STATE_EXPANDED);
-                bottomSheetreadMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
+            bottomSheetwriteMethods.setState(BottomSheetBehavior.STATE_EXPANDED);
+            bottomSheetreadMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-            }
         });
 
-        img_threedot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetwriteMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
-                bottomSheetreadMethods.setState(BottomSheetBehavior.STATE_EXPANDED);
-            }
+        img_threedot.setOnClickListener(v -> {
+            bottomSheetwriteMethods.setState(BottomSheetBehavior.STATE_HIDDEN);
+            bottomSheetreadMethods.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
-        img_back20.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        img_back20.setOnClickListener(v -> onBackPressed());
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        Intent intent = null;
+        Intent intent;
         switch (v.getId()) {
 
 
