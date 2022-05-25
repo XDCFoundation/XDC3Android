@@ -4,12 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.URLUtil;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,9 +23,7 @@ import com.XDCJava.Model.TokenDetailsResponse;
 import com.XDCJava.Model.WalletData;
 import com.google.gson.Gson;
 
-import java.io.ByteArrayOutputStream;
 import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,22 +32,16 @@ import java.util.regex.Pattern;
  * Created by Divyesh on 21-Jul-18.
  */
 
-public class Utility
-{
+public class Utility {
 
 
-    static Context context;
     public static ProgressDialog progress;
-
-    public static String accesstoken = null;
-    public static int SELECTED_TAB = 0;
-    static ProgressBar progressBar ;
-    public static boolean is_commentactivity_active = false;
-
+    static Context context;
+    static ProgressBar progressBar;
 
 
     public Utility(Context context) {
-        this.context = context;
+        Utility.context = context;
 
     }
 
@@ -87,9 +73,6 @@ public class Utility
     }
 
 
-
-
-
     public static void closeKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = activity.getCurrentFocus();
@@ -98,17 +81,6 @@ public class Utility
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     //for email pattern
@@ -126,32 +98,18 @@ public class Utility
     }
 
 
-
-
-
-
-
     public static void logE(Class tag, String message) {
         Log.e(tag.getSimpleName(), message);
     }
 
     public static void printUrl(Class tag, retrofit2.Call call) {
-        logE(tag, "URL : " + call.request().url().toString());
+        logE(tag, "URL : " + call.request().url());
     }
 
     public static void printUrlAndError(Class tag, retrofit2.Call call, Throwable throwable) {
-        logE(tag, "Fail URL : " + call.request().url().toString());
+        logE(tag, "Fail URL : " + call.request().url());
         logE(tag, "Error : " + throwable.getMessage());
     }
-
-
-
-
-
-
-
-
-
 
 
     public static long getCurrantTimeStamp() {
@@ -171,7 +129,6 @@ public class Utility
 
         return false;
     }
-
 
 
     public static void setProgressDialog(Context context) {
@@ -221,8 +178,6 @@ public class Utility
     }
 
 
-
-
     public static void hideProgressDialog(Context context) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
@@ -236,7 +191,7 @@ public class Utility
         String json = SharedPreferenceHelper.getSharedPreferenceString(context, "userprofile", "");
         hospitalprofile = gson.fromJson(json, WalletData.class);
 
-        return  hospitalprofile;
+        return hospitalprofile;
     }
 
 
@@ -247,7 +202,7 @@ public class Utility
         String json = SharedPreferenceHelper.getSharedPreferenceString(context, "tokeninfo", "");
         tokendetail = gson.fromJson(json, TokenDetailsResponse.class);
 
-        return  tokendetail;
+        return tokendetail;
     }
 
     public static Token721DetailsResponse getnftinfo(Context context) {
@@ -257,9 +212,8 @@ public class Utility
         String json = SharedPreferenceHelper.getSharedPreferenceString(context, "nftinfo", "");
         nftDetail = gson.fromJson(json, Token721DetailsResponse.class);
 
-        return  nftDetail;
+        return nftDetail;
     }
-
 
 
 }

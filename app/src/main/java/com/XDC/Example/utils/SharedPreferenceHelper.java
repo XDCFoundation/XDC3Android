@@ -34,14 +34,7 @@ public class SharedPreferenceHelper {
             if (value.equals(entry.getKey()))
             {
                 // the value exits;
-                if(entry.getValue().toString()!=null && entry.getValue().toString().length()>0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return entry.getValue().toString() != null && entry.getValue().toString().length() > 0;
 
             }
         }

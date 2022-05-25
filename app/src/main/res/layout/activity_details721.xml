@@ -236,7 +236,6 @@
 
 
             <View
-                android:id="@+id/tokenuri_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/decimals"
@@ -251,7 +250,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/token_uri"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/decimals_divider"
@@ -284,7 +282,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tokenadd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -324,7 +321,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tokenuri_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -383,7 +379,6 @@
 
 
             <View
-                android:id="@+id/total_supply_devider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/total_supply"
@@ -434,7 +429,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/total_supply_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -541,7 +535,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/balance_spenfer_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -596,7 +589,6 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/balance_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/total_supply"
@@ -614,7 +606,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tokenbyindex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -648,7 +639,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tokenbyindex__add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -687,7 +677,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tokenby_index"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -744,7 +733,6 @@
 
 
             <View
-                android:id="@+id/tokenindex_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/total_supply"
@@ -762,7 +750,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tokenownerbyindex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -929,7 +916,6 @@
 
 
             <View
-                android:id="@+id/ownery_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/total_supply"
@@ -947,7 +933,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/owneroff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -981,7 +966,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/token_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -1036,7 +1020,6 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/support_interface_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/total_supply"
@@ -1054,7 +1037,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/supporitn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -1088,7 +1070,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/interface_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -1143,7 +1124,6 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/getappov"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/total_supply"
@@ -1161,7 +1141,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/getappo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -1195,7 +1174,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/apptoken_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total_supply_divider"
@@ -1281,7 +1259,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/approve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/transfer_divider"
@@ -1358,7 +1335,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/approve_token_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/total_supply_divider"
@@ -1505,7 +1481,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/approveforall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/transfer_divider"
@@ -1615,7 +1590,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/setapproveforall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/transfer_divider"
@@ -1692,7 +1666,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/set_App_boolean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/total_supply_divider"
@@ -1840,7 +1813,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/safeTransferFrom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/transfer_divider"
@@ -1917,7 +1889,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/safetr_token_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/total_supply_divider"
@@ -1994,7 +1965,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/safetr_token_gas_limit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/total_supply_divider"
@@ -2064,7 +2034,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/transferFrom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/transfer_divider"
@@ -2141,7 +2110,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tr_token_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/total_supply_divider"

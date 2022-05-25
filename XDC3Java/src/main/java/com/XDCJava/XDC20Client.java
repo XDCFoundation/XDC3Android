@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
@@ -84,13 +85,9 @@ public class XDC20Client {
                 HttpService(AppConstants.BASE_URL));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
-                //Connected
-                return true;
-            } else {
-                //Show Error
-                return false;
-            }
+            //Connected
+            //Show Error
+            return !clientVersion.hasError();
         } catch (
                 Exception e) {
             //Show Error
@@ -101,8 +98,6 @@ public class XDC20Client {
     public void generateWallet(File walletDirectory, String Password, CreateAccountCallback createAccountCallback) {
 
         try {
-
-
             Bip39Wallet walletName = WalletUtils.generateBip39Wallet(Password, walletDirectory);
             System.out.println("wallet location: " + walletDirectory + "/" + walletName);
             Credentials credentials = WalletUtils.loadBip39Credentials(Password, walletName.getMnemonic());
@@ -119,151 +114,26 @@ public class XDC20Client {
 
 
             WalletData walletData = new WalletData();
-            ///  accountAddress = accountAddress.replace("0x", "xdc");
             walletData.setAccountAddress(accountAddress);
             walletData.setPrivateKey(privateKey);
             walletData.setPublickeyKey(publickeyKey);
             walletData.setSeedPhrase(seedPhrase);
-
 
             createAccountCallback.success(walletData);
-
-
-
-           /* Bip39Wallet walletName = WalletUtils.generateBip39Wallet(Password, walletDirectory);
-
-            Bip32ECKeyPair masterKeypair = Bip32ECKeyPair.generateKeyPair(MnemonicUtils.generateSeed(walletName.getMnemonic(), Password));
-
-// custom derivation path
-            int[] derivationPath = {44 | Bip32ECKeyPair.HARDENED_BIT, 60 | Bip32ECKeyPair.HARDENED_BIT, 0 | Bip32ECKeyPair.HARDENED_BIT, 0, 0};
-
-// Derived the key using the derivation path
-            Bip32ECKeyPair derivedKeyPair = Bip32ECKeyPair.deriveKeyPair(masterKeypair, derivationPath);
-
-// Load the wallet for the derived key
-            Credentials credentials = Credentials.create(derivedKeyPair);
-
-            String accountAddress = credentials.getAddress();
-            System.out.println("Account address: " + accountAddress);
-
-            ECKeyPair ecKeyPair = credentials.getEcKeyPair();
-            String privateKey = ecKeyPair.getPrivateKey().toString(16);
-            String publickeyKey = ecKeyPair.getPublicKey().toString(16);
-            System.out.println("privateKey: " + ecKeyPair.getPrivateKey());
-            System.out.println("sPrivatekeyInHex: " + privateKey+"........."+"seeds: "+walletName.getMnemonic());
-
-            String seedPhrase = walletName.getMnemonic();
-
-
-            WalletData walletData = new WalletData();
-            ///  accountAddress = accountAddress.replace("0x", "xdc");
-            walletData.setAccountAddress(accountAddress);
-            walletData.setPrivateKey(privateKey);
-            walletData.setPublickeyKey(publickeyKey);
-            walletData.setSeedPhrase(seedPhrase);
-
-
-            createAccountCallback.success(walletData);*/
-
-            /*String seedPhrase = walletName.getMnemonic();
-+
-+            Credentials restoreCredentials = WalletUtils.loadBip39Credentials("1234567890",
-+                    seedPhrase);
-+            ECKeyPair restoredPrivateKey = restoreCredentials.getEcKeyPair();
-+            String restoredAccountAddress = restoreCredentials.getAddress();*/
-
-            /*setupBouncyCastle();
-
-            WalletFile walletFile;
-            ECKeyPair ecKeyPair = Keys.createEcKeyPair();
-            walletFile = Wallet.createStandard(Password, ecKeyPair);
-            System.out.println("address " + walletFile.getAddress());
-            ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
-            String jsonStr = objectMapper.writeValueAsString(walletFile);
-            System.out.println("keystore json file " + jsonStr);*/
-
-
-
-
-           /* NetworkParameters params = TestNet3Params.get();
-            Wallet wallet = Wallet.createDeterministic(params, Script.ScriptType.P2PKH);
-
-            DeterministicSeed seed = wallet.getKeyChainSeed();
-            //masterKey = HDKeyDerivation.createMasterPrivateKey(seed);
-            System.out.println("seed: " + seed.toString());
-
-            System.out.println("creation time: " + seed.getCreationTimeSeconds());
-            System.out.println("mnemonicCode: " + seed.getMnemonicCode());*/
-
-
-           /* int entropyLen = 16;
-            byte[] entropy = new byte[entropyLen];
-            SecureRandom random = new SecureRandom();
-            random.nextBytes(entropy);
-            List<String> words = MnemonicCode.INSTANCE.toMnemonic(entropy);
-            @SuppressWarnings("NewApi")
-            String mnemonic = join(" ", words);
-            String passphrase = "";
-            byte seed[] = MnemonicCode.toSeed(words, mnemonic);
-            DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(seed);
-            List<ChildNumber> keyPath = HDUtils.parsePath("44H/0H/0H");
-            DeterministicHierarchy hierarchy = new DeterministicHierarchy(masterKey);
-            DeterministicKey walletKey = hierarchy.get(keyPath, false, true);
-            walletKey.getPrivKey();
-            System.out.println("getPrivKey: " + walletKey.getPrivKey());
-            System.out.println("seed: " + words);
-            Credentials credentials = Credentials.create(walletKey.getPrivKey().toString());
-            System.out.println("seed: " + credentials.getAddress());*/
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
 
-    public void importWallet(String seedPhrase, String Password, File path, CreateAccountCallback createAccountCallback) {
+    public void importWallet(String seedPhrase, String Password, CreateAccountCallback createAccountCallback) {
 
         try {
-
-
-            // Bip39Wallet walletName = WalletUtils.generateBip39WalletFromMnemonic(Password,seedPhrase, path);
-
             Credentials credentials = WalletUtils.loadBip39Credentials(Password, seedPhrase);
             String accountAddress = credentials.getAddress();
             System.out.println("Account address: " + accountAddress);
 
-           /* Credentials restoreCredentials = WalletUtils.loadBip39Credentials(Password,
-                    seedPhrase);
-            ECKeyPair restoredPrivateKey = restoreCredentials.getEcKeyPair();
-            String restoredAccountAddress = restoreCredentials.getAddress();
-
-
-
-
             WalletData walletData = new WalletData();
-            //   restoredAccountAddress = restoredAccountAddress.replace("0x", "xdc");
-            walletData.setAccountAddress(restoredAccountAddress);
-            walletData.setPrivateKey(restoredPrivateKey.getPrivateKey().toString(16));
-            walletData.setPublickeyKey(restoredPrivateKey.getPublicKey().toString(16));
-            walletData.setSeedPhrase(seedPhrase);
-*/
-
-          /*  Bip32ECKeyPair masterKeypair = Bip32ECKeyPair.generateKeyPair(MnemonicUtils.generateSeed(seedPhrase, Password));
-
-// custom derivation path
-            int[] derivationPath = {44 | Bip32ECKeyPair.HARDENED_BIT, 60 | Bip32ECKeyPair.HARDENED_BIT, 0 | Bip32ECKeyPair.HARDENED_BIT, 0, 0};
-
-// Derived the key using the derivation path
-            Bip32ECKeyPair derivedKeyPair = Bip32ECKeyPair.deriveKeyPair(masterKeypair, derivationPath);
-
-// Load the wallet for the derived key
-            Credentials credentials = Credentials.create(derivedKeyPair);*/
-
-            WalletData walletData = new WalletData();
-            //   restoredAccountAddress = restoredAccountAddress.replace("0x", "xdc");
             walletData.setAccountAddress(credentials.getAddress());
             walletData.setPrivateKey(credentials.getEcKeyPair().getPrivateKey().toString(16));
             walletData.setPublickeyKey(credentials.getEcKeyPair().getPublicKey().toString(16));
@@ -396,24 +266,10 @@ public class XDC20Client {
 
     /**
      * @param owner_address The address to query the XDC balance
-     * @return An uint256 representing the amount owned by the passed address.
+     * @return BigInteger representing the amount owned by the passed address.
      * @dev Gets the balance of the specified address.
      */
 
-    //Hardik - 04-04-2022 (for XS-945) - change the return type as string is not a proper return type for get balance api.
-    /*public String getXdcBalance(String owner_address) {
-        if (isWeb3jConnected()) {
-            try {
-                EthGetBalance balance = web3.ethGetBalance(owner_address, DefaultBlockParameterName.LATEST).send();
-                return String.valueOf(converHexToDecimal(balance.getBalance()));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return String.valueOf(e.getMessage());
-            }
-        } else {
-            return "check your connection";
-        }
-    }*/
     public BigInteger getXdcBalance(String owner_address) throws IOException {
         if (isWeb3jConnected()) {
             try {
@@ -430,19 +286,19 @@ public class XDC20Client {
     public void getinfo(XRC20 javaToken, String token_address, TokenDetailCallback tokenDetailCallback) {
         try {
 
-            /**
+            /*
              * @return the symbol of the token.
              */
             String symbol = javaToken.symbol().send();
-            /**
+            /*
              * @return Total number of tokens in existence
              */
             BigInteger totalSupply = converHexToDecimal(javaToken.totalSupply().send());
-            /**
+            /*
              * @return the name of the token.
              */
             String name = javaToken.name().send();
-            /**
+            /*
              * @return the number of decimals of the token.
              */
             BigInteger decimal = javaToken.decimals().send();
@@ -471,9 +327,8 @@ public class XDC20Client {
      * @param FROM_ADDRESS            The address from XDC need to transfer.
      * @param TO_ADDRESS              The address to transfer to.
      * @param value                   The amount to be transferred.
-     * @param eventCallback
+     * @param eventCallback           Callback to the method.
      * @dev Transfer XDC for a specified address
-     * @para
      */
     @SuppressWarnings("NewApi")
     public void TransferXdc(String PRIVATE_KEY_TRANSACTION, String FROM_ADDRESS, String TO_ADDRESS,
@@ -490,16 +345,12 @@ public class XDC20Client {
                         ethGetTransactionCount = web3.ethGetTransactionCount(
                                 FROM_ADDRESS, DefaultBlockParameterName.LATEST).sendAsync().get();
                     } catch (
-                            ExecutionException e) {
-                        e.printStackTrace();
-                        eventCallback.failure(e.getMessage());
-                    } catch (
-                            InterruptedException e) {
+                            ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                         eventCallback.failure(e.getMessage());
                     }
 
-                    BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+                    BigInteger nonce = Objects.requireNonNull(ethGetTransactionCount).getTransactionCount();
                     if (gasPrice.signum() <= 0) {
                         gasPrice = getGasPrice();
                     }
@@ -825,10 +676,10 @@ public class XDC20Client {
             //XRC20 token contract method
             final Function function = new Function(
                     "transferFrom",
-                    Arrays.<Type>asList(new Address(spender_address),
+                    Arrays.asList(new Address(spender_address),
                             new Address(to_address),
                             new Uint256(BigInteger.valueOf(Long.parseLong(value)))),
-                    Collections.<TypeReference<?>>emptyList());
+                    Collections.emptyList());
 
 
             //Create RawTransaction transaction object
@@ -872,25 +723,4 @@ public class XDC20Client {
         return hexValue.divide(hexvalue);
 
     }
-
-
-   /* private void setupBouncyCastle() {
-        final Provider provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
-        if (provider == null) {
-            // Web3j will set up the provider lazily when it's first used.
-            return;
-        }
-        if (provider.getClass().equals(BouncyCastleProvider.class)) {
-            // BC with same package name, shouldn't happen in real life.
-            return;
-        }
-        // Android registers its own BC provider. As it might be outdated and might not include
-        // all needed ciphers, we substitute it with a known BC bundled in the app.
-        // Android's BC has its package rewritten to "com.android.org.bouncycastle" and because
-        // of that it's possible to have another BC implementation loaded in VM.
-        Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
-        Security.insertProviderAt(new BouncyCastleProvider(), 1);
-    }
-*/
-
 }

@@ -40,8 +40,8 @@ public class XRC165 extends Contract {
     public RemoteCall<Boolean> supportsInterface(byte[] interfaceID)
     {
         final Function function = new Function(FUNC_SUPPORTSINTERFACE, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes4(interfaceID)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
+                Arrays.asList(new org.web3j.abi.datatypes.generated.Bytes4(interfaceID)),
+                Arrays.asList(new TypeReference<Bool>() {}));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 

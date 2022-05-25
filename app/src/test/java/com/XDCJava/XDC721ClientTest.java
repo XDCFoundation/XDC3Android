@@ -120,7 +120,7 @@ public class XDC721ClientTest extends TestCase {
 
     public void testApprove() {
         try {
-            String approve = XDC721Client.instance.approve(Config721.TOKEN_READ, Config721.TOKEN_READ_PRIVATE_KEY, Config721.TOKEN_READ_ID, Config721.OWNER_ADDRESS);
+            String approve = XDC721Client.approve(Config721.TOKEN_READ, Config721.TOKEN_READ_PRIVATE_KEY, Config721.TOKEN_READ_ID, Config721.OWNER_ADDRESS);
             System.out.println("testApprove: " + approve);
             assertNotNull(approve);
         } catch (Exception e) {
