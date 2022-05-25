@@ -53,16 +53,13 @@ public class XRC721 extends Contract {
     public static final String FUNC_ISAPPROVEDFORALL = "isApprovedForAll";
 
     public static final Event TRANSFER_EVENT = new Event("Transfer", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>(true) {}));
-    ;
+            Arrays.asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>(true) {}));
 
     public static final Event APPROVAL_EVENT = new Event("Approval", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>(true) {}));
-    ;
+            Arrays.asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>(true) {}));
 
     public static final Event APPROVALFORALL_EVENT = new Event("ApprovalForAll", 
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Bool>() {}));
-    ;
+            Arrays.asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Bool>() {}));
 
     @Deprecated
     protected XRC721(String binary, String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
@@ -111,12 +108,12 @@ public class XRC721 extends Contract {
 
 
     public static RemoteCall<XRC721> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider, String ensAddr) {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(ensAddr)));
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(new org.web3j.abi.datatypes.Address(ensAddr)));
         return deployRemoteCall(XRC721.class, web3j, credentials, contractGasProvider, BINARY, encodedConstructor);
     }
 
     public static RemoteCall<XRC721> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider, String ensAddr) {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(ensAddr)));
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(new org.web3j.abi.datatypes.Address(ensAddr)));
         return deployRemoteCall(XRC721.class, web3j, transactionManager, contractGasProvider, BINARY, encodedConstructor);
     }
 
@@ -128,14 +125,14 @@ public class XRC721 extends Contract {
 
     @Deprecated
     public static RemoteCall<XRC721> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit, String ensAddr) {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(ensAddr)));
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(new org.web3j.abi.datatypes.Address(ensAddr)));
         return deployRemoteCall(XRC721.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, encodedConstructor);
     }
 
     public static RemoteCall<XRC721> deploy(Web3j web3, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialSupply,
                                             String tokenName,String tokenSymbol,BigInteger tokendecimals)
     {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(
                 new org.web3j.abi.datatypes.generated.Uint8(0),
                 new org.web3j.abi.datatypes.Utf8String(tokenName),
                 new org.web3j.abi.datatypes.Utf8String(tokenSymbol),
@@ -146,8 +143,8 @@ public class XRC721 extends Contract {
 
     public RemoteCall<BigInteger> totalSupply() {
         final Function function = new Function(FUNC_TOTALSUPPLY,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
@@ -155,17 +152,17 @@ public class XRC721 extends Contract {
 
     public RemoteCall<String> getApproved(BigInteger _tokenId) {
         final Function function = new Function(FUNC_GETAPPROVED, 
-                Arrays.<Type>asList(new Uint256(_tokenId)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
+                Arrays.asList(new Uint256(_tokenId)),
+                Arrays.asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteCall<TransactionReceipt> approve(String _approved, BigInteger _tokenId, BigInteger weiValue) {
         final Function function = new Function(
                 FUNC_APPROVE, 
-                Arrays.<Type>asList(new Address(_approved),
+                Arrays.asList(new Address(_approved),
                 new Uint256(_tokenId)),
-                Collections.<TypeReference<?>>emptyList());
+                Collections.emptyList());
         return executeRemoteCallTransaction(function, weiValue);
     }
 
@@ -175,10 +172,10 @@ public class XRC721 extends Contract {
     {
         final Function function = new Function(
                 MINT,
-                Arrays.<Type>asList(new Address(to),
+                Arrays.asList(new Address(to),
                         new Uint256(_tokenId),
                         new Utf8String(uri))
-                ,Collections.<TypeReference<?>>emptyList());
+                ,Collections.emptyList());
         return executeRemoteCallTransaction(function, weiValue);
     }
 
@@ -186,62 +183,62 @@ public class XRC721 extends Contract {
     public RemoteCall<TransactionReceipt> transferFrom(String _from, String _to, BigInteger _tokenId, BigInteger weiValue) {
         final Function function = new Function(
                 FUNC_TRANSFERFROM, 
-                Arrays.<Type>asList(new Address(_from),
+                Arrays.asList(new Address(_from),
                 new Address(_to),
                 new Uint256(_tokenId)),
-                Collections.<TypeReference<?>>emptyList());
+                Collections.emptyList());
         return executeRemoteCallTransaction(function, weiValue);
     }
 
     public RemoteCall<TransactionReceipt> safeTransferFrom(String _from, String _to, BigInteger _tokenId, BigInteger weiValue) {
         final Function function = new Function(
                 FUNC_SAFETRANSFERFROM, 
-                Arrays.<Type>asList(new Address(_from),
+                Arrays.asList(new Address(_from),
                 new Address(_to),
                 new Uint256(_tokenId)),
-                Collections.<TypeReference<?>>emptyList());
+                Collections.emptyList());
         return executeRemoteCallTransaction(function, weiValue);
     }
 
     public RemoteCall<String> ownerOf(BigInteger _tokenId) {
         final Function function = new Function(FUNC_OWNEROF, 
-                Arrays.<Type>asList(new Uint256(_tokenId)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
+                Arrays.asList(new Uint256(_tokenId)),
+                Arrays.asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteCall<BigInteger> balanceOf(String _owner) {
         final Function function = new Function(FUNC_BALANCEOF, 
-                Arrays.<Type>asList(new Address(_owner)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new Address(_owner)),
+                Arrays.asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<TransactionReceipt> setApprovalForAll(String _operator, Boolean _approved) {
         final Function function = new Function(
                 FUNC_SETAPPROVALFORALL, 
-                Arrays.<Type>asList(new Address(_operator),
+                Arrays.asList(new Address(_operator),
                 new Bool(_approved)),
-                Collections.<TypeReference<?>>emptyList());
+                Collections.emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteCall<TransactionReceipt> safeTransferFrom(String _from, String _to, BigInteger _tokenId, byte[] data, BigInteger weiValue) {
         final Function function = new Function(
                 FUNC_SAFETRANSFERFROM, 
-                Arrays.<Type>asList(new Address(_from),
+                Arrays.asList(new Address(_from),
                 new Address(_to),
                 new Uint256(_tokenId),
                 new org.web3j.abi.datatypes.DynamicBytes(data)), 
-                Collections.<TypeReference<?>>emptyList());
+                Collections.emptyList());
         return executeRemoteCallTransaction(function, weiValue);
     }
 
     public RemoteCall<Boolean> isApprovedForAll(String _owner, String _operator) {
         final Function function = new Function(FUNC_ISAPPROVEDFORALL, 
-                Arrays.<Type>asList(new Address(_owner),
+                Arrays.asList(new Address(_owner),
                 new Address(_operator)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
+                Arrays.asList(new TypeReference<Bool>() {}));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 

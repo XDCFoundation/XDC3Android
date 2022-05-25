@@ -62,23 +62,23 @@ public class XRC721Enumerable extends Contract
 
      public RemoteCall<BigInteger> totalSupply() {
         final Function function = new Function(FUNC_TOTALSUPPLY, 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<BigInteger> tokenOfOwnerByIndex(String _owner, BigInteger _index) {
         final Function function = new Function(FUNC_TOKENOFOWNERBYINDEX, 
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(_owner), 
+                Arrays.asList(new org.web3j.abi.datatypes.Address(_owner),
                 new Uint256(_index)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<BigInteger> tokenByIndex(BigInteger _index) {
         final Function function = new Function(FUNC_TOKENBYINDEX, 
-                Arrays.<Type>asList(new Uint256(_index)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new Uint256(_index)),
+                Arrays.asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 

@@ -57,32 +57,32 @@ public final class Greeter extends XRC721
     public RemoteCall<Uint256> deposits() throws IOException
     {
         Function function = new Function("deposits",
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Uint256>() {}));
         return executeCallSingleValueReturn(function);
 
     }
 
     public TransactionReceipt kill() throws IOException, TransactionException {
-        Function function = new Function("kill", Arrays.<Type>asList(), Collections.<TypeReference<?>>emptyList());
+        Function function = new Function("kill", Arrays.asList(), Collections.emptyList());
         return executeTransaction(function);
     }
 
     public RemoteCall<Utf8String> greet() throws IOException
     {
         Function function = new Function("greet",
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
+                Arrays.asList(),
+                Arrays.asList(new TypeReference<Utf8String>() {}));
         return executeCallSingleValueReturn(function);
     }
 
     public static RemoteCall<Greeter> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialValue, Utf8String name, Utf8String symbol) throws TransactionException {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(name,symbol));
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(name,symbol));
         return deployRemoteCall(Greeter.class, web3j, credentials, gasPrice, gasLimit, BINARY, encodedConstructor, initialValue);
     }
 
     public static RemoteCall<Greeter> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialValue, Utf8String _greeting) {
-        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.<Type>asList(_greeting));
+        String encodedConstructor = FunctionEncoder.encodeConstructor(Arrays.asList(_greeting));
         return deployRemoteCall(Greeter.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, encodedConstructor, initialValue);
     }
 

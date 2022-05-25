@@ -21,12 +21,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class XDC20Details extends AppCompatActivity implements View.OnClickListener {
 
-    TextView text_tokenbalance, txt_balanceof,txt_allownce,text_tokensymbol,xdc_transaction, token_event, txt_decreaseallownce, txt_increaseallownce, txt_transfer, txt_transferfrom, txt_approve;
-    BottomSheetBehavior bottomSheetwriteMethods,bottomSheetreadMethods;
-    LinearLayout lin_writemethod,lin_readmethods;
-    TokenDetailsResponse tokenDetail;
-    WalletData user_wallet;
-    ImageView img_threedot,img_back20;
+    private TextView text_tokenbalance;
+    private TextView xdc_transaction;
+    private BottomSheetBehavior bottomSheetwriteMethods,bottomSheetreadMethods;
+    private TokenDetailsResponse tokenDetail;
+    private WalletData user_wallet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,35 +36,35 @@ public class XDC20Details extends AppCompatActivity implements View.OnClickListe
         StrictMode.setThreadPolicy(policy);
         user_wallet = Utility.getProfile(XDC20Details.this);
         text_tokenbalance = findViewById(R.id.text_tokenbalance);
-        text_tokensymbol = findViewById(R.id.text_tokensymbol);
-        lin_writemethod = findViewById(R.id.lin_writemethod);
-        lin_readmethods = findViewById(R.id.lin_readmethods);
-        token_event = findViewById(R.id.token_event);
+        TextView text_tokensymbol = findViewById(R.id.text_tokensymbol);
+        LinearLayout lin_writemethod = findViewById(R.id.lin_writemethod);
+        LinearLayout lin_readmethods = findViewById(R.id.lin_readmethods);
+        TextView token_event = findViewById(R.id.token_event);
         xdc_transaction = findViewById(R.id.xdc_transaction);
-        img_threedot = findViewById(R.id.img_threedot);
+        ImageView img_threedot = findViewById(R.id.img_threedot);
         tokenDetail = Utility.gettokeninfo(XDC20Details.this);
-        img_back20 = findViewById(R.id.img_back20);
+        ImageView img_back20 = findViewById(R.id.img_back20);
         text_tokensymbol.setText(tokenDetail.getSymbol());
 
-        txt_decreaseallownce = findViewById(R.id.txt_decreaseallownce);
+        TextView txt_decreaseallownce = findViewById(R.id.txt_decreaseallownce);
         txt_decreaseallownce.setOnClickListener(this::onClick);
 
-        txt_increaseallownce = findViewById(R.id.txt_increaseallownce);
+        TextView txt_increaseallownce = findViewById(R.id.txt_increaseallownce);
         txt_increaseallownce.setOnClickListener(this::onClick);
 
-        txt_transfer = findViewById(R.id.txt_transfer);
+        TextView txt_transfer = findViewById(R.id.txt_transfer);
         txt_transfer.setOnClickListener(this::onClick);
 
-        txt_transferfrom = findViewById(R.id.txt_transferfrom);
+        TextView txt_transferfrom = findViewById(R.id.txt_transferfrom);
         txt_transferfrom.setOnClickListener(this::onClick);
 
-        txt_approve = findViewById(R.id.txt_approve);
+        TextView txt_approve = findViewById(R.id.txt_approve);
         txt_approve.setOnClickListener(this::onClick);
 
-        txt_balanceof = findViewById(R.id.txt_balanceof);
+        TextView txt_balanceof = findViewById(R.id.txt_balanceof);
         txt_balanceof.setOnClickListener(this::onClick);
 
-        txt_allownce = findViewById(R.id.txt_allownce);
+        TextView txt_allownce = findViewById(R.id.txt_allownce);
         txt_allownce.setOnClickListener(this::onClick);
 
         bottomSheetwriteMethods = BottomSheetBehavior.from(lin_writemethod);
@@ -91,12 +91,7 @@ public class XDC20Details extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        img_back20.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        img_back20.setOnClickListener(v -> onBackPressed());
 
     }
 

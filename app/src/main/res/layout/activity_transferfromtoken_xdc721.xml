@@ -54,7 +54,6 @@
                 android:layout_marginLeft="@dimen/margin_50"
                 android:layout_marginRight="@dimen/margin_50"
                 android:layout_marginTop="20dp"
-                android:id="@+id/text_detail"
                 android:gravity="center"
                 android:padding="@dimen/padding_5"
                 android:background="@drawable/edit_text_border1"

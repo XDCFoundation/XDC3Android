@@ -1,5 +1,6 @@
 package com.XDC.Example;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,6 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
             getapproved_value, isapprovedForAll_value, setapprovedForAll_value,
             safeTransferFrom_trasactonhash, transferFrom_trasactonhash, token_Uri_value,
             tokenbyindex_value, tokenownerbyindex_value;
-    private BigInteger dec_bal, dec_supply;
     private Token721DetailsResponse tokenResponse = new Token721DetailsResponse();
 
     private EditText edt_tokenid, edt_balance_spender,
@@ -38,19 +38,14 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
             edt_token_address, edt_token_uri_tokenid, tokenbyindex_address,
             edt_tokenby_index_value, edt_tokenbyownerindex_address, edt_owner_index_address,
             edt_tokenownerby_index_value, edt_total_supply_token;
-    private Button submit_ownerof, check_address, submit_balanceof, submit_interface,
-            submit_approve, submit_getapproved, submit_isapprovedforall, submit_setapprovedforall,
-            submit_safetrans, submit_trans, submit_tokenuri, submit_tokenby_index,
-            submit_tokenownerby_index, submit_total_supply;
-    private BigInteger gasPrice, gasLimit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details721);
 
-        gasPrice = XDC721Client.getInstance().getGasPrice();
-        gasLimit = XDC721Client.getInstance().getGasLimit();
+        BigInteger gasPrice = XDC721Client.getInstance().getGasPrice();
+        BigInteger gasLimit = XDC721Client.getInstance().getGasLimit();
 
         xdc_address_value = findViewById(R.id.xdc_address_value);
         name_value = findViewById(R.id.name_value);
@@ -58,21 +53,21 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         balance_off_value = findViewById(R.id.balance_off_value);
 
         edt_privatekey = findViewById(R.id.edt_privatekey);
-        check_address = findViewById(R.id.submit);
+        Button check_address = findViewById(R.id.submit);
         edt_contract_address = findViewById(R.id.edt_contract_address);
 
-        submit_balanceof = findViewById(R.id.submit_balanceof);
-        submit_balanceof.setOnClickListener(this::onClick);
+        Button submit_balanceof = findViewById(R.id.submit_balanceof);
+        submit_balanceof.setOnClickListener(this);
         edt_balance_spender = findViewById(R.id.edt_balance_spender);
 
         ownerof_value = findViewById(R.id.ownerof_value);
         edt_tokenid = findViewById(R.id.edt_tokenid);
-        submit_ownerof = findViewById(R.id.submit_ownerof);
-        submit_ownerof.setOnClickListener(this::onClick);
+        Button submit_ownerof = findViewById(R.id.submit_ownerof);
+        submit_ownerof.setOnClickListener(this);
 
 
-        submit_interface = findViewById(R.id.submit_interface);
-        submit_interface.setOnClickListener(this::onClick);
+        Button submit_interface = findViewById(R.id.submit_interface);
+        submit_interface.setOnClickListener(this);
         edt_interfaceID = findViewById(R.id.edt_interfaceID);
         is_Supoortinterface = findViewById(R.id.is_Supoortinterface);
 
@@ -81,18 +76,18 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         etApproveGasPrice = findViewById(R.id.etApproveGasPrice);
         etApproveGasLimit = findViewById(R.id.etApproveGasLimit);
 
-        submit_approve = findViewById(R.id.submit_approve);
-        submit_approve.setOnClickListener(this::onClick);
+        Button submit_approve = findViewById(R.id.submit_approve);
+        submit_approve.setOnClickListener(this);
         approve_trasactonhash = findViewById(R.id.approve_trasactonhash);
 
         getapproved_value = findViewById(R.id.getapproved_value);
         edt_getapprove_tokenid = findViewById(R.id.edt_getapprove_tokenid);
-        submit_getapproved = findViewById(R.id.submit_getapproved);
-        submit_getapproved.setOnClickListener(this::onClick);
+        Button submit_getapproved = findViewById(R.id.submit_getapproved);
+        submit_getapproved.setOnClickListener(this);
 
         isapprovedForAll_value = findViewById(R.id.isapprovedForAll_value);
-        submit_isapprovedforall = findViewById(R.id.submit_isapprovedforall);
-        submit_isapprovedforall.setOnClickListener(this::onClick);
+        Button submit_isapprovedforall = findViewById(R.id.submit_isapprovedforall);
+        submit_isapprovedforall.setOnClickListener(this);
         edt_isapproveforall_spender = findViewById(R.id.edt_isapproveforall_spender);
 
         setapprovedForAll_value = findViewById(R.id.setapprovedForAll_value);
@@ -101,8 +96,8 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         etSetApproveForAllGasLimit = findViewById(R.id.etSetApproveForAllGasLimit);
 
         edt_setapproveforall_spender = findViewById(R.id.edt_setapproveforall_spender);
-        submit_setapprovedforall = findViewById(R.id.submit_setapprovedforall);
-        submit_setapprovedforall.setOnClickListener(this::onClick);
+        Button submit_setapprovedforall = findViewById(R.id.submit_setapprovedforall);
+        submit_setapprovedforall.setOnClickListener(this);
 
 
         safeTransferFrom_trasactonhash = findViewById(R.id.safeTransferFrom_trasactonhash);
@@ -111,8 +106,8 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         etSafeTransferFromGasPrice = findViewById(R.id.etSafeTransferFromGasPrice);
         etSafeTransferFromGasLimit = findViewById(R.id.etSafeTransferFromGasLimit);
 
-        submit_safetrans = findViewById(R.id.submit_safetrans);
-        submit_safetrans.setOnClickListener(this::onClick);
+        Button submit_safetrans = findViewById(R.id.submit_safetrans);
+        submit_safetrans.setOnClickListener(this);
 
         transferFrom_trasactonhash = findViewById(R.id.transferFrom_trasactonhash);
         edt_transferFrom_spender = findViewById(R.id.edt_transferFrom_spender);
@@ -141,35 +136,35 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         etSafeTransferFromGasLimit.setOnFocusChangeListener(this);
         etTransferFromGasLimit.setOnFocusChangeListener(this);
 
-        submit_trans = findViewById(R.id.submit_trans);
-        submit_trans.setOnClickListener(this::onClick);
+        Button submit_trans = findViewById(R.id.submit_trans);
+        submit_trans.setOnClickListener(this);
 
         token_Uri_value = findViewById(R.id.token_Uri_value);
         edt_token_address = findViewById(R.id.edt_token_address);
         edt_token_uri_tokenid = findViewById(R.id.edt_token_uri_tokenid);
-        submit_tokenuri = findViewById(R.id.submit_tokenuri);
-        submit_tokenuri.setOnClickListener(this::onClick);
+        Button submit_tokenuri = findViewById(R.id.submit_tokenuri);
+        submit_tokenuri.setOnClickListener(this);
 
 
         tokenbyindex_value = findViewById(R.id.tokenbyindex_value);
         tokenbyindex_address = findViewById(R.id.tokenbyindex_address);
         edt_tokenby_index_value = findViewById(R.id.edt_tokenby_index_value);
-        submit_tokenby_index = findViewById(R.id.submit_tokenby_index);
-        submit_tokenby_index.setOnClickListener(this::onClick);
+        Button submit_tokenby_index = findViewById(R.id.submit_tokenby_index);
+        submit_tokenby_index.setOnClickListener(this);
 
 
         tokenownerbyindex_value = findViewById(R.id.tokenownerbyindex_value);
         edt_tokenbyownerindex_address = findViewById(R.id.edt_tokenbyownerindex_address);
         edt_owner_index_address = findViewById(R.id.edt_owner_index_address);
         edt_tokenownerby_index_value = findViewById(R.id.edt_tokenownerby_index_value);
-        submit_tokenownerby_index = findViewById(R.id.submit_tokenownerby_index);
-        submit_tokenownerby_index.setOnClickListener(this::onClick);
+        Button submit_tokenownerby_index = findViewById(R.id.submit_tokenownerby_index);
+        submit_tokenownerby_index.setOnClickListener(this);
 
 
         total_supply_value = findViewById(R.id.total_supply_value);
         edt_total_supply_token = findViewById(R.id.edt_total_supply_token);
-        submit_total_supply = findViewById(R.id.submit_total_supply);
-        submit_total_supply.setOnClickListener(this::onClick);
+        Button submit_total_supply = findViewById(R.id.submit_total_supply);
+        submit_total_supply.setOnClickListener(this);
         if (getIntent().hasExtra("tokendetail")) {
             tokenResponse = (Token721DetailsResponse) getIntent().getSerializableExtra("tokendetail");
 
@@ -203,6 +198,7 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         tokenbyindex_address.setText(tokenResponse.getTokenAddress());
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -275,13 +271,9 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void gettotalSupply() {
-        if (edt_total_supply_token.getText().toString() != null && edt_total_supply_token.getText().toString().length() > 0) {
-
-
+        if (edt_total_supply_token.getText().toString().length() > 0) {
             String balance = XDC721Client.getInstance().gettotalSupply(edt_total_supply_token.getText().toString());
             total_supply_value.setText(balance);
-
-
         } else {
             Toast.makeText(Details721.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
         }
@@ -289,9 +281,9 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
 
     private void getTokenOwnerbyIndex() {
 
-        if (edt_tokenbyownerindex_address.getText().toString() != null && edt_tokenbyownerindex_address.getText().toString().length() > 0) {
-            if (edt_owner_index_address.getText().toString() != null && edt_owner_index_address.getText().toString().length() > 0) {
-                if (edt_tokenownerby_index_value.getText().toString() != null && edt_tokenownerby_index_value.getText().toString().length() > 0) {
+        if (edt_tokenbyownerindex_address.getText().toString().length() > 0) {
+            if (edt_owner_index_address.getText().toString().length() > 0) {
+                if (edt_tokenownerby_index_value.getText().toString().length() > 0) {
                     String tokenbyIndex = XDC721Client.getInstance().tokenOfOwnerByIndex(edt_tokenbyownerindex_address.getText().toString(), edt_owner_index_address.getText().toString(), edt_tokenownerby_index_value.getText().toString());
                     tokenownerbyindex_value.setText(tokenbyIndex);
                 } else {
@@ -309,8 +301,8 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
 
     private void getTokenbyIndex() {
 
-        if (tokenbyindex_address.getText().toString() != null && tokenbyindex_address.getText().toString().length() > 0) {
-            if (edt_tokenby_index_value.getText().toString() != null && edt_tokenby_index_value.getText().toString().length() > 0) {
+        if (tokenbyindex_address.getText().toString().length() > 0) {
+            if (edt_tokenby_index_value.getText().toString().length() > 0) {
                 String tokenbyIndex = XDC721Client.getInstance().gettokenByIndex(tokenbyindex_address.getText().toString(), edt_tokenby_index_value.getText().toString());
                 tokenbyindex_value.setText(tokenbyIndex);
             } else {
@@ -324,8 +316,8 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
 
     private void getTokenUri() {
 
-        if (edt_token_address.getText().toString() != null && edt_token_address.getText().toString().length() > 0) {
-            if (edt_token_uri_tokenid.getText().toString() != null && edt_token_uri_tokenid.getText().toString().length() > 0) {
+        if (edt_token_address.getText().toString().length() > 0) {
+            if (edt_token_uri_tokenid.getText().toString().length() > 0) {
                 String tokenUri = XDC721Client.getInstance().getTokenUri(edt_token_address.getText().toString(), edt_token_uri_tokenid.getText().toString());
                 token_Uri_value.setText(tokenUri);
             } else {
@@ -338,14 +330,10 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void transferfrom() throws Exception {
-        if (xdc_address_value.getText().toString() != null
-                && xdc_address_value.getText().toString().length() > 0) {
-            if (edt_privatekey.getText().toString() != null
-                    && edt_privatekey.getText().toString().length() > 0) {
-                if (edt_transferFrom_spender.getText().toString() != null
-                        && edt_transferFrom_spender.getText().toString().length() > 0) {
-                    if (edt_trans_tokenid.getText().toString() != null
-                            && edt_trans_tokenid.getText().toString().length() > 0) {
+        if (xdc_address_value.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString().length() > 0) {
+                if (edt_transferFrom_spender.getText().toString().length() > 0) {
+                    if (edt_trans_tokenid.getText().toString().length() > 0) {
                         String setapproveforall = XDC721Client.getInstance().transferfrom(
                                 xdc_address_value.getText().toString(),
                                 edt_privatekey.getText().toString(),
@@ -377,14 +365,10 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void safeTransferfrom() throws Exception {
-        if (xdc_address_value.getText().toString() != null
-                && xdc_address_value.getText().toString().length() > 0) {
-            if (edt_privatekey.getText().toString() != null
-                    && edt_privatekey.getText().toString().length() > 0) {
-                if (edt_safeTransferFrom_spender.getText().toString() != null
-                        && edt_safeTransferFrom_spender.getText().toString().length() > 0) {
-                    if (edt_safetrans_tokenid.getText().toString() != null
-                            && edt_safetrans_tokenid.getText().toString().length() > 0) {
+        if (xdc_address_value.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString().length() > 0) {
+                if (edt_safeTransferFrom_spender.getText().toString().length() > 0) {
+                    if (edt_safetrans_tokenid.getText().toString().length() > 0) {
                         String setapproveforall = XDC721Client.getInstance().safeTransferFrom(
                                 xdc_address_value.getText().toString(),
                                 edt_privatekey.getText().toString(),
@@ -396,17 +380,12 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
                     } else {
                         Toast.makeText(Details721.this, "Please Enter Token id", Toast.LENGTH_LONG).show();
                     }
-
-
                 } else {
                     Toast.makeText(Details721.this, "Please Enter Receiver Address", Toast.LENGTH_LONG).show();
                 }
-
-
             } else {
                 Toast.makeText(Details721.this, "Please Enter Private key", Toast.LENGTH_LONG).show();
             }
-
         } else {
             Toast.makeText(Details721.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
         }
@@ -415,14 +394,10 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void submit_setapprovedforall() throws Exception {
-        if (xdc_address_value.getText().toString() != null
-                && xdc_address_value.getText().toString().length() > 0) {
-            if (edt_privatekey.getText().toString() != null
-                    && edt_privatekey.getText().toString().length() > 0) {
-                if (edt_setapproveforall_spender.getText().toString() != null
-                        && edt_setapproveforall_spender.getText().toString().length() > 0) {
-                    if (edt_setapprobe_booean.getText().toString() != null
-                            && edt_setapprobe_booean.getText().toString().length() > 0) {
+        if (xdc_address_value.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString().length() > 0) {
+                if (edt_setapproveforall_spender.getText().toString().length() > 0) {
+                    if (edt_setapprobe_booean.getText().toString().length() > 0) {
                         String setapproveforall = XDC721Client.getInstance()
                                 .setApprovalForAll(xdc_address_value.getText().toString(),
                                         edt_privatekey.getText().toString(),
@@ -451,53 +426,36 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void isapprovedforall() {
-        if (xdc_address_value.getText().toString() != null && xdc_address_value.getText().toString().length() > 0) {
-
-            if (edt_contract_address.getText().toString() != null && edt_contract_address.getText().toString().length() > 0) {
-
-
-                if (edt_isapproveforall_spender.getText().toString() != null && edt_isapproveforall_spender.getText().toString().length() > 0) {
-
+        if (xdc_address_value.getText().toString().length() > 0) {
+            if (edt_contract_address.getText().toString().length() > 0) {
+                if (edt_isapproveforall_spender.getText().toString().length() > 0) {
                     boolean isapproveforall = XDC721Client.getInstance().isApprovedForAll(xdc_address_value.getText().toString(), edt_contract_address.getText().toString(), edt_isapproveforall_spender.getText().toString());
                     isapprovedForAll_value.setText(isapproveforall + "");
-
-
                 } else {
                     Toast.makeText(Details721.this, "Please Enter Operator Address", Toast.LENGTH_LONG).show();
                 }
-
-
             } else {
                 Toast.makeText(Details721.this, "Please Enter Contact Address", Toast.LENGTH_LONG).show();
             }
-
         } else {
             Toast.makeText(Details721.this, "Please Enter Token Address", Toast.LENGTH_LONG).show();
         }
     }
 
     private void getapproved() {
-        if (edt_getapprove_tokenid.getText().toString() != null && edt_getapprove_tokenid.getText().toString().length() > 0) {
-
-
+        if (edt_getapprove_tokenid.getText().toString().length() > 0) {
             String getapproved = XDC721Client.getInstance().getApproved(xdc_address_value.getText().toString(), edt_getapprove_tokenid.getText().toString());
             getapproved_value.setText(getapproved);
-
-
         } else {
             Toast.makeText(Details721.this, "Please Enter  Token id", Toast.LENGTH_LONG).show();
         }
     }
 
     private void approve() throws Exception {
-        if (xdc_address_value.getText().toString() != null
-                && xdc_address_value.getText().toString().length() > 0) {
-            if (edt_privatekey.getText().toString() != null
-                    && edt_privatekey.getText().toString().length() > 0) {
-                if (edt_approve_tokenid.getText().toString() != null
-                        && edt_approve_tokenid.getText().toString().length() > 0) {
-                    if (edt_approve_spender.getText().toString() != null
-                            && edt_approve_spender.getText().toString().length() > 0) {
+        if (xdc_address_value.getText().toString().length() > 0) {
+            if (edt_privatekey.getText().toString().length() > 0) {
+                if (edt_approve_tokenid.getText().toString().length() > 0) {
+                    if (edt_approve_spender.getText().toString().length() > 0) {
                         String approve = XDC721Client.getInstance().approve(
                                 xdc_address_value.getText().toString(),
                                 edt_privatekey.getText().toString(),
@@ -527,45 +485,34 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
     }
 
     private void isSupoortinterface() {
-        if (edt_interfaceID.getText().toString() != null && edt_interfaceID.getText().toString().length() > 0) {
-
+        if (edt_interfaceID.getText().toString().length() > 0) {
             boolean is_Supoort = XDC721Client.getInstance().getsupportInterface(tokenResponse.getTokenAddress(), edt_interfaceID.getText().toString());
             is_Supoortinterface.setText(is_Supoort + "");
-
-
         } else {
             Toast.makeText(Details721.this, "Please Enter Interface Id", Toast.LENGTH_LONG).show();
         }
     }
 
     private void getbalance() {
-        if (edt_balance_spender.getText().toString() != null && edt_balance_spender.getText().toString().length() > 0) {
-
-
+        if (edt_balance_spender.getText().toString().length() > 0) {
             String balance = XDC721Client.getInstance().getBalance(tokenResponse.getTokenAddress(), edt_balance_spender.getText().toString());
             balance_off_value.setText(balance);
-
-
         } else {
             Toast.makeText(Details721.this, "Please Enter  Address to check balance", Toast.LENGTH_LONG).show();
         }
     }
 
     private void getownerOf() {
-        if (edt_tokenid.getText().toString() != null && edt_tokenid.getText().toString().length() > 0) {
-
-
+        if (edt_tokenid.getText().toString().length() > 0) {
             String balance = XDC721Client.getInstance().getOwnerof(tokenResponse.getTokenAddress(), edt_tokenid.getText().toString());
             ownerof_value.setText(balance);
-
-
         } else {
             Toast.makeText(Details721.this, "Please Enter  Token id", Toast.LENGTH_LONG).show();
         }
     }
 
     private void verifyPrivatekey() {
-        if (edt_privatekey.getText().toString() != null && edt_privatekey.getText().toString().length() > 0) {
+        if (edt_privatekey.getText().toString().length() > 0) {
             String contract_address = XDC20Client.getInstance().getContractAddress(edt_privatekey.getText().toString());
             edt_contract_address.setText(contract_address);
         } else {
@@ -578,9 +525,7 @@ public class Details721 extends AppCompatActivity implements View.OnClickListene
         if (hasFocus) {
             new AlertDialog.Builder(Details721.this)
                     .setMessage(getString(R.string.err_gas_price_limit_edit))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        dialog.dismiss();
-                    })
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }

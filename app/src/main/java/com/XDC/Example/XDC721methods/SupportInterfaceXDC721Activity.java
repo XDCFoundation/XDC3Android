@@ -18,12 +18,8 @@ import com.XDCJava.XDC721Client;
 
 public class SupportInterfaceXDC721Activity extends AppCompatActivity {
 
-    EditText token_address,token_index;
-    Button send_approve;
-    TextView text_transaction_hash;
-    WalletData user_wallet;
-    ImageView back_txdc;
-    Token721DetailsResponse tokenDetail;
+    private EditText token_address,token_index;
+    private TextView text_transaction_hash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,58 +28,38 @@ public class SupportInterfaceXDC721Activity extends AppCompatActivity {
 
         token_address = (EditText) findViewById(R.id.token_address);
         token_index = (EditText) findViewById(R.id.value);
-        send_approve = (Button) findViewById(R.id.send_approve);
-        back_txdc = findViewById(R.id.back_txdc);
+        Button send_approve = (Button) findViewById(R.id.send_approve);
+        ImageView back_txdc = findViewById(R.id.back_txdc);
         text_transaction_hash = (TextView) findViewById(R.id.text_transaction_hash);
-        user_wallet = Utility.getProfile(SupportInterfaceXDC721Activity.this);
-        tokenDetail = Utility.getnftinfo(SupportInterfaceXDC721Activity.this);
 
-        send_approve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasText(token_address)) {
-                    token_address.setError(getResources().getString(R.string.error_empty));
-                }
-                else if (!hasText(token_index)) {
-                    token_index.setError(getResources().getString(R.string.error_empty));
+        send_approve.setOnClickListener(v -> {
+            if (!hasText(token_address)) {
+                token_address.setError(getResources().getString(R.string.error_empty));
+            }
+            else if (!hasText(token_index)) {
+                token_index.setError(getResources().getString(R.string.error_empty));
 
-                }else {
-
-
+            }else {
+                    try {
+                        Boolean hash = null;
                         try {
-                            Boolean hash = null;
-                            try {
-                                hash = XDC721Client.getInstance().getsupportInterface(token_address.getText().toString(),token_index.getText().toString() );
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            text_transaction_hash.setText(hash.toString());
-                            Utility.closeKeyboard(SupportInterfaceXDC721Activity.this);
-                            //SharedPreferenceHelper.setSharedPreferenceString(SupportInterfaceXDC721Activity.this, "nfthash", hash);                        } catch (Exception e) {
+                            hash = XDC721Client.getInstance().getsupportInterface(token_address.getText().toString(),token_index.getText().toString() );
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-
-                }
-            }
-
-
-        });
-
-        back_txdc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
+                        text_transaction_hash.setText(hash.toString());
+                        Utility.closeKeyboard(SupportInterfaceXDC721Activity.this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
             }
         });
+
+        back_txdc.setOnClickListener(v -> onBackPressed());
     }
 
 
     public static boolean hasText(EditText s) {
-        if (s.getText().toString().trim().equalsIgnoreCase(""))
-            return false;
-        else
-            return true;
+        return !s.getText().toString().trim().equalsIgnoreCase("");
     }
 }
